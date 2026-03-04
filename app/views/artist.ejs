@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <%- include('partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-white">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <%- include('partials/header') %>
+
+            <main class="flex flex-col flex-1 px-4 md:px-20 py-12">
+                <div class="max-w-[1200px] mx-auto w-full grid md:grid-cols-3 gap-12">
+
+                    <!-- Left Profile Section -->
+                    <div
+                        class="col-span-1 bg-deep-maroon/20 p-8 rounded-2xl border border-rich-red/30 flex flex-col items-center h-fit shadow-lg shadow-black/20 text-center">
+                        <div
+                            class="w-32 h-32 rounded-full overflow-hidden border-4 border-amber-yellow/50 backdrop-blur shadow-2xl mb-6">
+                            <img src="<%= artist.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDFnIxnWb9AzaIzvWrYMJX_D3tKYwNJAqsz7ynWqtZFM_f8IUT0mOWiipjLeMR4iYYAzOPIClPUgpC99-gthpbSfWVeviaLEUoNOoUeGLJypwiFOr2X2i-u5vkQmgBu973yjjsvrpzvZvW91bnVbTpO7oaOJxrs96Q642WMDlodB_khNexQsuUcw5Q8USKfHkf3CnNqb1jU8FpP5NCGNrtOZgw70iJHCV6yBVCW44dSLnD6XGcrAHXNlULt1fqHLSKLDPll__tayLg' %>"
+                                class="w-full h-full object-cover" />
+                        </div>
+                        <h1 class="text-3xl font-bold font-mono-header text-amber-yellow">
+                            <%= artist.name %>
+                        </h1>
+                        <p class="text-white/60 text-sm tracking-widest uppercase font-mono-header mt-1"><span
+                                class="material-symbols-outlined text-[14px]">verified</span> Verified Creator</p>
+
+                        <div class="w-full h-px bg-white/10 my-8"></div>
+
+                        <div class="text-left w-full space-y-4">
+                            <h3
+                                class="font-bold text-amber-yellow font-mono uppercase tracking-widest flex items-center gap-2">
+                                <span class="material-symbols-outlined">auto_stories</span> My Journey
+                            </h3>
+                            <p
+                                class="text-white/80 leading-relaxed font-sans text-sm italic border-l-2 border-dusty-rose pl-4">
+                                <%- artist.story ? artist.story.replace(/\n/g, '<br/>' )
+                                    : "This artist hasn't shared their story yet..." %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Portfolio Section -->
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
+                            <h2 class="text-2xl font-bold font-mono-header border-l-4 border-amber-yellow pl-4">
+                                Portfolio</h2>
+                            <span class="text-white/60 text-sm font-mono">
+                                <%= artworks.length %> Artworks
+                            </span>
+                        </div>
+
+                        <% if (artworks && artworks.length> 0) { %>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <% artworks.forEach(art=> { %>
+                                    <div
+                                        class="group flex flex-col gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:border-amber-yellow transition-all hover:bg-white/10">
+                                        <div
+                                            class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden border border-white/20">
+                                            <img src="<%= art.image %>"
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                onerror="this.src='/images/placeholder.jpg'" />
+                                        </div>
+                                        <div>
+                                            <h3 class="text-white font-bold font-mono-header truncate">
+                                                <%= art.title %>
+                                            </h3>
+                                            <p class="text-amber-yellow font-bold text-lg">रू <%= art.price %>
+                                            </p>
+                                            <p class="text-white/50 text-xs mt-1 truncate">
+                                                <%= art.desc %>
+                                            </p>
+                                        </div>
+                                        <button
+                                            class="mt-auto w-full py-2 bg-transparent hover:bg-amber-yellow border border-amber-yellow text-amber-yellow hover:text-black font-bold uppercase tracking-widest text-xs rounded transition-all">Support
+                                            Artist</button>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                            <% } else { %>
+                                <p class="text-white/40 italic">No works available for sale currently.</p>
+                                <% } %>
+                    </div>
+
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('partials/header') %>
+
+            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
+                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+
+                    <!-- PageHeading -->
+                    <div class="flex flex-wrap justify-between gap-3 mb-8">
+                        <div class="flex min-w-72 flex-col gap-1">
+                            <p
+                                class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
+                                Creator Dashboard</p>
+                            <p class="text-white/60 text-base font-mono">Welcome back, <%= activeUser.name %>! Track
+                                    your journey and sales.</p>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Total Visuals</p>
+                                <span class="material-symbols-outlined text-amber-yellow">visibility</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">1,240</p>
+                        </div>
+                        <div class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Artworks Listed</p>
+                                <span class="material-symbols-outlined text-amber-yellow">palette</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">
+                                <%= artworks.length %>
+                            </p>
+                        </div>
+                        <!-- Mock stats for visual richness -->
+                        <div class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Tips Received</p>
+                                <span class="material-symbols-outlined text-amber-yellow">volunteer_activism</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">रू 0</p>
+                        </div>
+                        <div class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Total Earnings</p>
+                                <span class="material-symbols-outlined text-amber-yellow">account_balance_wallet</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">रू 0</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                        <!-- Share your Story -->
+                        <div class="flex flex-col">
+                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
+                                <h2 class="text-white text-[22px] font-bold tracking-tight font-mono-header">My Story
+                                </h2>
+                            </div>
+                            <form action="/api/story" method="POST"
+                                class="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-lg">
+                                <p class="text-sm text-white/60 mb-4">Connect with buyers by sharing your cultural
+                                    background and journey.</p>
+                                <textarea name="story" rows="5"
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-xl focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow outline-none placeholder:text-white/20"><%= activeUser.story %></textarea>
+                                <button type="submit"
+                                    class="mt-4 px-6 py-2 bg-amber-yellow text-background-dark font-bold font-mono uppercase tracking-widest text-xs hover:bg-white rounded transition-colors w-full shadow-lg">Save
+                                    Story</button>
+                            </form>
+                        </div>
+
+                        <!-- Post Artwork -->
+                        <div class="flex flex-col">
+                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
+                                <h2 class="text-white text-[22px] font-bold tracking-tight font-mono-header">Upload New
+                                    Art</h2>
+                            </div>
+                            <form action="/api/artwork" method="POST" enctype="multipart/form-data"
+                                class="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label
+                                            class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Title</label>
+                                        <input type="text" name="title" required
+                                            class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-lg focus:border-amber-yellow outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Price
+                                            (रू)</label>
+                                        <input type="number" name="price" required
+                                            class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-lg focus:border-amber-yellow outline-none">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label
+                                            class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Category</label>
+                                        <select name="category" required
+                                            class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-lg focus:border-amber-yellow outline-none [&>option]:text-black">
+                                            <option value="Mithila Art">Mithila Art</option>
+                                            <option value="Thangka Painting">Thangka</option>
+                                            <option value="Woodcarving">Woodcarving</option>
+                                            <option value="Textile">Textile / Pashmina</option>
+                                            <option value="Pottery">Pottery</option>
+                                            <option value="Jewelry">Jewelry</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Image</label>
+                                        <input type="file" name="image" accept="image/*"
+                                            class="w-full bg-black/20 text-white/60 border border-white/20 p-2 rounded-lg focus:border-amber-yellow outline-none file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-amber-yellow file:text-black cursor-pointer hover:file:bg-white text-sm">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label
+                                        class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Description &
+                                        Process</label>
+                                    <textarea name="desc" rows="2"
+                                        class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-lg focus:border-amber-yellow outline-none"></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="mt-2 px-6 py-3 bg-dashboard-primary text-white font-bold font-mono uppercase tracking-widest text-xs hover:bg-rich-red rounded transition-colors w-full shadow-lg">List
+                                    Art for Sale</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Overview Section -->
+                    <div class="mb-12">
+                        <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-6">
+                            <h2 class="text-white text-[22px] font-bold leading-tight font-mono-header">My Listed
+                                Artworks</h2>
+                            <a href="/artist/<%= activeUser.id %>"
+                                class="flex items-center gap-2 text-amber-yellow text-sm font-semibold hover:underline">
+                                <span class="material-symbols-outlined text-sm">public</span> View Public Profile
+                            </a>
+                        </div>
+
+                        <% if (artworks && artworks.length> 0) { %>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                <% artworks.forEach(art=> { %>
+                                    <div
+                                        class="group rounded-xl overflow-hidden border border-white/10 bg-white/5 shadow-lg hover:border-amber-yellow transition-all flex flex-col">
+                                        <div class="relative h-48 w-full bg-black">
+                                            <img src="<%= art.image %>"
+                                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                onerror="this.src='/images/placeholder.jpg'" />
+                                            <div class="absolute top-2 right-2">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 rounded bg-jade-green text-black text-[10px] font-bold uppercase tracking-wider shadow">Listed</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-4 flex flex-col flex-1">
+                                            <h3 class="text-white font-bold text-lg mb-1 truncate font-mono">
+                                                <%= art.title %>
+                                            </h3>
+                                            <p class="text-white/50 text-xs mb-3 truncate"><span
+                                                    class="border border-white/20 px-1 rounded uppercase tracking-wider mr-1">
+                                                    <%= art.category %>
+                                                </span></p>
+                                            <div class="flex items-center justify-between mt-auto">
+                                                <p class="text-amber-yellow font-bold font-mono">रू <%= art.price %>
+                                                </p>
+                                                <button class="text-white/40 hover:text-red-500 transition-colors"
+                                                    title="Delete Placeholder">
+                                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                                </button>
+                                                <button class="text-white/40 hover:text-amber-yellow transition-colors"
+                                                    title="Edit Placeholder">
+                                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                            <% } else { %>
+                                <p class="text-white/40 italic pl-2">You haven't listed any artworks yet.</p>
+                                <% } %>
+                    </div>
+
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

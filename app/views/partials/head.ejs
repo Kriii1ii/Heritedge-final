@@ -1,0 +1,50 @@
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>HeritEdge - Empowering Artists</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "background-light": "#f8f8f5",
+                    "background-dark": "#221e10",
+                    "amber-yellow": "#f2b90d",
+                    "deep-maroon": "#4a0404",
+                    "dusty-rose": "#c08497",
+                    "rich-red": "#8b0000",
+                    "primary-auth": "#d42511",
+                    "primary-maroon": "#5a0b02",
+                    "auth-maroon": "#5a0b02",
+                    "cream-bg": "#fdfbf7",
+                    "dashboard-primary": "#b81430",
+                    "sacred-red": "#b81430",
+                    "jade-green": "#00A86B",
+                    "events-primary": "#eead2b",
+                    "primary": "<%- typeof primaryColor !== 'undefined' ? primaryColor : '#f2b90d' %>"
+                },
+                fontFamily: {
+                    "sans": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+                    "display": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+                    "mono": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+                },
+                borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        font-family: 'Universal Sans', 'Haffer', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    }
+
+    .font-mono,
+    .font-mono-header,
+    .pt-mono,
+    .mono-font {
+        font-family: 'Universal Sans', 'Haffer', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    }
+</style>

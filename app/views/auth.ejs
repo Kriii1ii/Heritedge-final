@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <%- include('partials/head') %>
+        <script>
+            function toggleAuthMode(mode) {
+                document.getElementById('login-form').style.display = mode === 'login' ? 'block' : 'none';
+                document.getElementById('signup-form').style.display = mode === 'signup' ? 'block' : 'none';
+            }
+        </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-white">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <%- include('partials/header') %>
+
+            <!-- Hero / Auth Section Background -->
+            <div class="flex flex-1 justify-center items-center px-4 py-12 bg-cover bg-center"
+                style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmBD1XYK4mXD18jXQXT8NPVTqtaJwHG1RI8DgUvQkpT4o2kQuct3nlz-sj1UjyOrWuJoX99ezAsype_rEXS-mcufIhGGwrViU85CoCJ4tegNJv02JGZX4Ad62c1nS9lBdxU-UDU7UaIyExAb-xdrVTwkuy_O9YVLKxPkmxu45rt7LV9QQ3PWvPgc_sg1QUOe4VZDylgQ25OZATmHemtnbDEuUzXN_uORmtI2MaTIhCxt9kCaRnD-48HsOz8XL0rZkbBcwb-m1tYgA');">
+
+                <div
+                    class="w-full max-w-[480px] bg-background-dark/90 backdrop-blur-md p-8 border border-white/10 rounded-2xl space-y-8 shadow-2xl">
+
+                    <div class="text-center">
+                        <h1 class="text-3xl font-bold tracking-tight text-white lg:text-4xl font-mono-header">Welcome to
+                            HeritEdge</h1>
+                        <p class="mt-2 text-sm text-dusty-rose">Preserving the future of Nepali craftsmanship.</p>
+                        <% if (typeof error !=='undefined' && error) { %>
+                            <p class="mt-4 text-sm text-red-500 font-bold bg-amber-yellow/10 p-2 rounded">
+                                <%= error %>
+                            </p>
+                            <% } %>
+                    </div>
+
+                    <div class="flex border-b border-white/20 gap-8 justify-center mb-6">
+                        <button onclick="toggleAuthMode('login')"
+                            class="text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none">Login</button>
+                        <button onclick="toggleAuthMode('signup')"
+                            class="text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none">Sign
+                            Up</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" action="/auth/login" method="POST" class="space-y-6">
+                        <div class="space-y-4">
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Email
+                                    Address</label>
+                                <input name="email" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="you@example.com" type="email" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Password</label>
+                                <input name="password" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="••••••••" type="password" />
+                            </div>
+                        </div>
+
+                        <button
+                            class="flex w-full items-center justify-center bg-deep-maroon h-14 text-white font-mono-header text-sm font-bold uppercase tracking-[0.1em] hover:bg-rich-red transition-colors rounded-none shadow-lg mt-8"
+                            type="submit">
+                            Sign In
+                        </button>
+                    </form>
+
+                    <!-- Signup Form -->
+                    <form id="signup-form" action="/auth/signup" method="POST" class="space-y-6" style="display: none;">
+                        <div class="space-y-4">
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Full
+                                    Name</label>
+                                <input name="name" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="Sita Thapa" type="text" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Role</label>
+                                <select name="role" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 text-white [&>option]:text-black">
+                                    <option value="buyer">Art Buyer / Explorer</option>
+                                    <option value="creator">Creator / Artist (Subject to Admin Approval)</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Email
+                                    Address</label>
+                                <input name="email" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="you@example.com" type="email" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Password</label>
+                                <input name="password" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="••••••••" type="password" />
+                            </div>
+                        </div>
+
+                        <button
+                            class="flex w-full items-center justify-center bg-amber-yellow h-14 text-background-dark font-mono-header text-sm font-bold uppercase tracking-[0.1em] hover:bg-white transition-colors rounded-none shadow-lg mt-8"
+                            type="submit">
+                            Create Account
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

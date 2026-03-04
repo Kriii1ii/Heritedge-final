@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+    <%- include('partials/header') %>
+<main class="flex flex-1 w-full max-w-[1440px] mx-auto px-4 lg:px-10 py-8 gap-8">
+<!-- Left Sidebar (30% width) -->
+<aside class="hidden lg:flex flex-col w-[30%] gap-6">
+<div class="flex flex-col gap-1">
+<h1 class="text-[#1b170d] dark:text-[#fcfaf8] text-2xl font-bold">Upcoming Events</h1>
+<p class="text-[#9a804c] text-sm font-normal">Celebrate the vibrant tapestry of Nepal</p>
+</div>
+<div class="flex flex-col gap-4 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Event List Items -->
+<div class="flex items-center gap-4 bg-[#f3efe7]/50 dark:bg-[#3a3224]/30 p-3 rounded-xl border border-transparent hover:border-primary/30 transition-all cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 shadow-sm" data-alt="Vibrant Mithila painting pattern on canvas" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNnz6Irt8vT0gbNiaOoxCnp0vdP7vgKvNJfbr7rJtMg6WMnJ7gGVqAHLMDjK55q_52NuLcx_FgL3sNDmOeA59BNm-MEhhJIIj0UpAHaUCFwSqhTg2ZPvbRA0p3GGv8EIOWN42XvU5ndGILRC_VcRanjWBqjhmYMzC4N-_DD4x6RY89FJ3H3erTAw4rGvOYAs-JEgtGIU9rxEJs7heDGeItaPQL0SZWTDLWGUmx6_JPj2c30LMT24qJ-N7HuFHUKS8ojngBUUFVir8");'></div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="text-[#1b170d] dark:text-[#fcfaf8] text-base font-semibold leading-tight truncate">Mithila Art Workshop</p>
+<p class="text-[#9a804c] text-sm font-medium mt-1">Oct 24, 2023</p>
+<p class="text-primary text-xs font-bold uppercase tracking-wider mt-1">Limited Spots</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-[#1b170d] dark:text-[#fcfaf8]">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-3 rounded-xl border border-transparent hover:bg-[#f3efe7]/50 dark:hover:bg-[#3a3224]/30 transition-all cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 shadow-sm" data-alt="Masked dancers during Indra Jatra festival" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1lHNXDpH7A2KeyOtrD1BkQio_D5d-sFVhOTMxq1BpaVL4U957x5vC4ZM5lcGkqdcIsGqmYBNHvQDTh940JBz7_uUMUoPHyPm9nFn4T7sOmPoD3UsCLBJFpWo6EezJmdNwlm9PPdacwC6gendPdlE4EgLzrqZLePV-7bXDFniQf8Pfd-8Ah1VkGnGveLu7uo3xmEJyc_iRYMT0Ek3p_v04xMqsApeWcOyafDmm1vTvubKoheFupo9OUA0TFIRWvfq9i4vAG8zI7lU");'></div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="text-[#1b170d] dark:text-[#fcfaf8] text-base font-semibold leading-tight truncate">Indra Jatra Showcase</p>
+<p class="text-[#9a804c] text-sm font-medium mt-1">Oct 28, 2023</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-[#1b170d] dark:text-[#fcfaf8]">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-3 rounded-xl border border-transparent hover:bg-[#f3efe7]/50 dark:hover:bg-[#3a3224]/30 transition-all cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 shadow-sm" data-alt="Traditional Newari pottery wheel in action" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC9ESKo6OZbrGhvVGmfL88h3GuN9uNFHIvxO4x1pCEw4nICDWUuGV-mYEEM-pDxOLN7X8HA-1Aveu0Y2T3J9YeRHQPc0i3JwfhUfPTRnGnqSROXzvqHdkoSmhhCDcQs47kaEVWAsf6yLVL3gA0AYwgdz2CR4GvIIHxBGxlIF4yAgwkXgBR7074EAD5XyFF6-0JOJ9SZt8gRTUnwQI1oeBdsJQUWW3VvMZT-Z3LZoMAHwaW3hDLvSQZ1Sg2XYpiRdrDTj7O7MtDsix0");'></div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="text-[#1b170d] dark:text-[#fcfaf8] text-base font-semibold leading-tight truncate">Pottery Making Class</p>
+<p class="text-[#9a804c] text-sm font-medium mt-1">Nov 02, 2023</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-[#1b170d] dark:text-[#fcfaf8]">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-3 rounded-xl border border-transparent hover:bg-[#f3efe7]/50 dark:hover:bg-[#3a3224]/30 transition-all cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 shadow-sm" data-alt="Cultural weaving loom with colorful threads" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSUfq-cVZhxl2FftGZJ1HX97TGbsJw6s4GVPIOaM2UI9_Zs3j6OawoHhVIasIDRP2uDv-JIW4tUkcd8rXul7tyI_ha_LZ0nhpu2ZLQfH_oLVDdCVzaoFyM3RG-hBJaw9CLyHy2XNbGuTk2zLIlwh1xOH5Urm5_lh4xtylZOpJkA6AczWGVe96Mgy7D4hne9hl4QaXV_bLd2AVzzqznhn_0fT-WRXIByIEkPmJbgvRwzgkCIKK3QasutkVC9r38ShcAP9B1qOZr3Jo");'></div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="text-[#1b170d] dark:text-[#fcfaf8] text-base font-semibold leading-tight truncate">Hand-Loom Weaving</p>
+<p class="text-[#9a804c] text-sm font-medium mt-1">Nov 15, 2023</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-[#1b170d] dark:text-[#fcfaf8]">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Filters -->
+<div class="mt-4 p-5 bg-[#221c10] rounded-2xl text-[#fcfaf8]">
+<h3 class="text-lg font-bold mb-4">Discover Categories</h3>
+<div class="grid grid-cols-1 gap-2">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined fill-1">palette</span>
+<p class="text-sm font-medium">Art Workshops</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10">
+<span class="material-symbols-outlined">festival</span>
+<p class="text-sm font-medium">Cultural Festivals</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10">
+<span class="material-symbols-outlined">gallery_thumbnail</span>
+<p class="text-sm font-medium">Exhibitions</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10">
+<span class="material-symbols-outlined">podcasts</span>
+<p class="text-sm font-medium">Artist Talks</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Showcase (70% width) -->
+<section class="flex flex-col w-full lg:w-[70%]">
+<div class="relative w-full h-full min-h-[600px] rounded-3xl overflow-hidden shadow-2xl group">
+<!-- Featured Event Image -->
+<div class="absolute inset-0 bg-center bg-cover scale-100 group-hover:scale-105 transition-transform duration-700" data-alt="Vibrant Dashain festival celebration with deep reds" style='background-image: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2bC9dPoky41mnRsTXWLWxFr0E0RCoBJ5ioz8_eIQdxKy3U2gOg7pcgboBJiGjPckrb9Q9Dsm5QKpH9Lk8-6iC3E7qxt1Ma_Y8joh419zpjVlDHx4EG__MSBn_fggdwcbvJLXndbVJVDuTsjUj6_m2pC6A3qU1HdDN7nNZySWO5Cfx6i04Z-c68olswyr5La32lSwooMtI8eDlbAM5NLm2lGia8Otw8t-wzptRQFCV0hRWli0evY_91CIL3z76vIOU3gdvfJaePFU");'></div>
+<!-- Content Overlay -->
+<div class="relative h-full flex flex-col justify-end p-8 lg:p-16">
+<div class="flex flex-col gap-6 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-[#1b170d] text-xs font-bold uppercase tracking-widest w-fit">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                                Featured Event
+                            </div>
+<h2 class="text-[#fcfaf8] text-5xl lg:text-7xl font-mono leading-tight pt-mono">
+                                THE SPIRIT OF <br/><span class="text-primary">KATHMANDU</span>
+</h2>
+<div class="flex flex-wrap gap-8 text-[#fcfaf8]/90">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+<span class="text-lg font-medium">October 20-25, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="text-lg font-medium">Patan Museum Square</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="text-lg font-medium">10:00 AM - 6:00 PM</span>
+</div>
+</div>
+<p class="text-[#fcfaf8]/80 text-lg leading-relaxed max-w-xl">
+                                Join us for an immersive 5-day celebration of traditional Nepali craftsmanship. Featuring live demonstrations from over 30 marginalized women artists.
+                            </p>
+<div class="flex gap-4 pt-4">
+<button class="px-8 py-4 bg-primary text-[#1b170d] rounded-xl text-lg font-bold hover:bg-[#d99a1a] transition-colors shadow-lg shadow-primary/20">
+                                    Register Now
+                                </button>
+<button class="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-xl text-lg font-bold hover:bg-white/20 transition-colors">
+                                    View Details
+                                </button>
+</div>
+</div>
+</div>
+<!-- Visual Accents -->
+<div class="absolute top-8 right-8 flex flex-col gap-2">
+<div class="size-20 border border-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm">
+<div class="text-center">
+<span class="block text-xl font-bold">12</span>
+<span class="text-[10px] uppercase tracking-tighter opacity-70">Spots Left</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Info Bar -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-[#f3efe7] dark:bg-[#3a3224] p-6 rounded-2xl flex items-center gap-4">
+<div class="p-3 bg-primary/20 rounded-full text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<h4 class="font-bold">Verified Artists</h4>
+<p class="text-sm text-[#9a804c]">Direct support to creators</p>
+</div>
+</div>
+<div class="bg-[#f3efe7] dark:bg-[#3a3224] p-6 rounded-2xl flex items-center gap-4">
+<div class="p-3 bg-primary/20 rounded-full text-primary">
+<span class="material-symbols-outlined">volunteer_activism</span>
+</div>
+<div>
+<h4 class="font-bold">Community Led</h4>
+<p class="text-sm text-[#9a804c]">Preserving heritage daily</p>
+</div>
+</div>
+<div class="bg-[#f3efe7] dark:bg-[#3a3224] p-6 rounded-2xl flex items-center gap-4">
+<div class="p-3 bg-primary/20 rounded-full text-primary">
+<span class="material-symbols-outlined">local_activity</span>
+</div>
+<div>
+<h4 class="font-bold">Live Experiences</h4>
+<p class="text-sm text-[#9a804c]">Hands-on cultural learning</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="mt-auto border-t border-[#f3efe7] dark:border-[#3a3224] py-8 px-10">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="size-4 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<span class="font-bold opacity-60">© 2023 HeritEdge Nepal</span>
+</div>
+<div class="flex gap-8 text-sm font-medium opacity-60">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Contact Us</a>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined opacity-60 hover:text-primary cursor-pointer">social_leaderboard</span>
+<span class="material-symbols-outlined opacity-60 hover:text-primary cursor-pointer">camera_alt</span>
+<span class="material-symbols-outlined opacity-60 hover:text-primary cursor-pointer">alternate_email</span>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
