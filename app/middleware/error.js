@@ -26,7 +26,8 @@ const errorHandler = (err, req, res, next) => {
     res.status(statusCode).render('error', {
         message: statusCode === 500 ? 'Something went wrong! Please try again later.' : message,
         details,
-        statusCode
+        statusCode,
+        user: req.session && req.session.user ? req.session.user : null
     });
 };
 

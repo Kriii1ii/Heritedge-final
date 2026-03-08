@@ -17,4 +17,7 @@ router.use(requireAuth);
 router.post('/api/order', orderLimiter, validate(orderSchema), orderController.createOrder);
 router.get('/orders', orderController.getOrders);
 
+router.get('/api/order/success', orderController.handleEsewaSuccess);
+router.get('/api/order/failure', orderController.handleEsewaFailure);
+
 module.exports = router;

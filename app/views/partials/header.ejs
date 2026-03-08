@@ -10,36 +10,38 @@
             <h2 class="text-white text-xl font-bold leading-tight tracking-tight font-mono-header">HeritEdge</h2>
         </a>
         <nav class="hidden md:flex items-center gap-8 font-mono-header">
-            <% if (!user) { %>
-                <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors" href="/">Home</a>
-                <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                    href="/marketplace">Marketplace</a>
-                <% } else if (user.role==='BUYER' ) { %>
+            <% const currentUser=locals.user || null; %>
+                <% if (!currentUser) { %>
+                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                        href="/">Home</a>
                     <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
                         href="/marketplace">Marketplace</a>
-                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                        href="/orders">Orders</a>
-                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                        href="/profile">Profile</a>
-                    <% } else if (user.role==='CREATOR' ) { %>
-                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                            href="/creator/home">Dashboard</a>
-                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                            href="/creator/upload">Upload Artwork</a>
-                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                            href="/creator/artworks">My Artworks</a>
+                    <% } else if (currentUser.role==='BUYER' ) { %>
                         <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
                             href="/marketplace">Marketplace</a>
                         <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/orders">Orders</a>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
                             href="/profile">Profile</a>
-                        <% } else if (user.role==='ADMIN' ) { %>
+                        <% } else if (currentUser.role==='CREATOR' ) { %>
                             <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                                href="/admin">Admin Dashboard</a>
-                            <% } %>
+                                href="/creator/home">Dashboard</a>
+                            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                href="/creator/upload">Upload Artwork</a>
+                            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                href="/creator/artworks">My Artworks</a>
+                            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                href="/marketplace">Marketplace</a>
+                            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                href="/profile">Profile</a>
+                            <% } else if (currentUser.role==='ADMIN' ) { %>
+                                <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                    href="/admin">Admin Dashboard</a>
+                                <% } %>
         </nav>
     </div>
     <div class="flex flex-1 justify-end gap-4 items-center">
-        <% if (!user || user.role !=='ADMIN' ) { %>
+        <% if (!currentUser || currentUser.role !=='ADMIN' ) { %>
             <label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
                 <form action="/marketplace" method="GET"
                     class="flex w-full flex-1 items-stretch rounded-lg h-full bg-black/20 border border-white/10">
@@ -54,10 +56,10 @@
             </label>
             <% } %>
                 <div class="flex gap-2">
-                    <% if (user) { %>
+                    <% if (currentUser) { %>
                         <span
                             class="hidden md:flex text-white/80 text-sm font-medium items-center mr-4 tracking-wide font-mono">Hello,
-                            <%= user.name %>!
+                            <%= currentUser.name %>!
                         </span>
                         <a href="/logout"
                             class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Logout</a>

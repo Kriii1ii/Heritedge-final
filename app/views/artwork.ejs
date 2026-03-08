@@ -107,7 +107,6 @@
             </main>
     </div>
 
-    <!-- Purchase Confirmation Script -->
     <script>
         document.getElementById('purchase-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -123,11 +122,33 @@
                 });
 
                 if (res.ok) {
-                    btn.innerHTML = 'Payment Gateway Generated';
-                    btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl shadow-lg transition-all';
-                    setTimeout(() => {
-                        window.location.href = '/orders';
-                    }, 1500);
+                    const data = await res.json();
+                    if (data.esewaPayload) {
+                        btn.innerHTML = 'Redirecting to E-Sewa...';
+                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl shadow-[0_0_30px_rgba(242,185,13,0.3)] transition-all';
+
+                        // Dynamically construct eSewa form and submit
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = 'https://rc-epay.esewa.com.np/api/epay/main/v2/form';
+
+                        for (const key in data.esewaPayload) {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = data.esewaPayload[key];
+                            form.appendChild(input);
+                        }
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    } else {
+                        btn.innerHTML = 'Payment Gateway Generated';
+                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl shadow-lg transition-all';
+                        setTimeout(() => {
+                            window.location.href = '/orders';
+                        }, 1500);
+                    }
                 } else {
                     alert('Order creation failed. Please try again.');
                     btn.innerHTML = 'Purchase via E-Sewa';

@@ -1,27 +1,54 @@
 # HeritEdge Platform Development Summary
 
-## Actions Completed
+## ✅ What Has Been Completed So Far
 
-### 1. Functional Backend Engine
-- Initialized a **Node.js + Express** backend handling server-side rendering with EJS.
-- Installed `bcryptjs` and `multer`.
-- Implemented a structured, file-based mock database logic (`db.js` using `data.json`) storing `users`, `artworks`, `events`, and `orders`. 
-- Implemented fully functional authentication handling multiple roles (`creator`, `buyer`, `admin`). Passwords are hashed and sessions are preserved.
+### 1. Architectural & Database Migration
+- **PostgreSQL & Prisma Integration:** Successfully migrated from a file-based mock database (`data.json`) to a production-ready PostgreSQL environment using Prisma ORM.
+- **Database Schema:** Defined robust `User`, `Artwork`, `Order`, and `Session` data models with proper relations, indexing, and uniqueness constraints.
+- **MVC Architecture:** Restructured the application into a clean Model-View-Controller pattern with distinct `/routes`, `/controllers`, `/views`, and `/middleware`.
 
-### 2. Marketplace Implementation
-- Created the **Marketplace** (`/marketplace`) route enabling users and guests to discover authentic digital art.
-- Each visual art upload parses dynamically created cards with verified artist name tags and pricing details in NRS (रू).
+### 2. Authentication & Authorization
+- **Complete Auth Flow:** Implemented dedicated login and registration flows handling encrypted credential storage via `bcryptjs`.
+- **Session Security:** Integrated robust session management directly onto PostgreSQL through `express-session` and `@quixo3/prisma-session-store`. Sessions apply `httpOnly` secure cookies and defined max age cycles.
+- **Role-Based Access Control (RBAC):** Created `requireAuth`, `requireCreator`, and `requireAdmin` middleware limits preventing unauthorized users from accessing privileged routes.
 
-### 3. Artist Journey / Creator Dashboard
-- Merged the disparate mockups into an authentic **Creator Dashboard** (`/home` restricted to creators) where artists can view their sales logic.
-- **My Story**: Added a dedicated submittal form so artists can freely type out their history mapping directly to their public profile footprint (`/api/story`).
-- **Artwork Listing Form**: Included robust, file-handling form mechanics (via `multer`) so artists can name, price, categorize, describe, and upload images representing their creations.
+### 3. Security Hardening 
+- **Data Validation:** Bound global declarative schema checks across user entries (registration, login, uploading artwork) applying the `zod` library.
+- **Defense Mechanisms:** 
+  - Integrated full **CSRF (Cross-Site Request Forgery) protection** securely onto every platform form.
+  - Mitigated brute force attacks utilizing `express-rate-limit` throttles on `/login`, `/register`, and `/api/order`.
+  - Blocked potential injector vulnerabilities using `xss-clean`.
+- **Centralized Error Boundaries:** Improved stability through global `errorHandler` middleware properly returning either JSON stacks (for API calls) or styled semantic `error.ejs` views (for rendering crashes).
 
-### 4. Dynamic UI Layouts
-- Adopted the overarching global fonts cleanly: `Universal Sans`, `Haffer`, `Helvetica Neue`.
-- **Top Navbar** now has a polished Search bar and authentic "HeritEdge" CSS avatar mirroring the dark, rich maroon structure.
-- The platform adapts color themes fluidly across landing, events, marketplace, and dashboard utilizing dynamic EJS injections.
-- Removed legacy unneeded static HTML directories to maintain a clean MVC project hierarchy under `/app`.
+### 4. Creator Workflow
+- **Dashboard Ecosystem:** Implemented `/creator/home` displaying total items uploaded, revenue logic, total sales, and profile building metrics.
+- **Media Pipeline (Cloudinary):** Transferred from local disk storage into global CDN delivery utilizing Cloudinary. Supports uploading up to 5 optimized, size-restricted (5MB max) media items simultaneously per artwork. Clean up utilities surgically remove orphaned Cloudinary artifacts upon listing deletion or crash events.
+- **Artwork Management:** Creators have full control logic to securely publish, toggle to draft, and delete artworks. 
 
-### 5. Running Environment
-- The API is fully listening locally on port 3000 continuously. Everything is robust, connected, and fully responsive!
+### 5. Buyer Experience & Marketplace
+- **Dynamic Marketplace:** Displays active filtered arrays featuring the newest items and pricing matrices.
+- **Pagination Contexts:** Built explicit index bounds effectively keeping visual arrays lightweight.
+- **Purchase Workflows:** Developed API controllers allowing buyers to create preliminary order records seamlessly linked to specific creator artworks securely without creator disruption. EJS Views cleanly toggle Purchase/Login access correctly.
+
+### 6. Observability
+- **Logging Pipeline:** Replaced standard console outputs with localized Winston & Morgan structural transports cleanly routing API operations toward persistent `/logs/server.log` tracks preserving traceability.
+
+---
+
+## ⏳ What Is Left To Implement
+
+### 1. Admin Control Flow 
+- **Admin Dashboard Features:** While the route and authorization logic exist, the Admin UI still needs full build-out. 
+- **Moderation Access:** Allow administrators absolute control to verify/reject Creator accounts globally, suspend user profiles natively, and forcefully delete policy-breaking marketplace entries.
+
+### 2. Payment Gateway Integration 
+- **E-Sewa Implementation:** Currently, the Purchase module generates native pseudo-orders but securely validating real transactional requests via E-Sewa APIs still needs to be built and integrated.
+- **Webhook Verifications:** Ensuring the platform verifies E-Sewa server tokens and flips `paymentStatus` correctly from 'PENDING' -> 'COMPLETED'.
+
+### 3. Real-Time Application Enhancements
+- **Global Search System:** Implement the header search-bar feature to accurately comb the database efficiently and pull back dynamic search results natively into marketplace components.
+- **Email Notifications System:** Interconnect `Nodemailer` or services (like SendGrid or AWS SES) dispatching automated receipts, registration approvals, and creator notifications seamlessly.
+
+### 4. Advanced Production Requirements
+- **Frontend Optimization:** Enhancing image loading further via React/Next integration (optional) or refining deeper accessibility boundaries. 
+- **Deployment & CI/CD Structure:** Dockerizing the entire Node/Postgres stack effectively preparing to deploy configurations correctly out across services like Render, Heroku or AWS.

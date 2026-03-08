@@ -8,7 +8,6 @@ const csurf = require('csurf');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
-const xss = require('xss-clean');
 const logger = require('./utils/logger');
 const routes = require('./routes/index');
 const errorHandler = require('./middleware/error');
@@ -23,7 +22,6 @@ app.use(express.json());
 
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 
-app.use(xss());
 app.use(cookieParser());
 
 app.use(session({
