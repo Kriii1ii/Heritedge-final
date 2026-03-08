@@ -1,0 +1,95 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  CREATOR
+  BUYER
+  ADMIN
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum ArtworkStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum OrderStatus {
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id                 String             @id @default(uuid()) @db.Uuid
+  name               String
+  email              String             @unique
+  password           String
+  role               UserRole
+  bio                String?
+  region             String?
+  verificationStatus VerificationStatus @default(PENDING)
+  createdAt          DateTime           @default(now())
+
+  artworks           Artwork[]
+  orders             Order[]
+
+  @@index([email])
+}
+
+model Artwork {
+  id          String        @id @default(uuid()) @db.Uuid
+  title       String
+  description String?
+  price       Decimal       @db.Decimal(10, 2)
+  category    String
+  region      String
+  images      String[]
+  story       String?
+  status      ArtworkStatus @default(DRAFT)
+  creatorId   String        @db.Uuid
+  createdAt   DateTime      @default(now())
+
+  creator     User          @relation(fields: [creatorId], references: [id])
+  orders      Order[]
+
+  @@index([title])
+  @@index([category])
+  @@index([region])
+}
+
+model Order {
+  id            String        @id @default(uuid()) @db.Uuid
+  buyerId       String        @db.Uuid
+  artworkId     String        @db.Uuid
+  amount        Decimal       @db.Decimal(10, 2)
+  paymentStatus PaymentStatus @default(PENDING)
+  orderStatus   OrderStatus   @default(PROCESSING)
+  transactionId String?
+  createdAt     DateTime      @default(now())
+
+  buyer         User          @relation(fields: [buyerId], references: [id])
+  artwork       Artwork       @relation(fields: [artworkId], references: [id])
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}

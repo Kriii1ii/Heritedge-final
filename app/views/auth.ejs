@@ -8,6 +8,11 @@
                 document.getElementById('login-form').style.display = mode === 'login' ? 'block' : 'none';
                 document.getElementById('signup-form').style.display = mode === 'signup' ? 'block' : 'none';
             }
+            window.onload = function () {
+                toggleAuthMode('<%= mode %>');
+                document.getElementById('login-tab').className = '<%= mode %>' === 'login' ? 'text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none' : 'text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none';
+                document.getElementById('signup-tab').className = '<%= mode %>' === 'signup' ? 'text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none' : 'text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none';
+            };
         </script>
 </head>
 
@@ -34,15 +39,16 @@
                     </div>
 
                     <div class="flex border-b border-white/20 gap-8 justify-center mb-6">
-                        <button onclick="toggleAuthMode('login')"
-                            class="text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none">Login</button>
-                        <button onclick="toggleAuthMode('signup')"
+                        <a href="/login" id="login-tab"
+                            class="text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none">Login</a>
+                        <a href="/register" id="signup-tab"
                             class="text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none">Sign
-                            Up</button>
+                            Up</a>
                     </div>
 
                     <!-- Login Form -->
-                    <form id="login-form" action="/auth/login" method="POST" class="space-y-6">
+                    <form id="login-form" action="/login" method="POST" class="space-y-6">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="space-y-4">
                             <div class="flex flex-col">
                                 <label
@@ -69,7 +75,8 @@
                     </form>
 
                     <!-- Signup Form -->
-                    <form id="signup-form" action="/auth/signup" method="POST" class="space-y-6" style="display: none;">
+                    <form id="signup-form" action="/register" method="POST" class="space-y-6" style="display: none;">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="space-y-4">
                             <div class="flex flex-col">
                                 <label
@@ -85,8 +92,7 @@
                                 <select name="role" required
                                     class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 text-white [&>option]:text-black">
                                     <option value="buyer">Art Buyer / Explorer</option>
-                                    <option value="creator">Creator / Artist (Subject to Admin Approval)</option>
-                                    <option value="admin">Admin</option>
+                                    <option value="creator">Creator / Artist</option>
                                 </select>
                             </div>
                             <div class="flex flex-col">
@@ -101,6 +107,14 @@
                                 <label
                                     class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Password</label>
                                 <input name="password" required
+                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
+                                    placeholder="••••••••" type="password" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Confirm
+                                    Password</label>
+                                <input name="confirm_password" required
                                     class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
                                     placeholder="••••••••" type="password" />
                             </div>

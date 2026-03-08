@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('../partials/header') %>
+            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
+                <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
+                    <div class="flex flex-wrap justify-between gap-3 mb-8">
+                        <p
+                            class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
+                            Upload Artwork</p>
+                    </div>
+
+                    <form action="/creator/upload?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data"
+                        class="bg-white/5 p-8 rounded-2xl border border-white/10 shadow-lg space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label
+                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Title</label>
+                                <input type="text" name="title" required
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label
+                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Price
+                                    (रू)</label>
+                                <input type="number" name="price" required
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label
+                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Category</label>
+                                <select name="category" required
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none [&>option]:text-black transition-colors">
+                                    <option value="Digital Painting">Digital Painting</option>
+                                    <option value="Abstract">Abstract</option>
+                                    <option value="Generative">Generative</option>
+                                    <option value="Photography">Photography</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label
+                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Region
+                                    Inspiration</label>
+                                <input type="text" name="region" required
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none transition-colors"
+                                    placeholder="e.g. Asia/Nepal">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Artwork
+                                Images (Max 5, up to 5MB each)</label>
+                            <input type="file" name="images" accept="image/jpeg, image/png, image/webp" multiple
+                                required
+                                class="w-full bg-black/20 text-white/60 border border-white/20 p-3 rounded-lg focus:border-amber-yellow outline-none file:mr-4 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-yellow file:text-black cursor-pointer hover:file:bg-white transition-all text-sm">
+                        </div>
+
+                        <div>
+                            <label
+                                class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Description
+                                & Meaning</label>
+                            <textarea name="description" rows="4"
+                                class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none transition-colors"
+                                placeholder="Explain the artwork's symbolism..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Creative
+                                Story / Background (Optional)</label>
+                            <textarea name="story" rows="3"
+                                class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-lg focus:border-amber-yellow outline-none transition-colors"
+                                placeholder="Share your creative process..."></textarea>
+                        </div>
+
+                        <div class="pt-4 border-t border-white/10 mt-6 flex justify-end">
+                            <button type="submit"
+                                class="px-8 py-4 bg-amber-yellow text-background-dark font-bold font-mono uppercase tracking-widest text-sm hover:bg-white rounded-lg transition-transform hover:scale-105 shadow-xl shadow-amber-yellow/20">List
+                                Art For Sale</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

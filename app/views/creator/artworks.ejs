@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('../partials/header') %>
+            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
+                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+                    <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-8">
+                        <h2
+                            class="text-white text-3xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
+                            My Artworks</h2>
+                        <a href="/creator/upload"
+                            class="bg-amber-yellow text-background-dark font-mono text-sm px-6 py-2 rounded font-bold hover:bg-white transition-colors">Upload
+                            New</a>
+                    </div>
+
+                    <% if (artworks && artworks.length> 0) { %>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <% artworks.forEach(art=> { %>
+                                <div
+                                    class="group rounded-xl overflow-hidden border border-white/10 bg-white/5 shadow-lg flex flex-col relative h-[380px]">
+                                    <div class="relative h-48 w-full bg-black">
+                                        <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>"
+                                            class="absolute inset-0 w-full h-full object-cover">
+                                        <div class="absolute top-2 right-2">
+                                            <span
+                                                class="inline-flex items-center px-2 py-1 rounded <%= art.status === 'PUBLISHED' ? 'bg-jade-green' : 'bg-gray-500' %> text-black text-[10px] font-bold uppercase tracking-wider shadow">
+                                                <%= art.status %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 flex flex-col flex-1 h-full">
+                                        <h3 class="text-white font-bold text-lg mb-1 truncate font-mono">
+                                            <%= art.title %>
+                                        </h3>
+                                        <p
+                                            class="text-white/50 text-xs mb-3 truncate border inline-block border-white/20 px-2 py-0.5 rounded uppercase w-max tracking-wider">
+                                            <%= art.category %>
+                                        </p>
+                                        <p
+                                            class="text-amber-yellow font-bold font-mono text-xl mt-auto pb-4 border-b border-white/10">
+                                            रू <%= art.price %>
+                                        </p>
+
+                                        <div class="flex items-center justify-between pt-3 gap-2">
+                                            <form action="/creator/artworks/<%= art.id %>/status" method="POST"
+                                                class="w-full">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                <input type="hidden" name="status"
+                                                    value="<%= art.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED' %>">
+                                                <button type="submit"
+                                                    class="w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2 rounded transition-colors text-center border border-white/10">
+                                                    <%= art.status==='PUBLISHED' ? 'Unpublish' : 'Publish' %>
+                                                </button>
+                                            </form>
+                                            <form action="/creator/artworks/<%= art.id %>/delete" method="POST"
+                                                class="shrink-0" onsubmit="return confirm('Delete this artwork?');">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                <button type="submit"
+                                                    class="bg-red-500/20 hover:bg-red-500/40 text-red-500 text-xs font-bold p-2 px-3 flex items-center h-[34px] justify-center rounded transition-colors border border-red-500/30">
+                                                    <span class="material-symbols-outlined text-sm">delete</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+                        <% } else { %>
+                            <div
+                                class="flex flex-col items-center justify-center p-12 bg-white/5 border border-white/10 rounded-2xl text-center">
+                                <span class="material-symbols-outlined text-4xl text-white/20 mb-4 block">image</span>
+                                <p class="text-white/60 mb-6">You haven't uploaded any artworks yet.</p>
+                                <a href="/creator/upload"
+                                    class="bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-6 rounded transition-colors border border-white/10">Start
+                                    Creating</a>
+                            </div>
+                            <% } %>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('../partials/header') %>
+            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
+                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+                    <div class="flex flex-wrap justify-between gap-3 mb-8">
+                        <div class="flex min-w-72 flex-col gap-1">
+                            <p
+                                class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
+                                Creator Dashboard</p>
+                            <p class="text-white/60 text-base font-mono">Welcome back, <%= user.name %>! Track your
+                                    journey and sales.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-10">
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Artworks Listed</p>
+                                <span class="material-symbols-outlined text-amber-yellow">palette</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">
+                                <%= totalArtworks %>
+                            </p>
+                        </div>
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Total Sales</p>
+                                <span class="material-symbols-outlined text-amber-yellow">receipt</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">
+                                <%= totalSales %>
+                            </p>
+                        </div>
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-white/60 text-sm font-medium">Total Revenue</p>
+                                <span class="material-symbols-outlined text-amber-yellow">account_balance_wallet</span>
+                            </div>
+                            <p class="text-white tracking-light text-2xl font-bold font-mono">रू <%= revenueSum %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                        <div class="flex flex-col">
+                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
+                                <h2 class="text-white text-[22px] font-bold tracking-tight font-mono-header">My Story
+                                </h2>
+                            </div>
+                            <form action="/creator/onboarding" method="POST"
+                                class="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-lg">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <p class="text-sm text-white/60 mb-4">Connect with buyers by sharing your cultural
+                                    background and journey.</p>
+
+                                <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Bio /
+                                    Story</label>
+                                <textarea name="story" rows="5"
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-xl focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow outline-none placeholder:text-white/20"><%= user.bio %></textarea>
+
+                                <label
+                                    class="text-xs text-white/50 uppercase tracking-widest mt-4 mb-1 block">Region</label>
+                                <input type="text" name="region" value="<%= user.region || '' %>"
+                                    class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-xl focus:border-amber-yellow outline-none">
+
+                                <button type="submit"
+                                    class="mt-4 px-6 py-2 bg-amber-yellow text-background-dark font-bold font-mono uppercase tracking-widest text-xs hover:bg-white rounded transition-colors w-full shadow-lg">Save
+                                    Profile</button>
+                            </form>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
+                                <h2 class="text-white text-[22px] font-bold tracking-tight font-mono-header">Recent
+                                    Uploads</h2>
+                            </div>
+                            <div class="bg-white/5 rounded-2xl border border-white/10 shadow-lg flex flex-col">
+                                <% if (artworks && artworks.length> 0) { %>
+                                    <% artworks.forEach(art=> { %>
+                                        <div
+                                            class="flex items-center gap-4 p-4 border-b border-white/5 last:border-0 hover:bg-white/5">
+                                            <div class="h-12 w-12 rounded bg-black/50 overflow-hidden shrink-0">
+                                                <img src="<%= art.images[0] %>" class="w-full h-full object-cover">
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-white font-bold font-mono truncate">
+                                                    <%= art.title %>
+                                                </p>
+                                                <p class="text-white/50 text-xs truncate">
+                                                    <%= art.category %>
+                                                </p>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="text-amber-yellow font-bold font-mono text-sm">रू <%=
+                                                        art.price %>
+                                                </p>
+                                                <p class="text-[10px] uppercase text-white/40">
+                                                    <%= art.status %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <p class="text-white/40 italic p-6">No uploads yet. <a
+                                                        href="/creator/upload"
+                                                        class="text-amber-yellow hover:underline">Upload your first
+                                                        artwork</a></p>
+                                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

@@ -10,41 +10,64 @@
             <h2 class="text-white text-xl font-bold leading-tight tracking-tight font-mono-header">HeritEdge</h2>
         </a>
         <nav class="hidden md:flex items-center gap-8 font-mono-header">
-            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                href="/marketplace">Marketplace</a>
-            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                href="/events">Events</a>
-            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
-                href="/home">Dashboard</a>
+            <% if (!user) { %>
+                <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors" href="/">Home</a>
+                <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                    href="/marketplace">Marketplace</a>
+                <% } else if (user.role==='BUYER' ) { %>
+                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                        href="/marketplace">Marketplace</a>
+                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                        href="/orders">Orders</a>
+                    <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                        href="/profile">Profile</a>
+                    <% } else if (user.role==='CREATOR' ) { %>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/creator/home">Dashboard</a>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/creator/upload">Upload Artwork</a>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/creator/artworks">My Artworks</a>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/marketplace">Marketplace</a>
+                        <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                            href="/profile">Profile</a>
+                        <% } else if (user.role==='ADMIN' ) { %>
+                            <a class="text-white/90 hover:text-amber-yellow text-sm font-medium transition-colors"
+                                href="/admin">Admin Dashboard</a>
+                            <% } %>
         </nav>
     </div>
     <div class="flex flex-1 justify-end gap-4 items-center">
-        <label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
-            <form action="/marketplace" method="GET"
-                class="flex w-full flex-1 items-stretch rounded-lg h-full bg-black/20 border border-white/10">
-                <button type="submit"
-                    class="text-white/60 flex items-center justify-center pl-4 rounded-l-lg hover:text-amber-yellow">
-                    <span class="material-symbols-outlined text-xl">search</span>
-                </button>
-                <input name="q"
-                    class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-white placeholder:text-white/40 px-3 text-sm font-mono-header outline-none"
-                    placeholder="Search art..." value="" />
-            </form>
-        </label>
-        <div class="flex gap-2">
-            <% if (user) { %>
-                <span
-                    class="hidden md:flex text-white/80 text-sm font-medium items-center mr-4 tracking-wide font-mono">Hello,
-                    <%= user.name %>!</span>
-                <a href="/auth/logout"
-                    class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Logout</a>
-                <% } else { %>
-                    <a href="/auth"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Login</a>
-                    <a href="/auth"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-amber-yellow text-background-dark text-sm font-bold tracking-tight hover:brightness-110 transition-all font-mono-header shadow">Sign
-                        Up</a>
-                    <% } %>
-        </div>
+        <% if (!user || user.role !=='ADMIN' ) { %>
+            <label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
+                <form action="/marketplace" method="GET"
+                    class="flex w-full flex-1 items-stretch rounded-lg h-full bg-black/20 border border-white/10">
+                    <button type="submit"
+                        class="text-white/60 flex items-center justify-center pl-4 rounded-l-lg hover:text-amber-yellow">
+                        <span class="material-symbols-outlined text-xl">search</span>
+                    </button>
+                    <input name="q"
+                        class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-white placeholder:text-white/40 px-3 text-sm font-mono-header outline-none"
+                        placeholder="Search art..." value="" />
+                </form>
+            </label>
+            <% } %>
+                <div class="flex gap-2">
+                    <% if (user) { %>
+                        <span
+                            class="hidden md:flex text-white/80 text-sm font-medium items-center mr-4 tracking-wide font-mono">Hello,
+                            <%= user.name %>!
+                        </span>
+                        <a href="/logout"
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Logout</a>
+                        <% } else { %>
+                            <a href="/login"
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Login</a>
+                            <a href="/register"
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-amber-yellow text-background-dark text-sm font-bold tracking-tight hover:brightness-110 transition-all font-mono-header shadow">Sign
+                                Up</a>
+                            <% } %>
+                </div>
     </div>
 </header>

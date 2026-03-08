@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('partials/header') %>
+            <main class="flex flex-1 justify-center py-12 px-4 md:px-10">
+                <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
+                    <div class="flex items-center gap-4 pb-6 border-b border-white/10 mb-8 w-full">
+                        <div
+                            class="h-20 w-20 rounded-full overflow-hidden border-2 border-amber-yellow bg-deep-maroon shadow-lg grid place-items-center">
+                            <span class="material-symbols-outlined text-4xl text-white/50">person</span>
+                        </div>
+                        <div>
+                            <h2
+                                class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
+                                <%= user.name %>
+                            </h2>
+                            <span
+                                class="px-2 py-0.5 mt-1 inline-flex bg-amber-yellow/20 text-amber-yellow border border-amber-yellow/30 text-xs font-bold uppercase tracking-widest rounded shadow">
+                                <%= user.role %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8 shadow-lg w-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Email</label>
+                                <p class="text-white font-mono text-lg">
+                                    <%= user.email %>
+                                </p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Account
+                                    Created</label>
+                                <p class="text-white font-mono text-lg">
+                                    <%= new Date(user.createdAt).toLocaleDateString() %>
+                                </p>
+                            </div>
+
+                            <% if (user.role==='CREATOR' ) { %>
+                                <div class="md:col-span-2">
+                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Region /
+                                        Location</label>
+                                    <p class="text-white font-mono text-lg">
+                                        <%= user.region || 'Not Specified' %>
+                                    </p>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Artist
+                                        Biography</label>
+                                    <p
+                                        class="text-white bg-black/20 p-4 rounded text-sm italic border-l border-white/20">
+                                        <%= user.bio || 'Please update your story via the Creator Dashboard.' %>
+                                    </p>
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-start border-t border-white/10 pt-6">
+                        <a href="/logout"
+                            class="bg-white/10 text-white hover:bg-red-500/20 hover:text-red-500 hover:border-red-500/40 border border-white/10 font-bold uppercase tracking-widest text-sm py-3 px-8 rounded transition-all shadow">Sign
+                            Out</a>
+                    </div>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>
