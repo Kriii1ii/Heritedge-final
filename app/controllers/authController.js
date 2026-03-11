@@ -52,16 +52,13 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
     try {
-        let { email, password, confirm_password, name, role } = req.body;
+        let { email, password, confirm_password, name } = req.body;
 
         if (password !== confirm_password) {
             return res.redirect('/register?error=password_mismatch');
         }
 
-        role = role.toUpperCase();
-        if (!['CREATOR', 'BUYER'].includes(role)) {
-            role = 'BUYER';
-        }
+        const role = 'BUYER';
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await prisma.user.create({
