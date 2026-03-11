@@ -10,4 +10,9 @@ router.get('/', adminController.getDashboard);
 router.post('/creator/:id/verify', adminController.verifyCreator);
 router.post('/artwork/:id/delete', adminController.deleteArtwork);
 
+router.get('/orders', adminController.getOrders);
+router.post('/orders/:id/status', adminController.updateOrderStatus);
+
+router.get('/users', adminController.getUsers);
+
 module.exports = router;

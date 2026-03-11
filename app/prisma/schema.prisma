@@ -30,8 +30,10 @@ enum PaymentStatus {
 }
 
 enum OrderStatus {
-  PROCESSING
-  COMPLETED
+  PLACED
+  COLLECTED
+  IN_TRANSIT
+  DELIVERED
   CANCELLED
 }
 
@@ -43,11 +45,15 @@ model User {
   role               UserRole
   bio                String?
   region             String?
+  inspiration        String?
+  lifeStory          String?
+  portfolioUrl       String?
   verificationStatus VerificationStatus @default(PENDING)
   createdAt          DateTime           @default(now())
 
   artworks           Artwork[]
   orders             Order[]
+  eventRegistrations EventRegistration[]
 
   @@index([email])
 }
@@ -79,12 +85,36 @@ model Order {
   artworkId     String        @db.Uuid
   amount        Decimal       @db.Decimal(10, 2)
   paymentStatus PaymentStatus @default(PENDING)
-  orderStatus   OrderStatus   @default(PROCESSING)
+  orderStatus   OrderStatus   @default(PLACED)
   transactionId String?
   createdAt     DateTime      @default(now())
 
   buyer         User          @relation(fields: [buyerId], references: [id])
   artwork       Artwork       @relation(fields: [artworkId], references: [id])
+}
+
+model Event {
+  id          String        @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  location    String
+  eventDate   DateTime
+  artists     String[]
+  createdAt   DateTime      @default(now())
+
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  eventId    String   @db.Uuid
+  registeredAt DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+  event      Event    @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
 }
 
 model Session {

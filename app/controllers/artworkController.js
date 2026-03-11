@@ -54,9 +54,50 @@ exports.getMarketplace = async (req, res, next) => {
             creatorId: art.creatorId
         }));
 
+        let recommendedArtworks = [];
+        if (req.session.user && req.session.user.role === 'BUYER') {
+            const purchasedOrders = await prisma.order.findMany({
+                where: { buyerId: req.session.user.id },
+                include: { artwork: true }
+            });
+            const purchasedCategories = [...new Set(purchasedOrders.map(o => o.artwork.category))];
+
+            if (purchasedCategories.length > 0) {
+                recommendedArtworks = await prisma.artwork.findMany({
+                    where: {
+                        status: 'PUBLISHED',
+                        category: { in: purchasedCategories },
+                        id: { notIn: purchasedOrders.map(o => o.artworkId) }
+                    },
+                    orderBy: { createdAt: 'desc' },
+                    take: 4,
+                    include: { creator: true }
+                });
+            } else {
+                recommendedArtworks = await prisma.artwork.findMany({
+                    where: { status: 'PUBLISHED' },
+                    orderBy: { createdAt: 'desc' },
+                    take: 4,
+                    include: { creator: true }
+                });
+            }
+        }
+
+        const enrichedRecommended = recommendedArtworks.map(art => ({
+            id: art.id,
+            title: art.title,
+            description: art.description,
+            price: art.price,
+            category: art.category,
+            image: art.images[0] || '/images/placeholder.jpg',
+            creatorName: art.creator.name,
+            creatorId: art.creatorId
+        }));
+
         res.render('marketplace', {
             primaryColor: '#8b0000',
             artworks: enrichedArtworks,
+            recommendedArtworks: enrichedRecommended,
             query: req.query,
             pagination: {
                 totalCount,

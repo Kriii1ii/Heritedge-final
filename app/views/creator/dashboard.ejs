@@ -22,7 +22,7 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-10">
                         <div
-                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
                             <div class="flex items-center justify-between mb-2">
                                 <p class="text-white/60 text-sm font-medium">Artworks Listed</p>
                                 <span class="material-symbols-outlined text-amber-yellow">palette</span>
@@ -32,7 +32,7 @@
                             </p>
                         </div>
                         <div
-                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
                             <div class="flex items-center justify-between mb-2">
                                 <p class="text-white/60 text-sm font-medium">Total Sales</p>
                                 <span class="material-symbols-outlined text-amber-yellow">receipt</span>
@@ -42,7 +42,7 @@
                             </p>
                         </div>
                         <div
-                            class="flex flex-col gap-2 rounded-xl p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
+                            class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
                             <div class="flex items-center justify-between mb-2">
                                 <p class="text-white/60 text-sm font-medium">Total Revenue</p>
                                 <span class="material-symbols-outlined text-amber-yellow">account_balance_wallet</span>
@@ -59,7 +59,7 @@
                                 </h2>
                             </div>
                             <form action="/creator/onboarding" method="POST"
-                                class="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-lg">
+                                class="bg-white/5 p-6 rounded-sm border border-white/10 shadow-lg">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <p class="text-sm text-white/60 mb-4">Connect with buyers by sharing your cultural
                                     background and journey.</p>
@@ -67,12 +67,12 @@
                                 <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Bio /
                                     Story</label>
                                 <textarea name="story" rows="5"
-                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-xl focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow outline-none placeholder:text-white/20"><%= user.bio %></textarea>
+                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-sm focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow outline-none placeholder:text-white/20"><%= user.bio %></textarea>
 
                                 <label
                                     class="text-xs text-white/50 uppercase tracking-widest mt-4 mb-1 block">Region</label>
                                 <input type="text" name="region" value="<%= user.region || '' %>"
-                                    class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-xl focus:border-amber-yellow outline-none">
+                                    class="w-full bg-black/20 text-white border border-white/20 p-3 rounded-sm focus:border-amber-yellow outline-none">
 
                                 <button type="submit"
                                     class="mt-4 px-6 py-2 bg-amber-yellow text-background-dark font-bold font-mono uppercase tracking-widest text-xs hover:bg-white rounded transition-colors w-full shadow-lg">Save
@@ -85,7 +85,7 @@
                                 <h2 class="text-white text-[22px] font-bold tracking-tight font-mono-header">Recent
                                     Uploads</h2>
                             </div>
-                            <div class="bg-white/5 rounded-2xl border border-white/10 shadow-lg flex flex-col">
+                            <div class="bg-white/5 rounded-sm border border-white/10 shadow-lg flex flex-col">
                                 <% if (artworks && artworks.length> 0) { %>
                                     <% artworks.forEach(art=> { %>
                                         <div

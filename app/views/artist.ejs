@@ -14,7 +14,7 @@
 
                     <!-- Left Profile Section -->
                     <div
-                        class="col-span-1 bg-deep-maroon/20 p-8 rounded-2xl border border-rich-red/30 flex flex-col items-center h-fit shadow-lg shadow-black/20 text-center">
+                        class="col-span-1 bg-deep-maroon/20 p-8 rounded-sm border border-rich-red/30 flex flex-col items-center h-fit shadow-lg shadow-black/20 text-center">
                         <div
                             class="w-32 h-32 rounded-full overflow-hidden border-4 border-amber-yellow/50 backdrop-blur shadow-2xl mb-6">
                             <img src="<%= artist.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDFnIxnWb9AzaIzvWrYMJX_D3tKYwNJAqsz7ynWqtZFM_f8IUT0mOWiipjLeMR4iYYAzOPIClPUgpC99-gthpbSfWVeviaLEUoNOoUeGLJypwiFOr2X2i-u5vkQmgBu973yjjsvrpzvZvW91bnVbTpO7oaOJxrs96Q642WMDlodB_khNexQsuUcw5Q8USKfHkf3CnNqb1jU8FpP5NCGNrtOZgw70iJHCV6yBVCW44dSLnD6XGcrAHXNlULt1fqHLSKLDPll__tayLg' %>"
@@ -55,9 +55,9 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <% artworks.forEach(art=> { %>
                                     <div
-                                        class="group flex flex-col gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:border-amber-yellow transition-all hover:bg-white/10">
+                                        class="group flex flex-col gap-3 bg-white/5 p-4 rounded-sm border border-white/10 hover:border-amber-yellow transition-all hover:bg-white/10">
                                         <div
-                                            class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden border border-white/20">
+                                            class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-md overflow-hidden border border-white/20">
                                             <img src="<%= art.image %>"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                                 onerror="this.src='/images/placeholder.jpg'" />

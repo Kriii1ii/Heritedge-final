@@ -13,7 +13,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <!-- Images -->
                         <div class="flex flex-col gap-4 relative">
-                            <div class="rounded-2xl overflow-hidden bg-black aspect-square shadow-2xl relative">
+                            <div class="rounded-sm overflow-hidden bg-black aspect-square shadow-2xl relative">
                                 <img id="main-artwork-image"
                                     src="<%= artwork.images && artwork.images.length > 0 ? artwork.images[0] : '/images/placeholder.jpg' %>"
                                     class="w-full h-full object-cover">
@@ -26,7 +26,7 @@
                             <% if (artwork.images && artwork.images.length> 1) { %>
                                 <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                                     <% artwork.images.forEach((img, idx)=> { %>
-                                        <div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden border-2 <%= idx === 0 ? 'border-amber-yellow' : 'border-transparent' %> cursor-pointer hover:opacity-80 transition-all thumbnail-btn"
+                                        <div class="w-20 h-20 shrink-0 rounded-md overflow-hidden border-2 <%= idx === 0 ? 'border-amber-yellow' : 'border-transparent' %> cursor-pointer hover:opacity-80 transition-all thumbnail-btn"
                                             onclick="document.getElementById('main-artwork-image').src='<%= img %>'; document.querySelectorAll('.thumbnail-btn').forEach(btn => btn.classList.replace('border-amber-yellow', 'border-transparent')); this.classList.replace('border-transparent', 'border-amber-yellow');">
                                             <img src="<%= img %>" class="w-full h-full object-cover">
                                         </div>
@@ -62,7 +62,7 @@
                             </p>
 
                             <% if (artwork.story) { %>
-                                <div class="mb-8 p-6 bg-white/5 border border-white/10 rounded-2xl shadow-lg relative">
+                                <div class="mb-8 p-6 bg-white/5 border border-white/10 rounded-sm shadow-lg relative">
                                     <span
                                         class="material-symbols-outlined text-4xl text-amber-yellow/20 absolute -top-4 -left-3 bg-deep-maroon rounded-full">history_edu</span>
                                     <h4 class="text-lg font-bold font-mono-header text-amber-yellow mb-2 mt-2">The Story
@@ -84,19 +84,19 @@
                                             <form action="/api/order" method="POST" id="purchase-form">
                                                 <input type="hidden" name="artworkId" value="<%= artwork.id %>">
                                                 <button type="submit"
-                                                    class="w-full h-16 bg-amber-yellow text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] hover:bg-white text-lg rounded-xl shadow-[0_0_30px_rgba(242,185,13,0.3)] transition-all hover:scale-[1.02]">
+                                                    class="w-full h-16 bg-amber-yellow text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] hover:bg-white text-lg rounded-sm shadow-[0_0_30px_rgba(242,185,13,0.3)] transition-all hover:scale-[1.02]">
                                                     Purchase via E-Sewa
                                                 </button>
                                             </form>
                                             <% } else if (user && user.role==='CREATOR' ) { %>
                                                 <button
-                                                    class="w-full h-16 bg-white/10 text-white/40 font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl cursor-not-allowed border border-white/10"
+                                                    class="w-full h-16 bg-white/10 text-white/40 font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-sm cursor-not-allowed border border-white/10"
                                                     disabled>
                                                     Creators Cannot Purchase
                                                 </button>
                                                 <% } else { %>
                                                     <a href="/login"
-                                                        class="flex items-center justify-center w-full h-16 bg-white/10 text-white hover:text-amber-yellow hover:border-amber-yellow font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl transition-all border border-white/20">
+                                                        class="flex items-center justify-center w-full h-16 bg-white/10 text-white hover:text-amber-yellow hover:border-amber-yellow font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-sm transition-all border border-white/20">
                                                         Login to Purchase
                                                     </a>
                                                     <% } %>
@@ -125,7 +125,7 @@
                     const data = await res.json();
                     if (data.esewaPayload) {
                         btn.innerHTML = 'Redirecting to E-Sewa...';
-                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl shadow-[0_0_30px_rgba(242,185,13,0.3)] transition-all';
+                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-sm shadow-[0_0_30px_rgba(242,185,13,0.3)] transition-all';
 
                         // Dynamically construct eSewa form and submit
                         const form = document.createElement('form');
@@ -144,7 +144,7 @@
                         form.submit();
                     } else {
                         btn.innerHTML = 'Payment Gateway Generated';
-                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-xl shadow-lg transition-all';
+                        btn.className = 'w-full h-16 bg-jade-green text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] text-lg rounded-sm shadow-lg transition-all';
                         setTimeout(() => {
                             window.location.href = '/orders';
                         }, 1500);

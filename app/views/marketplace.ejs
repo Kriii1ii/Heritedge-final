@@ -16,81 +16,170 @@
                     <p class="text-white/60 text-sm mb-10 tracking-widest uppercase font-mono-header">Discover & Buy
                         Authentique Nepali Art</p>
 
-                    <% if (artworks && artworks.length> 0) { %>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <% artworks.forEach(art=> { %>
-                                <div
-                                    class="group flex flex-col gap-4 bg-deep-maroon/20 p-4 rounded-xl border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
-                                    <div
-                                        class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg overflow-hidden border border-rich-red/50 relative">
-                                        <a href="/artwork/<%= art.id %>">
-                                            <img src="<%= art.image %>"
-                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDy-KeotEQn3Frd-pR0hgkCVPMpmAs5GWvCTmujmyirYN9ICN4ZIRhir6aw4PRzYTDbKAkEkGaEPN6Xs6sH0Qq_l6WeY1Gt05Qy1XitTYmFUBKMbPPWusfdJ1Ho8GeYWHZDPB8o7ilwE90faR4-_apKoJ0aR00OYusEh004o7vK14MowAh1BSSTozH0P3PLKlbGGNnuINmRr_yktTXhx7Tof4mLGFre6Lild4Qtwq78TYjQy9HXoXlpVBNohyUevhtMw2fEYKmcqZs'" />
-                                        </a>
-                                        <div
-                                            class="absolute top-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-white/20">
-                                            <%= art.category || 'Art' %>
-                                        </div>
-                                    </div>
-                                    <div class="space-y-2 flex-grow">
-                                        <a href="/artwork/<%= art.id %>">
-                                            <h3
-                                                class="text-white text-lg font-bold font-mono-header leading-tight truncate hover:text-amber-yellow transition-colors">
-                                                <%= art.title %>
-                                            </h3>
-                                        </a>
-                                        <p class="text-amber-yellow font-medium text-lg font-mono tracking-tight">रू <%=
-                                                art.price %>
-                                        </p>
-                                        <a href="/artist/<%= art.creatorId %>"
-                                            class="text-dusty-rose text-xs font-bold uppercase tracking-wider hover:underline flex items-center gap-1 group/author">
-                                            <span class="material-symbols-outlined text-[14px]">brush</span>
-                                            <%= art.creatorName %>
-                                        </a>
-                                        <p class="text-white/60 text-sm line-clamp-2 italic pt-2">
-                                            <%= art.description %>
-                                        </p>
-                                    </div>
-                                    <a href="/artwork/<%= art.id %>"
-                                        class="flex items-center justify-center w-full py-3 bg-amber-yellow/10 hover:bg-amber-yellow text-amber-yellow hover:text-black mt-2 font-bold rounded-lg text-sm font-mono-header transition-all border border-amber-yellow/30 uppercase tracking-widest cursor-pointer">View
-                                        Artwork</a>
-                                </div>
-                                <% }); %>
-                        </div>
-
-                        <% if (typeof pagination !=='undefined' && pagination.totalPages> 1) { %>
-                            <div class="flex justify-center items-center gap-2 mt-12">
-                                <% if (pagination.currentPage> 1) { %>
-                                    <% const prevQuery=new URLSearchParams(query); prevQuery.set('page',
-                                        pagination.currentPage - 1); %>
-                                        <a href="/marketplace?<%= prevQuery.toString() %>"
-                                            class="px-4 py-2 border border-white/20 bg-black/20 text-white rounded hover:bg-white/10 transition-colors font-mono uppercase text-xs font-bold tracking-widest">Previous</a>
+                    <!-- Filters Section -->
+                    <div class="mb-8 p-6 bg-deep-maroon/20 rounded-sm border border-rich-red/30">
+                        <form action="/marketplace" method="GET" class="flex flex-col md:flex-row gap-6 items-end">
+                            <% if (query.category) { %><input type="hidden" name="category"
+                                    value="<%= query.category %>">
+                                <% } %>
+                                    <% if (query.region) { %><input type="hidden" name="region"
+                                            value="<%= query.region %>">
                                         <% } %>
+                                            <% if (query.q) { %><input type="hidden" name="q" value="<%= query.q %>">
+                                                <% } %>
 
-                                            <span class="text-white/60 font-mono text-sm px-4">Page <%=
-                                                    pagination.currentPage %> of <%= pagination.totalPages %></span>
+                                                    <div class="flex-1 w-full space-y-2">
+                                                        <label class="text-white/80 font-mono-header text-sm">Budget
+                                                            Filter</label>
+                                                        <div class="flex items-center gap-4">
+                                                            <div class="w-full">
+                                                                <input type="number" name="minPrice"
+                                                                    placeholder="Min (रू)"
+                                                                    value="<%= query.minPrice || '' %>"
+                                                                    class="w-full bg-black/20 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono">
+                                                            </div>
+                                                            <span class="text-white/50">-</span>
+                                                            <div class="w-full">
+                                                                <input type="number" name="maxPrice"
+                                                                    placeholder="Max (रू)"
+                                                                    value="<%= query.maxPrice || '' %>"
+                                                                    class="w-full bg-black/20 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <% if (pagination.currentPage < pagination.totalPages) { %>
-                                                <% const nextQuery=new URLSearchParams(query); nextQuery.set('page',
-                                                    pagination.currentPage + 1); %>
-                                                    <a href="/marketplace?<%= nextQuery.toString() %>"
-                                                        class="px-4 py-2 border border-white/20 bg-white/10 text-white rounded hover:bg-amber-yellow hover:text-black transition-colors font-mono uppercase text-xs font-bold tracking-widest">Next</a>
-                                                    <% } %>
-                            </div>
-                            <% } %>
+                                                    <div class="w-full md:w-auto flex gap-4">
+                                                        <button type="submit"
+                                                            class="px-6 py-2 bg-amber-yellow text-background-dark font-bold font-mono-header rounded-md hover:bg-white transition-colors uppercase tracking-widest shadow w-full md:w-auto border border-amber-yellow">Apply</button>
+                                                        <% if (query.minPrice || query.maxPrice) { %>
+                                                            <a href="/marketplace"
+                                                                class="px-6 py-2 bg-transparent text-white font-bold font-mono-header rounded-md hover:bg-white/10 transition-colors uppercase tracking-widest w-full md:w-auto text-center border border-white/20">Clear</a>
+                                                            <% } %>
+                                                    </div>
+                        </form>
+                    </div>
 
-                                <% } else { %>
+                    <% if (typeof recommendedArtworks !=='undefined' && recommendedArtworks.length> 0) { %>
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold font-mono-header border-l-4 border-amber-yellow pl-4 mb-6">
+                                Recommended for You</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                                <% recommendedArtworks.forEach(art=> { %>
+                                    <!-- Render artwork card -->
                                     <div
-                                        class="flex flex-col items-center justify-center p-20 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm text-center">
-                                        <span
-                                            class="material-symbols-outlined text-6xl text-white/20 mb-4">palette</span>
-                                        <h2 class="text-xl font-bold font-mono text-white/80">No Artworks Found</h2>
-                                        <p class="text-sm text-white/50 mt-2">Check back later or register as an artist
-                                            to post
-                                            your own creations.</p>
+                                        class="group flex flex-col gap-4 bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
+                                        <div
+                                            class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md overflow-hidden border border-rich-red/50 relative">
+                                            <a href="/artwork/<%= art.id %>">
+                                                <img src="<%= art.image %>"
+                                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                            </a>
+                                            <div
+                                                class="absolute top-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-white/20">
+                                                Recommended
+                                            </div>
+                                        </div>
+                                        <div class="space-y-2 flex-grow">
+                                            <a href="/artwork/<%= art.id %>">
+                                                <h3
+                                                    class="text-white text-lg font-bold font-mono-header leading-tight truncate hover:text-amber-yellow transition-colors">
+                                                    <%= art.title %>
+                                                </h3>
+                                            </a>
+                                            <p class="text-amber-yellow font-medium text-lg font-mono tracking-tight">रू
+                                                <%= art.price %>
+                                            </p>
+                                        </div>
+                                        <a href="/artwork/<%= art.id %>"
+                                            class="flex items-center justify-center w-full py-3 bg-amber-yellow/10 hover:bg-amber-yellow text-amber-yellow hover:text-black mt-2 font-bold rounded-md text-sm font-mono-header transition-all border border-amber-yellow/30 uppercase tracking-widest cursor-pointer">View
+                                            Artwork</a>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono-header border-l-4 border-amber-yellow pl-4 mb-6 mt-12">
+                            Explore All</h2>
+                        <% } %>
+
+                            <% if (artworks && artworks.length> 0) { %>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                                    <% artworks.forEach(art=> { %>
+                                        <div
+                                            class="group flex flex-col gap-4 bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
+                                            <div
+                                                class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md overflow-hidden border border-rich-red/50 relative">
+                                                <a href="/artwork/<%= art.id %>">
+                                                    <img src="<%= art.image %>"
+                                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                        onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDy-KeotEQn3Frd-pR0hgkCVPMpmAs5GWvCTmujmyirYN9ICN4ZIRhir6aw4PRzYTDbKAkEkGaEPN6Xs6sH0Qq_l6WeY1Gt05Qy1XitTYmFUBKMbPPWusfdJ1Ho8GeYWHZDPB8o7ilwE90faR4-_apKoJ0aR00OYusEh004o7vK14MowAh1BSSTozH0P3PLKlbGGNnuINmRr_yktTXhx7Tof4mLGFre6Lild4Qtwq78TYjQy9HXoXlpVBNohyUevhtMw2fEYKmcqZs'" />
+                                                </a>
+                                                <div
+                                                    class="absolute top-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-white/20">
+                                                    <%= art.category || 'Art' %>
+                                                </div>
+                                            </div>
+                                            <div class="space-y-2 flex-grow">
+                                                <a href="/artwork/<%= art.id %>">
+                                                    <h3
+                                                        class="text-white text-lg font-bold font-mono-header leading-tight truncate hover:text-amber-yellow transition-colors">
+                                                        <%= art.title %>
+                                                    </h3>
+                                                </a>
+                                                <p
+                                                    class="text-amber-yellow font-medium text-lg font-mono tracking-tight">
+                                                    रू <%= art.price %>
+                                                </p>
+                                                <a href="/artist/<%= art.creatorId %>"
+                                                    class="text-dusty-rose text-xs font-bold uppercase tracking-wider hover:underline flex items-center gap-1 group/author">
+                                                    <span class="material-symbols-outlined text-[14px]">brush</span>
+                                                    <%= art.creatorName %>
+                                                </a>
+                                                <p class="text-white/60 text-sm line-clamp-2 italic pt-2">
+                                                    <%= art.description %>
+                                                </p>
+                                            </div>
+                                            <a href="/artwork/<%= art.id %>"
+                                                class="flex items-center justify-center w-full py-3 bg-amber-yellow/10 hover:bg-amber-yellow text-amber-yellow hover:text-black mt-2 font-bold rounded-md text-sm font-mono-header transition-all border border-amber-yellow/30 uppercase tracking-widest cursor-pointer">View
+                                                Artwork</a>
+                                        </div>
+                                        <% }); %>
+                                </div>
+
+                                <% if (typeof pagination !=='undefined' && pagination.totalPages> 1) { %>
+                                    <div class="flex justify-center items-center gap-2 mt-12">
+                                        <% if (pagination.currentPage> 1) { %>
+                                            <% const prevQuery=new URLSearchParams(query); prevQuery.set('page',
+                                                pagination.currentPage - 1); %>
+                                                <a href="/marketplace?<%= prevQuery.toString() %>"
+                                                    class="px-4 py-2 border border-white/20 bg-black/20 text-white rounded hover:bg-white/10 transition-colors font-mono uppercase text-xs font-bold tracking-widest">Previous</a>
+                                                <% } %>
+
+                                                    <span class="text-white/60 font-mono text-sm px-4">Page <%=
+                                                            pagination.currentPage %> of <%= pagination.totalPages %>
+                                                                </span>
+
+                                                    <% if (pagination.currentPage < pagination.totalPages) { %>
+                                                        <% const nextQuery=new URLSearchParams(query);
+                                                            nextQuery.set('page', pagination.currentPage + 1); %>
+                                                            <a href="/marketplace?<%= nextQuery.toString() %>"
+                                                                class="px-4 py-2 border border-white/20 bg-white/10 text-white rounded hover:bg-amber-yellow hover:text-black transition-colors font-mono uppercase text-xs font-bold tracking-widest">Next</a>
+                                                            <% } %>
                                     </div>
                                     <% } %>
+
+                                        <% } else { %>
+                                            <div
+                                                class="flex flex-col items-center justify-center p-20 border border-white/10 rounded-sm bg-white/5 backdrop-blur-sm text-center">
+                                                <span
+                                                    class="material-symbols-outlined text-6xl text-white/20 mb-4">palette</span>
+                                                <h2 class="text-xl font-bold font-mono text-white/80">No Artworks Found
+                                                </h2>
+                                                <p class="text-sm text-white/50 mt-2">Check back later or register as an
+                                                    artist
+                                                    to post
+                                                    your own creations.</p>
+                                            </div>
+                                            <% } %>
                 </div>
             </main>
     </div>

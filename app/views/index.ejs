@@ -1,186 +1,256 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
     <%- include('partials/head') %>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark text-white">
-<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-    <%- include('partials/header') %>
-<main class="flex flex-col flex-1">
-<!-- Hero Section -->
-<div class="px-4 md:px-20 py-8 bg-background-light dark:bg-background-dark">
-<div class="max-w-[1200px] mx-auto w-full">
-<div class="@container">
-<div class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 border-4 border-rich-red" data-alt="Intricate Nepali Thangka painting with vibrant colors and gold leaf" style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8BcCJrgd4ZU3VM0gjVeNMzG5YXf4BEzCzOrVlh6cQOcOzcafsYKwDgiEW-6TXVZbMCVv93qPSEjWMhZI4mTFQGmf3YmayvZHxfDnc60s-t7auR6mF6Wg8FvWadeG_TktFFfXoaW2htYMFc_SYHRX6AB_Kjq3mDZe6LiIA-Rabd3J60lc_YlmojNjsLG3HCU6UD10mTX-ZIgihJmoAdctF4LgKPl-UIEfHlRCT4mH8kkQD0DQ5UJHRJzV2WUrZpL-pjYTFF7fbmp8");'>
-<div class="flex flex-col gap-4 text-center max-w-2xl">
-<h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight font-mono-header">
-                                    Authentic Nepali Art
-                                </h1>
-<p class="text-white/90 text-lg md:text-xl font-normal leading-relaxed">
-                                    Empowering women and marginalized artists in Nepal by showcasing their heritage and craftsmanship to the world.
-                                </p>
-</div>
-<div class="flex gap-4 mt-4">
-<button class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-background-dark text-base font-bold font-mono-header shadow-lg hover:scale-105 transition-transform">
-                                    Explore Art
-                                </button>
-<button class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-dusty-rose text-white text-base font-bold font-mono-header shadow-lg hover:bg-opacity-90 transition-all">
-                                    Our Story
-                                </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Community Stories Section -->
-<div class="px-4 md:px-20 py-10 bg-background-light dark:bg-background-dark">
-<div class="max-w-[1200px] mx-auto">
-<div class="flex items-center justify-between px-4 pb-6">
-<h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">Community Stories</h2>
-<a class="text-primary hover:underline font-mono-header text-sm" href="#">View All Stories</a>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-<!-- Artist 1 -->
-<div class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-xl border border-rich-red/30 hover:border-primary transition-all">
-<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-lg overflow-hidden border-2 border-rich-red" data-alt="Nepali woman working on a traditional ceramic pot" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0z5yRr6dpxNoy8veEWAQ8pdg_CAz_44CTZj_o3NH0I0IiwGF57v5I7tpCx4QpHMnSJ_Gr7SmH6mw0sW6feEFi7oj6K0vIDaUie4n-iB45cp5M5T7WYBoCHRP4yFB3FTwEV36CqwVylYH0SFKHyCHyqHCYyd4Q7Z-HKaj1TTdhdl61r4OtER-Gnxh3OeeY0Zz974_mL9EbPRETUJwMZvtMPjDo61ijrYPIArSo9BlgAzAZrX4vjUnOysVFl1BW-G9QEbEkkxAXwdY");'>
-<div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-</div>
-<div class="space-y-1">
-<p class="text-white text-xl font-bold font-mono-header">Sita Thapa</p>
-<p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Traditional Potter • Bhaktapur</p>
-<p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Each piece of clay carries the weight of generations. Through HeritEdge, my craft now reaches hands across the ocean."</p>
-</div>
-</div>
-<!-- Artist 2 -->
-<div class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-xl border border-rich-red/30 hover:border-primary transition-all">
-<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-lg overflow-hidden border-2 border-rich-red" data-alt="Detail of a Thangka artist painting with fine brush" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmBD1XYK4mXD18jXQXT8NPVTqtaJwHG1RI8DgUvQkpT4o2kQuct3nlz-sj1UjyOrWuJoX99ezAsype_rEXS-mcufIhGGwrViU85CoCJ4tegNJv02JGZX4Ad62c1nS9lBdxU-UDU7UaIyExAb-xdrVTwkuy_O9YVLKxPkmxu45rt7LV9QQ3PWvPgc_sg1QUOe4VZDylgQ25OZATmHemtnbDEuUzXN_uORmtI2MaTIhCxt9kCaRnD-48HsOz8XL0rZkbBcwb-m1tYgA");'>
-<div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-</div>
-<div class="space-y-1">
-<p class="text-white text-xl font-bold font-mono-header">Maya Devi</p>
-<p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Thangka Artist • Patan</p>
-<p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Painting is my meditation. I paint the stories of the Buddha to preserve our spiritual identity."</p>
-</div>
-</div>
-<!-- Artist 3 -->
-<div class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-xl border border-rich-red/30 hover:border-primary transition-all">
-<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-lg overflow-hidden border-2 border-rich-red" data-alt="Modern Nepali woman painting in a contemporary style" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3LShIJezxNBHoMOovC3d0hfK896yVL81CLXWU5hqtVYgSrCg1gstiDpex-Fbv3gyr4ABSwVSlPsiVoph4Dro7Rnu61VfLR92SMnQDjTAiU10NruHJnxJDPIilQ534GWu1lRTBforSpDquyYsbvdH3KEo5Pny3nbookCjPAHFXdyAUCqsCdny1orN_Y7P-FlXh2HScopp2b9FJeRfxhf67ZardxTHheb8LveefuY7p0g2cMl9QNVTH-TFCb8SeZBFnaPcQpLwieM4");'>
-<div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-</div>
-<div class="space-y-1">
-<p class="text-white text-xl font-bold font-mono-header">Anjali Rai</p>
-<p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Contemporary Painter • Kathmandu</p>
-<p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"I blend traditional motifs with modern struggles to give voice to the unspoken stories of Himalayan women."</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Featured Artworks Section -->
-<div class="px-4 md:px-20 py-12 bg-deep-maroon/10 border-t border-rich-red/20">
-<div class="max-w-[1200px] mx-auto">
-<div class="flex items-center justify-between px-4 pb-8">
-<h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">Featured Artworks</h2>
-<button class="bg-rich-red text-white px-5 py-2 rounded-lg text-sm font-mono-header hover:bg-rich-red/80 transition-all">
-                            Browse Collection
-                        </button>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
-<!-- Artwork 1 -->
-<div class="group">
-<div class="relative overflow-hidden rounded-xl border border-white/10 aspect-square mb-3">
-<div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Handwoven Nepali Pashmina shawl with traditional patterns" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDy-KeotEQn3Frd-pR0hgkCVPMpmAs5GWvCTmujmyirYN9ICN4ZIRhir6aw4PRzYTDbKAkEkGaEPN6Xs6sH0Qq_l6WeY1Gt05Qy1XitTYmFUBKMbPPWusfdJ1Ho8GeYWHZDPB8o7ilwE90faR4-_apKoJ0aR00OYusEh004o7vK14MowAh1BSSTozH0P3PLKlbGGNnuINmRr_yktTXhx7Tof4mLGFre6Lild4Qtwq78TYjQy9HXoXlpVBNohyUevhtMw2fEYKmcqZs");'></div>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="w-full py-2 bg-primary text-background-dark font-bold rounded-lg text-xs font-mono-header">Quick View</button>
-</div>
-</div>
-<h3 class="text-white font-medium font-mono-header text-sm">Pashmina Tapestry</h3>
-<p class="text-primary font-bold text-lg">$245.00</p>
-</div>
-<!-- Artwork 2 -->
-<div class="group">
-<div class="relative overflow-hidden rounded-xl border border-white/10 aspect-square mb-3">
-<div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Bronze casted statue of a Hindu deity from Nepal" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVQ_b84XWcpTgF76lohhBEuJD_befykobre7mOwRvFS8ZM1WdauKCb5spGB0pB53gM-3NMRsQfwrvVwnWqIt6_IGoEH92AYtaV4Y_KXRcwWf4EQASlYE1LO8Bdr_QmeM51SaJ2tJIs8c0e366uzaAcSokHdFwYXLCF3XtyMF7v5rz3oElsbYM64YaP5cwezZSZ3mXYFBhRP1RJQGt-Z5BOoR_Kpev3dOOg4547EeBT0uXfWWaAitgzbyGZGlUpEEugR_sOhHjZAa8");'></div>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="w-full py-2 bg-primary text-background-dark font-bold rounded-lg text-xs font-mono-header">Quick View</button>
-</div>
-</div>
-<h3 class="text-white font-medium font-mono-header text-sm">Bronze Deity Bust</h3>
-<p class="text-primary font-bold text-lg">$580.00</p>
-</div>
-<!-- Artwork 3 -->
-<div class="group">
-<div class="relative overflow-hidden rounded-xl border border-white/10 aspect-square mb-3">
-<div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Colorful hand-painted ceramic bowl from Nepal" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZdb2fLge1CBUevJGnuq_9p_r1tdxVfl63ggl4EGKo2boRDbn6wJ_I26ByS-mj83BdWErXM9-P1pDO_nzpc03BOP5hDPnN8dwVbZ3aR8oF2MzCMhLXLYzBrmrIuUq1ehlUgZaDhSI4IR7EAsFSp6KAO4mniyT1-SkYvC0BTmAqXyFk0MXc8XmPSqlFqokvaye3RDo5e-TAkTavBwWg1H2x_1jOW3z2O2q5AqkVsvLdjHtB7nJNqKZMr6X90XSh1A19nIqz71M0RtM");'></div>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="w-full py-2 bg-primary text-background-dark font-bold rounded-lg text-xs font-mono-header">Quick View</button>
-</div>
-</div>
-<h3 class="text-white font-medium font-mono-header text-sm">Mithila Ceramic Bowl</h3>
-<p class="text-primary font-bold text-lg">$65.00</p>
-</div>
-<!-- Artwork 4 -->
-<div class="group">
-<div class="relative overflow-hidden rounded-xl border border-white/10 aspect-square mb-3">
-<div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Intricately carved wooden window frame from Kathmandu valley" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjG-_Pd2DCwcrTWnjyJFdehILlgv5VREefs8gfNl4br0a2qiHKx-VN0_TJRcS3vdlc4ONUQS2We3Yrn77ljpn1X9GGctAXMewtMdGCzrt2MnXigLB_qGmF8CR_MQRSPYNgT9rfMpA6DLQhx9FBw6UzXci0yDIqXCWktNSRSVxyP8NUAX-qDFd3wwlzv2qT59RTBBWU4xameVx0QZtxyTVs3Mir2afUxmfX1KRDw1-2Wf3NX0Kln_SiT6KbU_z-gnin7vABVIobXYg");'></div>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="w-full py-2 bg-primary text-background-dark font-bold rounded-lg text-xs font-mono-header">Quick View</button>
-</div>
-</div>
-<h3 class="text-white font-medium font-mono-header text-sm">Mini Carved Window</h3>
-<p class="text-primary font-bold text-lg">$120.00</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Footer -->
-<footer class="bg-deep-maroon border-t border-rich-red px-6 md:px-20 py-12">
-<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 text-white mb-6">
-<div class="size-6 text-primary">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
-</svg>
-</div>
-<h2 class="text-white text-xl font-bold font-mono-header">HeritEdge</h2>
-</div>
-<p class="text-white/60 text-sm leading-relaxed">Connecting Nepal's heritage to the modern world through the hands of its most resilient artists.</p>
-</div>
-<div class="flex flex-col gap-4">
-<h4 class="text-primary font-mono-header font-bold text-sm uppercase">Quick Links</h4>
-<a class="text-white/70 hover:text-white text-sm" href="#">Marketplace</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Artists Profiles</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Cultural Blog</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Impact Report</a>
-</div>
-<div class="flex flex-col gap-4">
-<h4 class="text-primary font-mono-header font-bold text-sm uppercase">Support</h4>
-<a class="text-white/70 hover:text-white text-sm" href="#">Help Center</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Shipping &amp; Returns</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Artist Application</a>
-<a class="text-white/70 hover:text-white text-sm" href="#">Terms of Service</a>
-</div>
-<div class="flex flex-col gap-4">
-<h4 class="text-primary font-mono-header font-bold text-sm uppercase">Newsletter</h4>
-<p class="text-white/60 text-xs">Join our community to receive updates on new arrivals and artist stories.</p>
-<div class="flex gap-2">
-<input class="bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm w-full focus:ring-1 focus:ring-primary outline-none" placeholder="Email" type="email"/>
-<button class="bg-primary text-background-dark p-2 rounded-lg">
-<span class="material-symbols-outlined text-xl leading-none">send</span>
-</button>
-</div>
-</div>
-</div>
-<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-white/40 text-xs font-mono-header">© 2024 HeritEdge Nepal. All rights reserved.</p>
-<div class="flex gap-6">
-<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
-<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
-<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
-</div>
-</div>
-</footer>
-</div>
-</body></html>
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <%- include('partials/header') %>
+            <main class="flex flex-col flex-1">
+                <!-- Hero Section -->
+                <div class="px-4 md:px-20 py-8 bg-background-light dark:bg-background-dark">
+                    <div class="max-w-[1200px] mx-auto w-full">
+                        <div class="@container">
+                            <div class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-sm items-center justify-center p-8 border-4 border-rich-red"
+                                data-alt="Intricate Nepali Thangka painting with vibrant colors and gold leaf"
+                                style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8BcCJrgd4ZU3VM0gjVeNMzG5YXf4BEzCzOrVlh6cQOcOzcafsYKwDgiEW-6TXVZbMCVv93qPSEjWMhZI4mTFQGmf3YmayvZHxfDnc60s-t7auR6mF6Wg8FvWadeG_TktFFfXoaW2htYMFc_SYHRX6AB_Kjq3mDZe6LiIA-Rabd3J60lc_YlmojNjsLG3HCU6UD10mTX-ZIgihJmoAdctF4LgKPl-UIEfHlRCT4mH8kkQD0DQ5UJHRJzV2WUrZpL-pjYTFF7fbmp8");'>
+                                <div class="flex flex-col gap-4 text-center max-w-2xl">
+                                    <h1
+                                        class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight font-mono-header">
+                                        Authentic Nepali Art
+                                    </h1>
+                                    <p class="text-white/90 text-lg md:text-xl font-normal leading-relaxed">
+                                        Empowering women and marginalized artists in Nepal by showcasing their heritage
+                                        and craftsmanship to the world.
+                                    </p>
+                                </div>
+                                <div class="flex gap-4 mt-4">
+                                    <button
+                                        class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-primary text-background-dark text-base font-bold font-mono-header shadow-lg hover:scale-105 transition-transform">
+                                        Explore Art
+                                    </button>
+                                    <button
+                                        class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-dusty-rose text-white text-base font-bold font-mono-header shadow-lg hover:bg-opacity-90 transition-all">
+                                        Our Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Community Stories Section -->
+                <div class="px-4 md:px-20 py-10 bg-background-light dark:bg-background-dark">
+                    <div class="max-w-[1200px] mx-auto">
+                        <div class="flex items-center justify-between px-4 pb-6">
+                            <h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">
+                                Community Stories</h2>
+                            <a class="text-primary hover:underline font-mono-header text-sm" href="#">View All
+                                Stories</a>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
+                            <!-- Artist 1 -->
+                            <div
+                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
+                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
+                                    data-alt="Nepali woman working on a traditional ceramic pot"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0z5yRr6dpxNoy8veEWAQ8pdg_CAz_44CTZj_o3NH0I0IiwGF57v5I7tpCx4QpHMnSJ_Gr7SmH6mw0sW6feEFi7oj6K0vIDaUie4n-iB45cp5M5T7WYBoCHRP4yFB3FTwEV36CqwVylYH0SFKHyCHyqHCYyd4Q7Z-HKaj1TTdhdl61r4OtER-Gnxh3OeeY0Zz974_mL9EbPRETUJwMZvtMPjDo61ijrYPIArSo9BlgAzAZrX4vjUnOysVFl1BW-G9QEbEkkxAXwdY");'>
+                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-white text-xl font-bold font-mono-header">Sita Thapa</p>
+                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Traditional
+                                        Potter • Bhaktapur</p>
+                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Each piece of clay
+                                        carries the weight of generations. Through HeritEdge, my craft now reaches hands
+                                        across the ocean."</p>
+                                </div>
+                            </div>
+                            <!-- Artist 2 -->
+                            <div
+                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
+                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
+                                    data-alt="Detail of a Thangka artist painting with fine brush"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmBD1XYK4mXD18jXQXT8NPVTqtaJwHG1RI8DgUvQkpT4o2kQuct3nlz-sj1UjyOrWuJoX99ezAsype_rEXS-mcufIhGGwrViU85CoCJ4tegNJv02JGZX4Ad62c1nS9lBdxU-UDU7UaIyExAb-xdrVTwkuy_O9YVLKxPkmxu45rt7LV9QQ3PWvPgc_sg1QUOe4VZDylgQ25OZATmHemtnbDEuUzXN_uORmtI2MaTIhCxt9kCaRnD-48HsOz8XL0rZkbBcwb-m1tYgA");'>
+                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-white text-xl font-bold font-mono-header">Maya Devi</p>
+                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Thangka
+                                        Artist • Patan</p>
+                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Painting is my
+                                        meditation. I paint the stories of the Buddha to preserve our spiritual
+                                        identity."</p>
+                                </div>
+                            </div>
+                            <!-- Artist 3 -->
+                            <div
+                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
+                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
+                                    data-alt="Modern Nepali woman painting in a contemporary style"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3LShIJezxNBHoMOovC3d0hfK896yVL81CLXWU5hqtVYgSrCg1gstiDpex-Fbv3gyr4ABSwVSlPsiVoph4Dro7Rnu61VfLR92SMnQDjTAiU10NruHJnxJDPIilQ534GWu1lRTBforSpDquyYsbvdH3KEo5Pny3nbookCjPAHFXdyAUCqsCdny1orN_Y7P-FlXh2HScopp2b9FJeRfxhf67ZardxTHheb8LveefuY7p0g2cMl9QNVTH-TFCb8SeZBFnaPcQpLwieM4");'>
+                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-white text-xl font-bold font-mono-header">Anjali Rai</p>
+                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Contemporary
+                                        Painter • Kathmandu</p>
+                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"I blend traditional
+                                        motifs with modern struggles to give voice to the unspoken stories of Himalayan
+                                        women."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Featured Artworks Section -->
+                <div class="px-4 md:px-20 py-12 bg-deep-maroon/10 border-t border-rich-red/20">
+                    <div class="max-w-[1200px] mx-auto">
+                        <div class="flex items-center justify-between px-4 pb-8">
+                            <h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">
+                                Featured Artworks</h2>
+                            <button
+                                class="bg-rich-red text-white px-5 py-2 rounded-md text-sm font-mono-header hover:bg-rich-red/80 transition-all">
+                                Browse Collection
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
+                            <!-- Artwork 1 -->
+                            <div class="group">
+                                <div
+                                    class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                    <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                        data-alt="Handwoven Nepali Pashmina shawl with traditional patterns"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDy-KeotEQn3Frd-pR0hgkCVPMpmAs5GWvCTmujmyirYN9ICN4ZIRhir6aw4PRzYTDbKAkEkGaEPN6Xs6sH0Qq_l6WeY1Gt05Qy1XitTYmFUBKMbPPWusfdJ1Ho8GeYWHZDPB8o7ilwE90faR4-_apKoJ0aR00OYusEh004o7vK14MowAh1BSSTozH0P3PLKlbGGNnuINmRr_yktTXhx7Tof4mLGFre6Lild4Qtwq78TYjQy9HXoXlpVBNohyUevhtMw2fEYKmcqZs");'>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                        <button
+                                            class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
+                                            View</button>
+                                    </div>
+                                </div>
+                                <h3 class="text-white font-medium font-mono-header text-sm">Pashmina Tapestry</h3>
+                                <p class="text-primary font-bold text-lg">$245.00</p>
+                            </div>
+                            <!-- Artwork 2 -->
+                            <div class="group">
+                                <div
+                                    class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                    <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                        data-alt="Bronze casted statue of a Hindu deity from Nepal"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVQ_b84XWcpTgF76lohhBEuJD_befykobre7mOwRvFS8ZM1WdauKCb5spGB0pB53gM-3NMRsQfwrvVwnWqIt6_IGoEH92AYtaV4Y_KXRcwWf4EQASlYE1LO8Bdr_QmeM51SaJ2tJIs8c0e366uzaAcSokHdFwYXLCF3XtyMF7v5rz3oElsbYM64YaP5cwezZSZ3mXYFBhRP1RJQGt-Z5BOoR_Kpev3dOOg4547EeBT0uXfWWaAitgzbyGZGlUpEEugR_sOhHjZAa8");'>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                        <button
+                                            class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
+                                            View</button>
+                                    </div>
+                                </div>
+                                <h3 class="text-white font-medium font-mono-header text-sm">Bronze Deity Bust</h3>
+                                <p class="text-primary font-bold text-lg">$580.00</p>
+                            </div>
+                            <!-- Artwork 3 -->
+                            <div class="group">
+                                <div
+                                    class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                    <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                        data-alt="Colorful hand-painted ceramic bowl from Nepal"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZdb2fLge1CBUevJGnuq_9p_r1tdxVfl63ggl4EGKo2boRDbn6wJ_I26ByS-mj83BdWErXM9-P1pDO_nzpc03BOP5hDPnN8dwVbZ3aR8oF2MzCMhLXLYzBrmrIuUq1ehlUgZaDhSI4IR7EAsFSp6KAO4mniyT1-SkYvC0BTmAqXyFk0MXc8XmPSqlFqokvaye3RDo5e-TAkTavBwWg1H2x_1jOW3z2O2q5AqkVsvLdjHtB7nJNqKZMr6X90XSh1A19nIqz71M0RtM");'>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                        <button
+                                            class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
+                                            View</button>
+                                    </div>
+                                </div>
+                                <h3 class="text-white font-medium font-mono-header text-sm">Mithila Ceramic Bowl</h3>
+                                <p class="text-primary font-bold text-lg">$65.00</p>
+                            </div>
+                            <!-- Artwork 4 -->
+                            <div class="group">
+                                <div
+                                    class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                    <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                        data-alt="Intricately carved wooden window frame from Kathmandu valley"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjG-_Pd2DCwcrTWnjyJFdehILlgv5VREefs8gfNl4br0a2qiHKx-VN0_TJRcS3vdlc4ONUQS2We3Yrn77ljpn1X9GGctAXMewtMdGCzrt2MnXigLB_qGmF8CR_MQRSPYNgT9rfMpA6DLQhx9FBw6UzXci0yDIqXCWktNSRSVxyP8NUAX-qDFd3wwlzv2qT59RTBBWU4xameVx0QZtxyTVs3Mir2afUxmfX1KRDw1-2Wf3NX0Kln_SiT6KbU_z-gnin7vABVIobXYg");'>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                        <button
+                                            class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
+                                            View</button>
+                                    </div>
+                                </div>
+                                <h3 class="text-white font-medium font-mono-header text-sm">Mini Carved Window</h3>
+                                <p class="text-primary font-bold text-lg">$120.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Footer -->
+            <footer class="bg-deep-maroon border-t border-rich-red px-6 md:px-20 py-12">
+                <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <div class="col-span-1 md:col-span-1">
+                        <div class="flex items-center gap-3 text-white mb-6">
+                            <div class="size-16 overflow-hidden rounded-md">
+                                <img src="/images/logo.png" alt="HeritEdge Logo"
+                                    class="w-full h-full object-contain drop-shadow-md"
+                                    onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-amber-yellow font-bold text-xl font-mono border-2 border-amber-yellow p-1\'>HE</span>';" />
+                            </div>
+                        </div>
+                        <p class="text-white/60 text-sm leading-relaxed">Connecting Nepal's heritage to the modern world
+                            through the hands of its most resilient artists.</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-primary font-mono-header font-bold text-sm uppercase">Quick Links</h4>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Marketplace</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Artists Profiles</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Cultural Blog</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Impact Report</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-primary font-mono-header font-bold text-sm uppercase">Support</h4>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Help Center</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Shipping &amp; Returns</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Artist Application</a>
+                        <a class="text-white/70 hover:text-white text-sm" href="#">Terms of Service</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-primary font-mono-header font-bold text-sm uppercase">Newsletter</h4>
+                        <p class="text-white/60 text-xs">Join our community to receive updates on new arrivals and
+                            artist stories.</p>
+                        <div class="flex gap-2">
+                            <input
+                                class="bg-black/20 border border-white/10 rounded-md px-3 py-2 text-sm w-full focus:ring-1 focus:ring-primary outline-none"
+                                placeholder="Email" type="email" />
+                            <button class="bg-primary text-background-dark p-2 rounded-md">
+                                <span class="material-symbols-outlined text-xl leading-none">send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-white/40 text-xs font-mono-header">© 2024 HeritEdge Nepal. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a class="text-white/40 hover:text-primary transition-colors" href="#"><span
+                                class="material-symbols-outlined">share</span></a>
+                        <a class="text-white/40 hover:text-primary transition-colors" href="#"><span
+                                class="material-symbols-outlined">public</span></a>
+                        <a class="text-white/40 hover:text-primary transition-colors" href="#"><span
+                                class="material-symbols-outlined">mail</span></a>
+                    </div>
+                </div>
+            </footer>
+    </div>
+</body>
+
+</html>

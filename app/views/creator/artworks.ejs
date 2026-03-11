@@ -23,7 +23,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             <% artworks.forEach(art=> { %>
                                 <div
-                                    class="group rounded-xl overflow-hidden border border-white/10 bg-white/5 shadow-lg flex flex-col relative h-[380px]">
+                                    class="group rounded-sm overflow-hidden border border-white/10 bg-white/5 shadow-lg flex flex-col relative h-[380px]">
                                     <div class="relative h-48 w-full bg-black">
                                         <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>"
                                             class="absolute inset-0 w-full h-full object-cover">
@@ -73,7 +73,7 @@
                         </div>
                         <% } else { %>
                             <div
-                                class="flex flex-col items-center justify-center p-12 bg-white/5 border border-white/10 rounded-2xl text-center">
+                                class="flex flex-col items-center justify-center p-12 bg-white/5 border border-white/10 rounded-sm text-center">
                                 <span class="material-symbols-outlined text-4xl text-white/20 mb-4 block">image</span>
                                 <p class="text-white/60 mb-6">You haven't uploaded any artworks yet.</p>
                                 <a href="/creator/upload"

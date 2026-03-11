@@ -17,7 +17,6 @@
 - **Defense Mechanisms:** 
   - Integrated full **CSRF (Cross-Site Request Forgery) protection** securely onto every platform form.
   - Mitigated brute force attacks utilizing `express-rate-limit` throttles on `/login`, `/register`, and `/api/order`.
-  - Blocked potential injector vulnerabilities using `xss-clean`.
 - **Centralized Error Boundaries:** Improved stability through global `errorHandler` middleware properly returning either JSON stacks (for API calls) or styled semantic `error.ejs` views (for rendering crashes).
 
 ### 4. Creator Workflow
@@ -35,20 +34,22 @@
 
 ---
 
+### 7. Admin Control Flow
+- **Admin Dashboard:** Built an intuitive dashboard for platform overview displaying active users, listings, and pending tasks.
+- **Moderation Access:** Administrators can verify/reject creator accounts and forcefully remove policy-breaking marketplace entries (with automated Cloudinary artifact removal).
+
+### 8. Payment Gateway Integration
+- **E-Sewa Dynamic Integration:** Hooked frontend actions to generate temporary `<form>` submissions redirecting to the E-Sewa gateway.
+- **Verification Callbacks:** Deployed success and failure webhooks decoding base-64 payloads to verify transactions natively updating Prisma configurations via authenticated HMAC SHA-256 signatures.
+
+---
+
 ## ⏳ What Is Left To Implement
 
-### 1. Admin Control Flow 
-- **Admin Dashboard Features:** While the route and authorization logic exist, the Admin UI still needs full build-out. 
-- **Moderation Access:** Allow administrators absolute control to verify/reject Creator accounts globally, suspend user profiles natively, and forcefully delete policy-breaking marketplace entries.
-
-### 2. Payment Gateway Integration 
-- **E-Sewa Implementation:** Currently, the Purchase module generates native pseudo-orders but securely validating real transactional requests via E-Sewa APIs still needs to be built and integrated.
-- **Webhook Verifications:** Ensuring the platform verifies E-Sewa server tokens and flips `paymentStatus` correctly from 'PENDING' -> 'COMPLETED'.
-
-### 3. Real-Time Application Enhancements
+### 1. Real-Time Application Enhancements
 - **Global Search System:** Implement the header search-bar feature to accurately comb the database efficiently and pull back dynamic search results natively into marketplace components.
 - **Email Notifications System:** Interconnect `Nodemailer` or services (like SendGrid or AWS SES) dispatching automated receipts, registration approvals, and creator notifications seamlessly.
 
-### 4. Advanced Production Requirements
+### 2. Advanced Production Requirements
 - **Frontend Optimization:** Enhancing image loading further via React/Next integration (optional) or refining deeper accessibility boundaries. 
 - **Deployment & CI/CD Structure:** Dockerizing the entire Node/Postgres stack effectively preparing to deploy configurations correctly out across services like Render, Heroku or AWS.

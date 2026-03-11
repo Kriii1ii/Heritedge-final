@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="layout-container flex h-full grow flex-col">
+        <%- include('../partials/header') %>
+            <main class="flex flex-1 py-8 px-4 md:px-10 max-w-[1440px] w-full mx-auto">
+                <div class="w-full">
+                    <div class="flex flex-wrap justify-between gap-3 mb-8 border-l-4 border-amber-yellow pl-4">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-white text-3xl font-black leading-tight font-mono-header">
+                                Manage Orders & Logistics
+                            </p>
+                            <p class="text-white/60 text-sm font-mono uppercase tracking-widest">
+                                Track artwork status from purchase to delivery
+                            </p>
+                        </div>
+                        <a href="/admin" class="flex items-center text-amber-yellow text-sm hover:underline"><span
+                                class="material-symbols-outlined mr-1 text-sm">arrow_back</span> Back to Dashboard</a>
+                    </div>
+
+                    <div class="bg-white/5 rounded-sm border border-white/10 shadow-lg overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-white/10 border-b border-white/20">
+                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Order
+                                        ID</th>
+                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Date
+                                    </th>
+                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Artwork
+                                        / Buyer</th>
+                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Amount
+                                        (रू)</th>
+                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Status
+                                    </th>
+                                    <th
+                                        class="p-4 text-white font-mono-header text-sm tracking-wider uppercase text-right">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 font-mono text-sm">
+                                <% if (orders && orders.length> 0) { %>
+                                    <% orders.forEach(order=> { %>
+                                        <tr class="hover:bg-white/5 transition-colors">
+                                            <td class="p-4 text-white/70">
+                                                <%= order.id.slice(0, 8) %>...
+                                            </td>
+                                            <td class="p-4 text-white/70">
+                                                <%= new Date(order.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td class="p-4 text-white/90">
+                                                <div class="font-bold text-amber-yellow">
+                                                    <%= order.artwork.title %>
+                                                </div>
+                                                <div class="text-xs text-white/50">Buyer: <%= order.buyer.name %>
+                                                </div>
+                                            </td>
+                                            <td class="p-4 text-white/90 font-bold">
+                                                <%= order.amount %>
+                                            </td>
+                                            <td class="p-4">
+                                                <% const statusColors={ 'PLACED'
+                                                    : 'text-blue-400 bg-blue-400/10 border-blue-400/20' , 'COLLECTED'
+                                                    : 'text-purple-400 bg-purple-400/10 border-purple-400/20'
+                                                    , 'IN_TRANSIT'
+                                                    : 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
+                                                    , 'DELIVERED'
+                                                    : 'text-jade-green bg-jade-green/10 border-jade-green/20'
+                                                    , 'CANCELLED' : 'text-red-400 bg-red-400/10 border-red-400/20' }; %>
+                                                    <span
+                                                        class="px-2 py-1 rounded text-xs font-bold border <%= statusColors[order.orderStatus] || 'text-white bg-white/10 border-white/20' %>">
+                                                        <%= order.orderStatus %>
+                                                    </span>
+                                            </td>
+                                            <td class="p-4 text-right">
+                                                <form action="/admin/orders/<%= order.id %>/status" method="POST"
+                                                    class="flex items-center justify-end gap-2">
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                    <select name="status"
+                                                        class="bg-black/40 border border-white/20 text-white text-xs rounded p-1 outline-none">
+                                                        <option value="PLACED" <%=order.orderStatus==='PLACED'
+                                                            ? 'selected' : '' %>>Placed</option>
+                                                        <option value="COLLECTED" <%=order.orderStatus==='COLLECTED'
+                                                            ? 'selected' : '' %>>Collected</option>
+                                                        <option value="IN_TRANSIT" <%=order.orderStatus==='IN_TRANSIT'
+                                                            ? 'selected' : '' %>>In Transit</option>
+                                                        <option value="DELIVERED" <%=order.orderStatus==='DELIVERED'
+                                                            ? 'selected' : '' %>>Delivered</option>
+                                                        <option value="CANCELLED" <%=order.orderStatus==='CANCELLED'
+                                                            ? 'selected' : '' %>>Cancelled</option>
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="bg-amber-yellow/20 hover:bg-amber-yellow/40 text-amber-yellow px-2 py-1 rounded text-xs font-bold transition-colors">Update</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="6" class="p-8 text-center text-white/50">No orders
+                                                        found.</td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>
