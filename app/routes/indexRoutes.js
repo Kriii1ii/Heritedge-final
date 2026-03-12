@@ -22,6 +22,10 @@ router.get('/about', (req, res) => {
     res.render('about', { primaryColor: '#8b0000' });
 });
 
+router.get('/faq', (req, res) => {
+    res.render('faq', { primaryColor: '#8b0000' });
+});
+
 router.post('/api/events/:id/register', requireAuth, async (req, res, next) => {
     try {
         const { id } = req.params;

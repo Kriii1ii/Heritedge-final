@@ -30,14 +30,16 @@ exports.getMarketplace = async (req, res, next) => {
             orderBy = { price: 'desc' };
         }
 
+        const queryOptions = {
+            where: filter,
+            skip: skip,
+            take: pageSize,
+            include: { creator: true }
+        };
+        if (orderBy) queryOptions.orderBy = orderBy;
+
         const [artworks, totalCount] = await Promise.all([
-            prisma.artwork.findMany({
-                where: filter,
-                orderBy: orderBy,
-                skip: skip,
-                take: pageSize,
-                include: { creator: true }
-            }),
+            prisma.artwork.findMany(queryOptions),
             prisma.artwork.count({ where: filter })
         ]);
 

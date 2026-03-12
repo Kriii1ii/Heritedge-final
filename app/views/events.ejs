@@ -8,107 +8,168 @@
 <body class="bg-background-light dark:bg-background-dark text-white">
     <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
         <%- include('partials/header') %>
-            <main class="flex flex-1 w-full max-w-[1440px] mx-auto px-4 lg:px-10 py-8 gap-8">
-                <!-- Left Sidebar (30% width) -->
-                <aside class="hidden lg:flex flex-col w-[30%] gap-6">
-                    <div class="flex flex-col gap-1">
-                        <h1 class="text-[#1b170d] dark:text-[#fcfaf8] text-2xl font-bold">Upcoming Events</h1>
-                        <p class="text-[#9a804c] text-sm font-normal">Celebrate the vibrant tapestry of Nepal</p>
-                    </div>
-                    <div class="flex flex-col gap-4 overflow-y-auto pr-2 custom-scrollbar">
-                        <!-- Event List Items -->
-                        <% if (events && events.length> 0) { %>
-                            <% events.forEach((ev, idx)=> { %>
-                                <div class="flex items-center gap-4 <%= idx === 0 ? 'bg-[#f3efe7]/50 dark:bg-[#3a3224]/30 border-primary/30' : 'bg-transparent border-transparent hover:bg-[#f3efe7]/50 dark:hover:bg-[#3a3224]/30' %> p-3 rounded-sm border transition-all cursor-pointer"
-                                    onclick="window.location.href='/events#event-<%= ev.id %>'">
-                                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-16 shrink-0 shadow-sm"
-                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNnz6Irt8vT0gbNiaOoxCnp0vdP7vgKvNJfbr7rJtMg6WMnJ7gGVqAHLMDjK55q_52NuLcx_FgL3sNDmOeA59BNm-MEhhJIIj0UpAHaUCFwSqhTg2ZPvbRA0p3GGv8EIOWN42XvU5ndGILRC_VcRanjWBqjhmYMzC4N-_DD4x6RY89FJ3H3erTAw4rGvOYAs-JEgtGIU9rxEJs7heDGeItaPQL0SZWTDLWGUmx6_JPj2c30LMT24qJ-N7HuFHUKS8ojngBUUFVir8");'>
+            <main class="flex flex-col lg:flex-row w-full max-w-[1440px] mx-auto px-4 lg:px-8 py-8 gap-8 bg-[#fdfdfc] dark:bg-background-dark">
+                <!-- Left Sidebar -->
+                <aside class="flex flex-col w-full lg:w-[320px] shrink-0 gap-8">
+                    <!-- Upcoming Events section -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col">
+                            <h1 class="text-gray-900 dark:text-gray-100 text-[22px] font-bold font-sans">Upcoming Events</h1>
+                            <p class="text-[#a68a56] text-sm font-medium mt-1">Celebrate the vibrant tapestry of Nepal</p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-3 mt-2 pr-2 overflow-y-auto max-h-[420px] custom-scrollbar">
+                            <% if (events && events.length > 0) { %>
+                                <% events.forEach((ev, idx) => { %>
+                                    <div class="flex items-center gap-4 p-2.5 rounded-xl cursor-pointer transition-colors <%= idx === 0 ? 'bg-amber-50/60 dark:bg-amber-900/10 shadow-sm border border-amber-900/5 dark:border-amber-100/5' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 border border-transparent' %>" onclick="window.location.href='/events#event-<%= ev.id %>'">
+                                        <div class="w-16 h-16 rounded-[14px] bg-cover bg-center shrink-0 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNnz6Irt8vT0gbNiaOoxCnp0vdP7vgKvNJfbr7rJtMg6WMnJ7gGVqAHLMDjK55q_52NuLcx_FgL3sNDmOeA59BNm-MEhhJIIj0UpAHaUCFwSqhTg2ZPvbRA0p3GGv8EIOWN42XvU5ndGILRC_VcRanjWBqjhmYMzC4N-_DD4x6RY89FJ3H3erTAw4rGvOYAs-JEgtGIU9rxEJs7heDGeItaPQL0SZWTDLWGUmx6_JPj2c30LMT24qJ-N7HuFHUKS8ojngBUUFVir8");'></div>
+                                        <div class="flex flex-col flex-1 pb-1">
+                                            <h3 class="text-[14px] font-bold text-[#231f18] dark:text-gray-100 leading-tight mb-0.5"><%= ev.name.length > 20 ? ev.name.substring(0, 20) + '...' : ev.name %></h3>
+                                            <p class="text-[12px] text-[#a68a56] font-semibold"><%= new Date(ev.eventDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
+                                            <% if (idx === 0) { %>
+                                                <p class="text-[9px] font-bold text-[#eab308] uppercase mt-1 tracking-wider">LIMITED SPOTS</p>
+                                            <% } %>
+                                        </div>
+                                        <span class="material-symbols-outlined text-gray-700 dark:text-gray-300 text-xl pl-1 font-light">chevron_right</span>
                                     </div>
-                                    <div class="flex flex-col justify-center overflow-hidden">
-                                        <p
-                                            class="text-[#1b170d] dark:text-[#fcfaf8] text-base font-semibold leading-tight truncate">
-                                            <%= ev.name %>
-                                        </p>
-                                        <p class="text-[#9a804c] text-sm font-medium mt-1">
-                                            <%= new Date(ev.eventDate).toLocaleDateString() %>
-                                        </p>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span
-                                            class="material-symbols-outlined text-[#1b170d] dark:text-[#fcfaf8]">chevron_right</span>
-                                    </div>
-                                </div>
                                 <% }) %>
-                                    <% } else { %>
-                                        <p class="text-white/50 text-sm">No upcoming events.</p>
-                                        <% } %>
+                            <% } else { %>
+                                <p class="text-sm text-gray-500">No events found.</p>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Discover Categories -->
+                    <div class="bg-[#241d13] rounded-2xl p-6 flex flex-col gap-4 mt-auto">
+                        <h2 class="text-white text-[17px] font-bold font-sans">Discover Categories</h2>
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center gap-4 bg-[#3d311b] p-3 rounded-xl cursor-pointer">
+                                <div class="w-6 h-6 flex items-center justify-center rounded-full bg-[#eab308] p-1">
+                                    <span class="material-symbols-outlined text-[13px] text-black">palette</span>
+                                </div>
+                                <span class="text-[#eab308] text-[13px] font-medium tracking-wide">Art Workshops</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
+                                <span class="material-symbols-outlined text-[#d1d5db] text-[22px] ml-0.5 font-light">account_balance</span>
+                                <span class="text-[#e5e7eb] text-[13px] font-medium tracking-wide">Cultural Festivals</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
+                                <span class="material-symbols-outlined text-[#d1d5db] text-[22px] ml-0.5 font-light">view_quilt</span>
+                                <span class="text-[#e5e7eb] text-[13px] font-medium tracking-wide">Exhibitions</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
+                                <span class="material-symbols-outlined text-[#d1d5db] text-[22px] ml-0.5 font-light">settings_voice</span>
+                                <span class="text-[#e5e7eb] text-[13px] font-medium tracking-wide">Artist Talks</span>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
-                <!-- Main Showcase (70% width) -->
-                <section class="flex flex-col w-full lg:w-[70%] gap-12">
-                    <% if (events && events.length> 0) { %>
-                        <% events.forEach(ev=> { %>
-                            <div id="event-<%= ev.id %>"
-                                class="relative w-full min-h-[500px] rounded-sm overflow-hidden shadow-2xl group border border-white/10">
-                                <!-- Background Image Mock -->
-                                <div class="absolute inset-0 bg-center bg-cover scale-100 group-hover:scale-105 transition-transform duration-700"
-                                    style='background-image: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.3) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2bC9dPoky41mnRsTXWLWxFr0E0RCoBJ5ioz8_eIQdxKy3U2gOg7pcgboBJiGjPckrb9Q9Dsm5QKpH9Lk8-6iC3E7qxt1Ma_Y8joh419zpjVlDHx4EG__MSBn_fggdwcbvJLXndbVJVDuTsjUj6_m2pC6A3qU1HdDN7nNZySWO5Cfx6i04Z-c68olswyr5La32lSwooMtI8eDlbAM5NLm2lGia8Otw8t-wzptRQFCV0hRWli0evY_91CIL3z76vIOU3gdvfJaePFU");'>
+                <!-- Right Side (Featured Event + 3 Badges) -->
+                <div class="flex flex-col flex-1 gap-6 min-w-0">
+                    <!-- Main Showcase -->
+                    <% const featured = events && events.length > 0 ? events[0] : null; %>
+                    <% if (featured) { %>
+                        <div class="relative w-full rounded-[2rem] overflow-hidden min-h-[580px] lg:min-h-[580px] flex flex-col justify-center p-8 lg:p-14 lg:pl-16 shadow-2xl group border border-black/5" style='background-image: linear-gradient(to right, rgba(31, 20, 11, 0.95) 0%, rgba(31, 20, 11, 0.7) 40%, rgba(31, 20, 11, 0.2) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2bC9dPoky41mnRsTXWLWxFr0E0RCoBJ5ioz8_eIQdxKy3U2gOg7pcgboBJiGjPckrb9Q9Dsm5QKpH9Lk8-6iC3E7qxt1Ma_Y8joh419zpjVlDHx4EG__MSBn_fggdwcbvJLXndbVJVDuTsjUj6_m2pC6A3qU1HdDN7nNZySWO5Cfx6i04Z-c68olswyr5La32lSwooMtI8eDlbAM5NLm2lGia8Otw8t-wzptRQFCV0hRWli0evY_91CIL3z76vIOU3gdvfJaePFU"); background-size: cover; background-position: center;'>
+                            
+                            <!-- Fixed Badges -->
+                            <div class="absolute top-10 left-10 lg:top-12 lg:left-16 z-20">
+                                <div class="bg-[#eab308] text-[#3f2b05] text-[10px] font-black px-3 py-1.5 rounded flex items-center gap-1.5 tracking-wider uppercase shadow-md">
+                                    <span class="material-symbols-outlined text-[13px] text-[#3f2b05]">star</span> FEATURED EVENT
                                 </div>
-                                <!-- Content Overlay -->
-                                <div class="relative h-full flex flex-col justify-end p-8 lg:p-12">
-                                    <div class="flex flex-col gap-4 max-w-2xl">
-                                        <h2 class="text-[#fcfaf8] text-3xl lg:text-5xl font-mono leading-tight pt-mono">
-                                            <%= ev.name %>
-                                        </h2>
-                                        <div class="flex flex-wrap gap-4 text-[#fcfaf8]/90 font-mono text-sm">
-                                            <div class="flex items-center gap-2">
-                                                <span
-                                                    class="material-symbols-outlined text-primary text-lg">calendar_today</span>
-                                                <span>
-                                                    <%= new Date(ev.eventDate).toLocaleDateString() %> at <%= new
-                                                            Date(ev.eventDate).toLocaleTimeString() %>
-                                                </span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <span
-                                                    class="material-symbols-outlined text-primary text-lg">location_on</span>
-                                                <span>
-                                                    <%= ev.location %>
-                                                </span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <span
-                                                    class="material-symbols-outlined text-primary text-lg">groups</span>
-                                                <span>Artists: <%= ev.artists.join(', ') %></span>
-                                        </div>
+                            </div>
+
+                            <div class="absolute top-10 right-10 lg:top-12 lg:right-12 z-20">
+                                <div class="w-[72px] h-[72px] rounded-full border border-white/20 flex flex-col items-center justify-center bg-[#000000]/30 backdrop-blur-md">
+                                    <span class="text-white text-[22px] font-bold leading-none mb-0.5">12</span>
+                                    <span class="text-white/80 text-[7px] uppercase tracking-[0.2em]">SPOTS LEFT</span>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="relative z-10 max-w-[700px] mt-12 flex flex-col gap-6">
+                                <h1 class="text-white text-[3.2rem] lg:text-[4.2rem] font-sans tracking-wide uppercase leading-[1.1] font-medium">
+                                    THE SPIRIT OF<br>
+                                    <span class="text-[#eab308]"><%= featured.name.toUpperCase() %></span>
+                                </h1>
+
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8 text-white/90 text-[15px] font-medium mt-1">
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="material-symbols-outlined text-[#eab308] text-[20px]">calendar_month</span>
+                                        <span class="tracking-wide">October 20-25, 2023</span>
                                     </div>
-                                    <p class="text-[#fcfaf8]/80 text-base leading-relaxed mt-2 border-l-2 border-primary pl-4">
-                                        <%= ev.description %>
-                                    </p>
-                                    
-                                    <div class="flex gap-4 pt-6">
-                                        <% if (locals.user) { %>
-                                            <form action="/api/events/<%= ev.id %>/register" method="POST">
-                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                <button type="submit"
-                                                    class="px-8 py-3 bg-amber-yellow text-background-dark font-mono-header uppercase font-bold tracking-widest rounded-sm text-sm hover:bg-white transition-colors shadow">
-                                                    Register Now
-                                                </button>
-                                            </form>
-                                        <% } else { %>
-                                            <a href="/login"
-                                                class="px-8 py-3 bg-white/10 text-white border border-white/20 font-mono-header uppercase font-bold tracking-widest rounded-sm text-sm hover:bg-white/20 transition-colors text-center inline-block">
-                                                Login to Register
-                                            </a>
-                                        <% } %>
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="material-symbols-outlined text-[#eab308] text-[20px]">location_on</span>
+                                        <span class="tracking-wide">Patan Museum Square</span>
                                     </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-2.5 text-white/90 text-[15px] font-medium -mt-2">
+                                    <span class="material-symbols-outlined text-[#eab308] text-[20px]">schedule</span>
+                                    <span class="tracking-wide">10:00 AM - 6:00 PM</span>
+                                </div>
+
+                                <p class="text-white/80 text-[16px] leading-relaxed max-w-[540px] mt-2 font-normal">
+                                    Join us for an immersive 5-day celebration of traditional Nepali craftsmanship. Featuring live demonstrations from over 30 marginalized women artists.
+                                </p>
+
+                                <div class="flex flex-wrap items-center gap-5 mt-4">
+                                    <% if (locals.user) { %>
+                                        <form action="/api/events/<%= featured.id %>/register" method="POST" class="m-0">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <button type="submit" class="bg-[#eab308] hover:bg-[#d9a406] text-[#2c1d04] font-bold text-[15px] px-8 py-3.5 rounded-xl transition-all shadow-lg active:scale-95">
+                                                Register Now
+                                            </button>
+                                        </form>
+                                    <% } else { %>
+                                        <a href="/login" class="bg-[#eab308] hover:bg-[#d9a406] text-[#2c1d04] font-bold text-[15px] px-8 py-3.5 rounded-xl transition-all shadow-lg text-center block active:scale-95">
+                                            Login to Register
+                                        </a>
+                                    <% } %>
+                                    <button class="bg-[#382b21]/70 hover:bg-[#382b21]/90 backdrop-blur-md border border-white/5 text-white/90 font-bold text-[15px] px-8 py-3.5 rounded-xl transition-all active:scale-95">
+                                        View Details
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <% }) %>
                     <% } %>
-                </section>
+
+                    <!-- Feature Cards Underneath -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+                        <!-- Verified Artists -->
+                        <div class="bg-[#fcfaf7] dark:bg-[#1a1610] rounded-[20px] p-5 flex items-center gap-4 border border-[#eee9dc] dark:border-[#2e261b] shadow-sm">
+                            <div class="w-12 h-12 rounded-full bg-[#faedd8]/80 dark:bg-[#352c20] flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[#eab308] text-[24px]">verified_user</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-[#2c2419] dark:text-gray-100 text-[14px] font-bold">Verified Artists</h4>
+                                <p class="text-[#8c7e6c] dark:text-gray-400 text-[12px] font-medium leading-tight mt-0.5">Direct support to<br>creators</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Community Led -->
+                        <div class="bg-[#fcfaf7] dark:bg-[#1a1610] rounded-[20px] p-5 flex items-center gap-4 border border-[#eee9dc] dark:border-[#2e261b] shadow-sm">
+                            <div class="w-12 h-12 rounded-full bg-[#faedd8]/80 dark:bg-[#352c20] flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[#eab308] text-[24px]">volunteer_activism</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-[#2c2419] dark:text-gray-100 text-[14px] font-bold">Community Led</h4>
+                                <p class="text-[#8c7e6c] dark:text-gray-400 text-[12px] font-medium leading-tight mt-0.5">Preserving heritage<br>daily</p>
+                            </div>
+                        </div>
+
+                        <!-- Live Experiences -->
+                        <div class="bg-[#fcfaf7] dark:bg-[#1a1610] rounded-[20px] p-5 flex items-center gap-4 border border-[#eee9dc] dark:border-[#2e261b] shadow-sm">
+                            <div class="w-12 h-12 rounded-full bg-[#faedd8]/80 dark:bg-[#352c20] flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[#eab308] text-[24px]">local_activity</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-[#2c2419] dark:text-gray-100 text-[14px] font-bold">Live Experiences</h4>
+                                <p class="text-[#8c7e6c] dark:text-gray-400 text-[12px] font-medium leading-tight mt-0.5">Hands-on cultural<br>learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
     </div>
 </body>

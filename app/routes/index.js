@@ -8,11 +8,22 @@ const creatorRoutes = require('./creatorRoutes');
 const orderRoutes = require('./orderRoutes');
 const adminRoutes = require('./adminRoutes');
 
-router.use('/', indexRoutes);
-router.use('/', artworkRoutes);
-router.use('/', authRoutes);
-router.use('/creator', creatorRoutes);
-router.use('/admin', adminRoutes);
-router.use('/', orderRoutes);
+if (process.env.ADMIN_ONLY === 'true') {
+    router.use('/', authRoutes);
+    router.use('/admin', adminRoutes);
+    router.get('/', (req, res) => {
+        if (req.session.user && req.session.user.role === 'ADMIN') {
+            res.redirect('/admin');
+        } else {
+            res.redirect('/login');
+        }
+    });
+} else {
+    router.use('/', indexRoutes);
+    router.use('/', artworkRoutes);
+    router.use('/', authRoutes);
+    router.use('/creator', creatorRoutes);
+    router.use('/', orderRoutes);
+}
 
 module.exports = router;

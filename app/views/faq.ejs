@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <%- include('partials/head') %>
+</head>
+
+<body class="bg-[#fcfaf7] min-h-screen font-sans overflow-x-hidden text-[#1a110a]">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <%- include('partials/header') %>
+
+        <main class="flex flex-col flex-1 px-4 py-16">
+            <div class="max-w-[800px] mx-auto w-full relative">
+                
+                <!-- Floating Help Button -->
+                <button class="hidden md:flex absolute top-[400px] -right-20 lg:-right-32 bg-[#b91c3b] text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_15px_rgba(185,28,59,0.4)] hover:bg-[#9f1531] transition-transform hover:scale-105 items-center gap-2 text-sm z-10">
+                    <span class="material-symbols-outlined text-[20px]">support_agent</span> Need more help?
+                </button>
+
+                <!-- Header Section -->
+                <div class="mb-10 space-y-4">
+                    <h1 class="text-3xl md:text-5xl font-black font-sans text-[#1a110a] tracking-tight">
+                        Support & FAQ Guide
+                    </h1>
+                    <p class="text-[#a45e5e] text-lg font-medium max-w-2xl leading-relaxed">
+                        Find answers to common questions about our marketplace, tailored for the vibrant artist community and collectors of Nepal.
+                    </p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="mb-14 bg-white rounded-lg shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#f3efe9] p-2 flex items-center px-4">
+                    <span class="material-symbols-outlined text-[#a45e5e] text-xl">search</span>
+                    <input type="text" placeholder="Search for specific answers, artists, or shipping..." class="w-full bg-transparent border-none focus:ring-0 text-[#1a110a] placeholder:text-[#a45e5e] mx-3 py-3 text-[15px] outline-none font-medium">
+                </div>
+
+                <!-- FAQ Sections -->
+                <div class="space-y-10">
+
+                    <!-- Section 1: For Collectors -->
+                    <div class="bg-white rounded-xl shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#f3efe9] p-8">
+                        <div class="flex items-center gap-3 mb-6 border-b border-[#f3efe9] pb-6">
+                            <span class="material-symbols-outlined text-[#b91c3b] text-2xl h-8 w-8 flex items-center justify-center bg-[#fdf2f2] rounded">shopping_bag</span>
+                            <h2 class="text-xl font-bold text-[#1a110a]">For Collectors</h2>
+                        </div>
+                        
+                        <div class="space-y-0">
+                            <!-- Accordion 1 (Expanded) -->
+                            <div class="flex flex-col py-5 border-b border-[#f3efe9]">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>How is the art shipped?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform rotate-180">expand_more</span>
+                                </button>
+                                <div class="pt-4 text-[#a45e5e] text-[13px] font-mono leading-relaxed pr-8">
+                                    All artworks are professionally packaged and shipped via our verified logistics partners across Nepal and internationally. We ensure museum-grade handling for every piece.
+                                </div>
+                            </div>
+                            
+                            <!-- Accordion 2 -->
+                            <div class="flex flex-col py-5 border-b border-[#f3efe9]">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>What is the return policy?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Accordion 3 -->
+                            <div class="flex flex-col pt-5">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>How do I track my order?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: For Artists -->
+                    <div class="relative bg-white rounded-xl shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#f3efe9] p-8">
+                        <!-- Mobile/Tablet Button Overlay (Visible properly if window shrinks) -->
+                        <button class="md:hidden absolute -bottom-6 right-6 bg-[#b91c3b] text-white px-5 py-2 rounded-full font-bold shadow-lg items-center gap-2 text-xs flex">
+                            <span class="material-symbols-outlined text-[16px]">support_agent</span> Need help?
+                        </button>
+
+                        <div class="flex items-center gap-3 mb-6 border-b border-[#f3efe9] pb-6">
+                            <span class="material-symbols-outlined text-[#b91c3b] text-2xl h-8 w-8 flex items-center justify-center bg-[#fdf2f2] rounded">brush</span>
+                            <h2 class="text-xl font-bold text-[#1a110a]">For Artists</h2>
+                        </div>
+                        
+                        <div class="space-y-0">
+                            <!-- Accordion 1 -->
+                            <div class="flex flex-col py-5 border-b border-[#f3efe9]">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>How do I get verified as an artist?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Accordion 2 -->
+                            <div class="flex flex-col pt-5">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>What are the commission fees?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Platform & Safety -->
+                    <div class="bg-white rounded-xl shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#f3efe9] p-8">
+                        <div class="flex items-center gap-3 mb-6 border-b border-[#f3efe9] pb-6">
+                            <span class="material-symbols-outlined text-[#b91c3b] text-2xl h-8 w-8 flex items-center justify-center bg-[#fdf2f2] rounded" style="font-variation-settings: 'FILL' 1;">shield</span>
+                            <h2 class="text-xl font-bold text-[#1a110a]">Platform & Safety</h2>
+                        </div>
+                        
+                        <div class="space-y-0">
+                            <!-- Accordion 1 -->
+                            <div class="flex flex-col py-5 border-b border-[#f3efe9]">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>How do you ensure art authenticity?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Accordion 2 -->
+                            <div class="flex flex-col pt-5">
+                                <button class="flex justify-between items-center w-full text-left font-bold text-[#1a110a] text-[15px]">
+                                    <span>Is my payment data secure?</span>
+                                    <span class="material-symbols-outlined text-[#1a110a] transition-transform">expand_more</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Simple accordion open/close interactivity for visual completeness
+        document.querySelectorAll('button[class*="justify-between"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const icon = btn.querySelector('.material-symbols-outlined');
+                const content = btn.nextElementSibling;
+                
+                if (content && content.classList.contains('pt-4')) { // If it exists, toggle it
+                    content.remove();
+                    icon.classList.remove('rotate-180');
+                } else if (!content || !content.classList.contains('pt-4')) {
+                    // This is a simplified demo that doesn't actually store string answers per specific tab for the placeholders,
+                    // but allows checking the layout dynamic.
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

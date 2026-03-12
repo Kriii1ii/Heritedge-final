@@ -427,3 +427,158 @@ Invalid `prisma.artwork.findMany()` invocation in
 2026-03-11 15:42:44 [INFO]: ::1 - - [11/Mar/2026:09:57:44 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/about" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
 2026-03-11 15:42:44 [INFO]: ::1 - - [11/Mar/2026:09:57:44 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
 2026-03-11 15:42:44 [INFO]: ::1 - - [11/Mar/2026:09:57:44 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:18:15 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-11 16:18:27 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:34:28
+
+  31 }
+  32 
+  33 const [artworks, totalCount] = await Promise.all([
+→ 34     prisma.artwork.findMany(
+ {"statusCode":500,"method":"HEAD","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:34:28\n\n  31 }\n  32 \n  33 const [artworks, totalCount] = await Promise.all([\n→ 34     prisma.artwork.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:33:40)"}
+2026-03-11 16:18:28 [INFO]: ::1 - - [11/Mar/2026:10:33:28 +0000] "HEAD /marketplace HTTP/1.1" 500 9071 "-" "Go-http-client/1.1" 
+2026-03-11 16:18:28 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:34:28
+
+  31 }
+  32 
+  33 const [artworks, totalCount] = await Promise.all([
+→ 34     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:34:28\n\n  31 }\n  32 \n  33 const [artworks, totalCount] = await Promise.all([\n→ 34     prisma.artwork.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:33:40)"}
+2026-03-11 16:18:28 [INFO]: ::1 - - [11/Mar/2026:10:33:28 +0000] "GET /marketplace HTTP/1.1" 500 9071 "-" "Go-http-client/1.1" 
+2026-03-11 16:20:25 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-11 16:20:26 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:43
+
+   9 
+  10 router.get('/events', async (req, res, next) => {
+  11     try {
+→ 12         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:43\n\n   9 \n  10 router.get('/events', async (req, res, next) => {\n  11     try {\n→ 12         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async /Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:24"}
+2026-03-11 16:20:26 [INFO]: ::1 - - [11/Mar/2026:10:35:26 +0000] "GET /events HTTP/1.1" 500 9071 "-" "curl/8.7.1" 
+2026-03-11 16:20:26 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:42:28
+
+  39 if (orderBy) queryOptions.orderBy = orderBy;
+  40 
+  41 const [artworks, totalCount] = await Promise.all([
+→ 42     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:42:28\n\n  39 if (orderBy) queryOptions.orderBy = orderBy;\n  40 \n  41 const [artworks, totalCount] = await Promise.all([\n→ 42     prisma.artwork.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:41:40)"}
+2026-03-11 16:20:26 [INFO]: ::1 - - [11/Mar/2026:10:35:26 +0000] "GET /marketplace HTTP/1.1" 500 9071 "-" "curl/8.7.1" 
+2026-03-11 16:20:40 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:42:28
+
+  39 if (orderBy) queryOptions.orderBy = orderBy;
+  40 
+  41 const [artworks, totalCount] = await Promise.all([
+→ 42     prisma.artwork.findMany(
+ {"statusCode":500,"method":"HEAD","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:42:28\n\n  39 if (orderBy) queryOptions.orderBy = orderBy;\n  40 \n  41 const [artworks, totalCount] = await Promise.all([\n→ 42     prisma.artwork.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (/Users/kritikaacharya/HeritEgde/app/controllers/artworkController.js:41:40)"}
+2026-03-11 16:20:40 [INFO]: ::1 - - [11/Mar/2026:10:35:40 +0000] "HEAD /marketplace HTTP/1.1" 500 9071 "-" "curl/8.7.1" 
+2026-03-11 16:20:40 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+/Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:43
+
+   9 
+  10 router.get('/events', async (req, res, next) => {
+  11     try {
+→ 12         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"HEAD","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\n/Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:43\n\n   9 \n  10 router.get('/events', async (req, res, next) => {\n  11     try {\n→ 12         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async /Users/kritikaacharya/HeritEgde/app/routes/indexRoutes.js:12:24"}
+2026-03-11 16:20:40 [INFO]: ::1 - - [11/Mar/2026:10:35:40 +0000] "HEAD /events HTTP/1.1" 500 9071 "-" "curl/8.7.1" 
+2026-03-11 16:22:38 [INFO]: ::1 - - [11/Mar/2026:10:37:38 +0000] "HEAD /marketplace HTTP/1.1" 200 23007 "-" "curl/8.7.1" 
+2026-03-11 16:22:38 [INFO]: ::1 - - [11/Mar/2026:10:37:38 +0000] "HEAD /events HTTP/1.1" 200 8346 "-" "curl/8.7.1" 
+2026-03-11 16:24:17 [INFO]: ::1 - - [11/Mar/2026:10:39:17 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:24:18 [INFO]: ::1 - - [11/Mar/2026:10:39:18 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:24:18 [INFO]: ::1 - - [11/Mar/2026:10:39:18 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:24:28 [INFO]: ::1 - - [11/Mar/2026:10:39:28 +0000] "GET /register HTTP/1.1" 200 16149 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:24:28 [INFO]: ::1 - - [11/Mar/2026:10:39:28 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:24:28 [INFO]: ::1 - - [11/Mar/2026:10:39:28 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:25:35 [INFO]: ::1 - - [11/Mar/2026:10:40:35 +0000] "POST /register HTTP/1.1" 302 35 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:25:35 [INFO]: ::1 - - [11/Mar/2026:10:40:35 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:25:36 [INFO]: ::1 - - [11/Mar/2026:10:40:36 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:25:36 [INFO]: ::1 - - [11/Mar/2026:10:40:36 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:26:46 [INFO]: User login successful {"userId":"9c47d1e0-7cc3-4e7f-afa0-0cc8d8cc6383","email":"john@example.com","role":"BUYER"}
+2026-03-11 16:26:47 [INFO]: ::1 - - [11/Mar/2026:10:41:47 +0000] "POST /login HTTP/1.1" 302 41 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:26:47 [INFO]: ::1 - - [11/Mar/2026:10:41:47 +0000] "GET /marketplace HTTP/1.1" 200 23007 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:26:47 [INFO]: ::1 - - [11/Mar/2026:10:41:47 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:26:48 [INFO]: ::1 - - [11/Mar/2026:10:41:48 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:26:48 [INFO]: ::1 - - [11/Mar/2026:10:41:48 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:27:29 [INFO]: ::1 - - [11/Mar/2026:10:42:29 +0000] "GET /login HTTP/1.1" 200 16707 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:27:41 [INFO]: ::1 - - [11/Mar/2026:10:42:41 +0000] "GET /become-artist HTTP/1.1" 200 12838 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:28:21 [INFO]: ::1 - - [11/Mar/2026:10:43:21 +0000] "POST /become-artist HTTP/1.1" 302 67 "http://localhost:3000/become-artist" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:28:21 [INFO]: ::1 - - [11/Mar/2026:10:43:21 +0000] "GET /profile?message=Application+Submitted HTTP/1.1" 200 12246 "http://localhost:3000/become-artist" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:28:33 [INFO]: ::1 - - [11/Mar/2026:10:43:33 +0000] "GET /logout HTTP/1.1" 302 30 "http://localhost:3000/profile?message=Application+Submitted" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:28:33 [INFO]: ::1 - - [11/Mar/2026:10:43:33 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/profile?message=Application+Submitted" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:28:45 [INFO]: ::1 - - [11/Mar/2026:10:43:45 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:29 [INFO]: User login successful {"userId":"b5cc6327-3862-4b0c-80be-414126117b15","email":"admin@heritedge.com","role":"ADMIN"}
+2026-03-11 16:29:29 [INFO]: ::1 - - [11/Mar/2026:10:44:29 +0000] "POST /login HTTP/1.1" 302 35 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:29 [INFO]: ::1 - - [11/Mar/2026:10:44:29 +0000] "GET /admin HTTP/1.1" 200 25050 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:29 [INFO]: ::1 - - [11/Mar/2026:10:44:29 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:29 [INFO]: ::1 - - [11/Mar/2026:10:44:29 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:43 [INFO]: Admin changed creator verification status {"adminId":"b5cc6327-3862-4b0c-80be-414126117b15","targetUserId":"9c47d1e0-7cc3-4e7f-afa0-0cc8d8cc6383","status":"VERIFIED"}
+2026-03-11 16:29:43 [INFO]: ::1 - - [11/Mar/2026:10:44:43 +0000] "POST /admin/creator/9c47d1e0-7cc3-4e7f-afa0-0cc8d8cc6383/verify HTTP/1.1" 302 35 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:43 [INFO]: ::1 - - [11/Mar/2026:10:44:43 +0000] "GET /admin HTTP/1.1" 200 21668 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:43 [INFO]: ::1 - - [11/Mar/2026:10:44:43 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:29:43 [INFO]: ::1 - - [11/Mar/2026:10:44:43 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:30:03 [INFO]: ::1 - - [11/Mar/2026:10:45:03 +0000] "GET /logout HTTP/1.1" 302 30 "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:30:03 [INFO]: ::1 - - [11/Mar/2026:10:45:03 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:30:33 [INFO]: ::1 - - [11/Mar/2026:10:45:33 +0000] "GET /login HTTP/1.1" 200 16146 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:31:04 [INFO]: User login successful {"userId":"9c47d1e0-7cc3-4e7f-afa0-0cc8d8cc6383","email":"john@example.com","role":"CREATOR"}
+2026-03-11 16:31:05 [INFO]: ::1 - - [11/Mar/2026:10:46:05 +0000] "POST /login HTTP/1.1" 302 42 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:31:05 [INFO]: ::1 - - [11/Mar/2026:10:46:05 +0000] "GET /creator/home HTTP/1.1" 200 14026 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:07 [INFO]: ::1 - - [11/Mar/2026:10:50:07 +0000] "GET / HTTP/1.1" 200 29061 "http://localhost:3000/creator/home" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:09 [INFO]: ::1 - - [11/Mar/2026:10:50:09 +0000] "GET /creator/home HTTP/1.1" 200 14026 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:11 [INFO]: ::1 - - [11/Mar/2026:10:50:11 +0000] "GET /profile HTTP/1.1" 200 11697 "http://localhost:3000/creator/home" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:15 [INFO]: ::1 - - [11/Mar/2026:10:50:15 +0000] "GET /events HTTP/1.1" 200 8975 "http://localhost:3000/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:20 [INFO]: ::1 - - [11/Mar/2026:10:50:20 +0000] "GET /marketplace HTTP/1.1" 200 23636 "http://localhost:3000/events" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:20 [INFO]: ::1 - - [11/Mar/2026:10:50:20 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:20 [INFO]: ::1 - - [11/Mar/2026:10:50:20 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:31 [INFO]: ::1 - - [11/Mar/2026:10:50:31 +0000] "GET /artwork/c5a03f22-b982-4b5e-ae51-bcea01dce858 HTTP/1.1" 200 14255 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:31 [INFO]: ::1 - - [11/Mar/2026:10:50:31 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/artwork/c5a03f22-b982-4b5e-ae51-bcea01dce858" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:35 [INFO]: ::1 - - [11/Mar/2026:10:50:35 +0000] "GET /about HTTP/1.1" 200 11967 "http://localhost:3000/artwork/c5a03f22-b982-4b5e-ae51-bcea01dce858" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:47 [INFO]: ::1 - - [11/Mar/2026:10:50:47 +0000] "GET /marketplace HTTP/1.1" 304 - "http://localhost:3000/about" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:47 [INFO]: ::1 - - [11/Mar/2026:10:50:47 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:47 [INFO]: ::1 - - [11/Mar/2026:10:50:47 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:35:49 [INFO]: ::1 - - [11/Mar/2026:10:50:49 +0000] "GET /events HTTP/1.1" 304 - "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:36:48 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-11 16:36:49 [INFO]: HeritEdge platform running on http://localhost:3001 
+2026-03-11 16:36:52 [INFO]: ::1 - - [11/Mar/2026:10:51:52 +0000] "HEAD / HTTP/1.1" 200 28432 "-" "curl/8.7.1" 
+2026-03-11 16:36:52 [INFO]: ::1 - - [11/Mar/2026:10:51:52 +0000] "HEAD / HTTP/1.1" 302 28 "-" "curl/8.7.1" 
+2026-03-11 16:38:11 [INFO]: ::1 - - [11/Mar/2026:10:53:11 +0000] "HEAD / HTTP/1.1" 200 28432 "-" "curl/8.7.1" 
+2026-03-11 16:38:11 [INFO]: ::1 - - [11/Mar/2026:10:53:11 +0000] "HEAD / HTTP/1.1" 302 28 "-" "curl/8.7.1" 
+2026-03-11 16:39:33 [INFO]: ::1 - - [11/Mar/2026:10:54:33 +0000] "GET /profile HTTP/1.1" 304 - "http://localhost:3000/events" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:39:36 [INFO]: ::1 - - [11/Mar/2026:10:54:36 +0000] "GET /events HTTP/1.1" 304 - "http://localhost:3000/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:41:53 [INFO]: ::1 - - [11/Mar/2026:10:56:53 +0000] "GET / HTTP/1.1" 200 29002 "http://localhost:3000/events" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:20 [INFO]: ::1 - - [11/Mar/2026:10:58:20 +0000] "GET /creator/home HTTP/1.1" 200 13870 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:22 [INFO]: ::1 - - [11/Mar/2026:10:58:22 +0000] "GET /marketplace?q= HTTP/1.1" 200 23480 "http://localhost:3000/creator/home" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:22 [INFO]: ::1 - - [11/Mar/2026:10:58:22 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace?q=" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:22 [INFO]: ::1 - - [11/Mar/2026:10:58:22 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace?q=" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:29 [INFO]: ::1 - - [11/Mar/2026:10:58:29 +0000] "GET /marketplace HTTP/1.1" 200 23480 "http://localhost:3000/marketplace?q=" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:29 [INFO]: ::1 - - [11/Mar/2026:10:58:29 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:43:29 [INFO]: ::1 - - [11/Mar/2026:10:58:29 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:44:09 [INFO]: ::1 - - [11/Mar/2026:10:59:09 +0000] "GET / HTTP/1.1" 200 28905 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:45:30 [INFO]: ::1 - - [11/Mar/2026:11:00:30 +0000] "HEAD / HTTP/1.1" 200 28530 "-" "curl/8.7.1" 
+2026-03-11 16:46:34 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-11 16:46:36 [INFO]: HeritEdge platform running on http://localhost:3001 
+2026-03-11 16:46:38 [INFO]: ::1 - - [11/Mar/2026:11:01:38 +0000] "HEAD / HTTP/1.1" 200 28530 "-" "curl/8.7.1" 
+2026-03-11 16:46:38 [INFO]: ::1 - - [11/Mar/2026:11:01:38 +0000] "HEAD / HTTP/1.1" 302 28 "-" "curl/8.7.1" 
+2026-03-11 16:47:19 [INFO]: ::1 - - [11/Mar/2026:11:02:19 +0000] "GET / HTTP/1.1" 200 29018 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:49:34 [INFO]: ::1 - - [11/Mar/2026:11:04:34 +0000] "HEAD / HTTP/1.1" 200 28516 "-" "curl/8.7.1" 
+2026-03-11 16:55:49 [INFO]: ::1 - - [11/Mar/2026:11:10:49 +0000] "GET / HTTP/1.1" 200 29004 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:55:57 [INFO]: ::1 - - [11/Mar/2026:11:10:57 +0000] "GET /profile HTTP/1.1" 200 11640 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:04 [INFO]: ::1 - - [11/Mar/2026:11:11:04 +0000] "GET /events HTTP/1.1" 200 8918 "http://localhost:3000/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:40 [INFO]: ::1 - - [11/Mar/2026:11:11:40 +0000] "GET /creator/home HTTP/1.1" 200 13969 "http://localhost:3000/events" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:43 [INFO]: ::1 - - [11/Mar/2026:11:11:43 +0000] "GET /logout HTTP/1.1" 302 30 "http://localhost:3000/creator/home" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:43 [INFO]: ::1 - - [11/Mar/2026:11:11:43 +0000] "GET / HTTP/1.1" 200 28516 "http://localhost:3000/creator/home" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:44 [INFO]: ::1 - - [11/Mar/2026:11:11:44 +0000] "GET /login HTTP/1.1" 200 16280 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:56:46 [INFO]: ::1 - - [11/Mar/2026:11:11:46 +0000] "GET /register HTTP/1.1" 200 16283 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:57:24 [ERROR]: Unhandled Exception Cannot read properties of undefined (reading 'map') {"statusCode":500,"method":"POST","url":"/register","ip":"::1","stack":"TypeError: Cannot read properties of undefined (reading 'map')\n    at /Users/kritikaacharya/HeritEgde/app/middleware/validate.js:16:45\n    at Layer.handleRequest (/Users/kritikaacharya/HeritEgde/app/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/kritikaacharya/HeritEgde/app/node_modules/router/lib/route.js:157:13)\n    at /Users/kritikaacharya/HeritEgde/app/node_modules/express-rate-limit/dist/index.cjs:947:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async /Users/kritikaacharya/HeritEgde/app/node_modules/express-rate-limit/dist/index.cjs:830:5"}
+2026-03-11 16:57:24 [INFO]: ::1 - - [11/Mar/2026:11:12:24 +0000] "POST /register HTTP/1.1" 500 9155 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:57:27 [INFO]: ::1 - - [11/Mar/2026:11:12:27 +0000] "GET /marketplace HTTP/1.1" 200 23091 "http://localhost:3000/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:57:27 [INFO]: ::1 - - [11/Mar/2026:11:12:27 +0000] "GET /images/placeholder.jpg HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:57:27 [INFO]: ::1 - - [11/Mar/2026:11:12:27 +0000] "GET /login HTTP/1.1" 200 16280 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 
+2026-03-11 16:57:28 [INFO]: ::1 - - [11/Mar/2026:11:12:28 +0000] "GET /events HTTP/1.1" 200 8430 "http://localhost:3000/marketplace" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" 

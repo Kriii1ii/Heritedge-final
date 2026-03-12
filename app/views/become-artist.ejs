@@ -5,72 +5,96 @@
     <%- include('partials/head') %>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
+<body class="bg-white min-h-screen font-sans">
+    <div class="flex flex-col h-screen overflow-hidden">
         <%- include('partials/header') %>
-            <main class="flex flex-1 justify-center py-12 px-4 md:px-10">
-                <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
-                    <div class="bg-white/5 border border-white/10 p-8 rounded-sm shadow-xl relative overflow-hidden">
-                        <span
-                            class="material-symbols-outlined text-8xl absolute -right-4 -bottom-4 text-amber-yellow/10 pointer-events-none">palette</span>
+            <main class="flex flex-row flex-1 overflow-hidden w-full">
+                
+                <!-- Left Section (Image + Quote) -->
+                <section class="hidden md:flex flex-col relative w-1/2 h-full justify-end p-12 lg:p-20 shadow-xl z-10" style="background-image: linear-gradient(to right, rgba(100, 30, 20, 0.4), rgba(50, 20, 10, 0.7)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDF2kX89aQ7v5P6L7mP0VbO2jC1x8mR3M4H5H6G7D8N9P0B1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B9C0D1E2F3G'); background-size: cover; background-position: center; background-color: #61211b; background-blend-mode: overlay;">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    
+                    <div class="relative z-20 flex flex-col max-w-lg mb-8">
+                        <span class="material-symbols-outlined text-[#facc15] text-[56px] leading-none mb-4" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+                        
+                        <h1 class="text-white text-[3.5rem] lg:text-[4rem] font-bold leading-[1.05] tracking-tight mb-8 drop-shadow-lg">
+                            Join the<br>Creator<br>Community
+                        </h1>
 
-                        <div class="text-center mb-8">
-                            <h1 class="text-3xl lg:text-4xl font-black font-mono-header text-amber-yellow mb-2">Become
-                                an Artist</h1>
-                            <p class="text-white/60 font-mono">Join our community and share your cultural heritage with
-                                the world.</p>
+                        <div class="border-l-[3px] border-[#facc15] pl-6 py-1 mb-10">
+                            <p class="text-white/95 text-[1.1rem] lg:text-[1.2rem] italic font-medium leading-[1.6] drop-shadow-md">
+                                "HeritEdge gave me the platform to turn my passion into a livelihood, celebrating our roots through digital strokes."
+                            </p>
                         </div>
 
-                        <form action="/become-artist" method="POST" class="space-y-6 relative z-10">
-                            <!-- CSRF Token -->
+                        <div class="flex flex-col gap-1">
+                            <span class="text-[#facc15] font-bold text-[1.1rem] drop-shadow-md">Apsara Gurung</span>
+                            <span class="text-white/80 text-[0.8rem] tracking-widest uppercase font-semibold drop-shadow-md">DIGITAL ILLUSTRATOR • KATHMANDU</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Section (Form) -->
+                <section class="flex flex-col w-full md:w-1/2 h-full bg-[#fdfdfc] overflow-y-auto custom-scrollbar">
+                    <div class="flex flex-col w-full max-w-[620px] mx-auto p-10 lg:p-16 lg:pt-24 h-full relative">
+                        <!-- Decorative top right square -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gray-100/50 hidden lg:block"></div>
+
+                        <div class="mb-10 relative z-10">
+                            <h2 class="text-[#4e0f11] text-[2rem] font-bold mb-3 font-sans">Artist Application</h2>
+                            <p class="text-gray-500 text-[15px] font-medium leading-relaxed max-w-[450px]">
+                                Tell us about your craft and join our curated digital heritage marketplace.
+                            </p>
+                        </div>
+
+                        <form action="/become-artist" method="POST" class="flex flex-col gap-7 relative z-10 w-full max-w-[480px]">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-                            <div class="space-y-2">
-                                <label class="text-white font-bold font-mono tracking-wide text-sm">Artist / Brand Name
-                                    (Optional)</label>
-                                <input name="name" type="text"
-                                    placeholder="Display name (Defaults to your account name)"
-                                    class="w-full h-12 bg-black/20 border border-white/20 rounded px-4 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono" />
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[#3c3731] font-mono text-[11px] font-bold tracking-[0.08em] uppercase">Full Name</label>
+                                <input name="name" type="text" placeholder="Enter your full name" required
+                                    class="w-full h-12 bg-white border border-[#e2dfdb] rounded-[4px] px-4 text-[#2a241f] text-[14px] font-mono placeholder-gray-400 focus:outline-none focus:border-[#4e0f11] focus:ring-1 focus:ring-[#4e0f11]" />
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="text-white font-bold font-mono tracking-wide text-sm">Biography *</label>
-                                <textarea name="bio" required rows="4"
-                                    placeholder="Tell us about yourself and your background..."
-                                    class="w-full bg-black/20 border border-white/20 rounded p-4 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono resize-none"></textarea>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[#3c3731] font-mono text-[11px] font-bold tracking-[0.08em] uppercase">Art Category</label>
+                                <div class="relative">
+                                    <select name="category" 
+                                        class="w-full h-12 bg-white border border-[#e2dfdb] rounded-[4px] px-4 text-[#2a241f] text-[14px] font-mono focus:outline-none focus:border-[#4e0f11] focus:ring-1 focus:ring-[#4e0f11] appearance-none">
+                                        <option value="" disabled selected>Select your specialty</option>
+                                        <option value="Visual Arts">Visual Arts</option>
+                                        <option value="Crafts">Crafts & Pottery</option>
+                                        <option value="Digital">Digital Illustration</option>
+                                        <option value="Textiles">Textiles & Weaving</option>
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-[20px]">expand_more</span>
+                                </div>
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="text-white font-bold font-mono tracking-wide text-sm">Inspiration Behind
-                                    Your Art *</label>
-                                <textarea name="inspiration" required rows="3"
-                                    placeholder="What drives you to create? What cultural elements inspire you?"
-                                    class="w-full bg-black/20 border border-white/20 rounded p-4 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono resize-none"></textarea>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[#3c3731] font-mono text-[11px] font-bold tracking-[0.08em] uppercase">Portfolio Link / Social</label>
+                                <input name="portfolioUrl" type="url" placeholder="https://behance.net/yourname" required
+                                    class="w-full h-12 bg-white border border-[#e2dfdb] rounded-[4px] px-4 text-[#2a241f] text-[14px] font-mono placeholder-gray-400 focus:outline-none focus:border-[#4e0f11] focus:ring-1 focus:ring-[#4e0f11]" />
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="text-white font-bold font-mono tracking-wide text-sm">Life Story
-                                    (Optional)</label>
-                                <textarea name="lifeStory" rows="4"
-                                    placeholder="Share any personal journey that shaped your art..."
-                                    class="w-full bg-black/20 border border-white/20 rounded p-4 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono resize-none"></textarea>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="text-white font-bold font-mono tracking-wide text-sm">Portfolio or Sample
-                                    Work Link *</label>
-                                <input name="portfolioUrl" required type="url"
-                                    placeholder="https://yourportfolio.com or social media link"
-                                    class="w-full h-12 bg-black/20 border border-white/20 rounded px-4 text-white placeholder-white/40 focus:outline-none focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow transition-colors font-mono" />
+                            <div class="flex flex-col gap-2 mb-2">
+                                <label class="text-[#3c3731] font-mono text-[11px] font-bold tracking-[0.08em] uppercase">Tell us your story</label>
+                                <textarea name="inspiration" rows="4" placeholder="What inspires your work? Describe your connection to Nepali heritage..." required
+                                    class="w-full bg-white border border-[#e2dfdb] rounded-[4px] p-4 text-[#2a241f] text-[14px] font-mono placeholder-gray-400 focus:outline-none focus:border-[#4e0f11] focus:ring-1 focus:ring-[#4e0f11] resize-none"></textarea>
                             </div>
 
                             <button type="submit"
-                                class="w-full h-14 bg-amber-yellow text-background-dark font-mono-header uppercase font-bold tracking-[0.15em] hover:bg-white text-lg rounded-sm shadow-[0_0_20px_rgba(242,185,13,0.3)] transition-all">
-                                Submit Application
+                                class="w-full h-[52px] bg-[#4e0f11] text-[#facc15] font-mono text-[14px] font-bold tracking-[0.1em] rounded-[4px] shadow-sm hover:bg-[#3d0b0c] transition-colors flex items-center justify-center gap-2 group mt-2">
+                                SUBMIT APPLICATION
+                                <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">send</span>
                             </button>
+                            
+                            <p class="text-center text-gray-400 text-[9px] font-mono tracking-wide mt-2">
+                                By applying, you agree to HeritEdge's <a href="#" class="underline decoration-gray-300 underline-offset-2">Artist Terms</a> & <a href="#" class="underline decoration-gray-300 underline-offset-2">Creator Guidelines</a>.
+                            </p>
                         </form>
                     </div>
-                </div>
+                </section>
             </main>
     </div>
 </body>

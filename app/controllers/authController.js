@@ -3,17 +3,24 @@ const prisma = require('../config/prisma');
 const logger = require('../utils/logger');
 
 exports.getLoginPage = (req, res) => {
+    let errorMsg = null;
+    if (req.query.error === 'invalid') errorMsg = 'Invalid credentials';
+    if (req.query.error === 'not_admin') errorMsg = 'Only administrators can access this server';
+    
     res.render('auth', {
-        primaryColor: '#d42511',
+        primaryColor: process.env.ADMIN_ONLY === 'true' ? '#000000' : '#d42511',
         mode: 'login',
-        error: req.query.error === 'invalid' ? 'Invalid credentials' : null
+        error: errorMsg,
+        adminOnly: process.env.ADMIN_ONLY === 'true'
     });
 };
 
 exports.getRegisterPage = (req, res) => {
+    if (process.env.ADMIN_ONLY === 'true') return res.redirect('/login');
     res.render('auth', {
         primaryColor: '#d42511',
         mode: 'signup',
+        adminOnly: false,
         error: req.query.error === 'exists' ? 'Email already in use.' : (req.query.error === 'password_mismatch' ? 'Passwords do not match.' : null)
     });
 };
@@ -38,12 +45,20 @@ exports.login = async (req, res, next) => {
 
         logger.info('User login successful', { userId: user.id, email: user.email, role: user.role });
 
-        if (user.role === 'CREATOR') {
-            res.redirect('/creator/home');
-        } else if (user.role === 'ADMIN') {
+        if (process.env.ADMIN_ONLY === 'true') {
+            if (user.role !== 'ADMIN') {
+                logger.warn('Failed admin login attempt', { email, reason: 'not_admin' });
+                return res.redirect('/login?error=not_admin');
+            }
             res.redirect('/admin');
         } else {
-            res.redirect('/marketplace');
+            if (user.role === 'ADMIN') {
+                return res.redirect('/admin'); // Or redirect them elsewhere since admin isn't hosted here
+            } else if (user.role === 'CREATOR') {
+                res.redirect('/creator/home');
+            } else {
+                res.redirect('/marketplace');
+            }
         }
     } catch (err) {
         next(err);
@@ -51,6 +66,7 @@ exports.login = async (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
+    if (process.env.ADMIN_ONLY === 'true') return res.redirect('/login');
     try {
         let { email, password, confirm_password, name } = req.body;
 
