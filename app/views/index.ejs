@@ -27,11 +27,11 @@
                                     </p>
                                 </div>
                                 <div class="flex gap-4 mt-4">
-                                    <button
+                                    <button onclick="window.location.href='/marketplace'"
                                         class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-primary text-background-dark text-base font-bold font-mono-header shadow-lg hover:scale-105 transition-transform">
                                         Explore Art
                                     </button>
-                                    <button
+                                    <button onclick="window.location.href='/about'"
                                         class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-dusty-rose text-white text-base font-bold font-mono-header shadow-lg hover:bg-opacity-90 transition-all">
                                         Our Story
                                     </button>
@@ -43,77 +43,16 @@
                 <!-- Community Stories Section -->
                 <div class="px-4 md:px-20 py-10 bg-background-light dark:bg-background-dark">
                     <div class="max-w-[1200px] mx-auto">
-                        <div class="flex items-center justify-between px-4 pb-6">
-                            <h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">
-                                Community Stories</h2>
-                            <a class="text-primary hover:underline font-mono-header text-sm" href="#">View All
-                                Stories</a>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-                            <!-- Artist 1 -->
-                            <div
-                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
-                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-                                    data-alt="Nepali woman working on a traditional ceramic pot"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0z5yRr6dpxNoy8veEWAQ8pdg_CAz_44CTZj_o3NH0I0IiwGF57v5I7tpCx4QpHMnSJ_Gr7SmH6mw0sW6feEFi7oj6K0vIDaUie4n-iB45cp5M5T7WYBoCHRP4yFB3FTwEV36CqwVylYH0SFKHyCHyqHCYyd4Q7Z-HKaj1TTdhdl61r4OtER-Gnxh3OeeY0Zz974_mL9EbPRETUJwMZvtMPjDo61ijrYPIArSo9BlgAzAZrX4vjUnOysVFl1BW-G9QEbEkkxAXwdY");'>
-                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
-                                    </div>
-                                </div>
-                                <div class="space-y-1">
-                                    <p class="text-white text-xl font-bold font-mono-header">Sita Thapa</p>
-                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Traditional
-                                        Potter • Bhaktapur</p>
-                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Each piece of clay
-                                        carries the weight of generations. Through HeritEdge, my craft now reaches hands
-                                        across the ocean."</p>
-                                </div>
-                            </div>
-                            <!-- Artist 2 -->
-                            <div
-                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
-                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-                                    data-alt="Detail of a Thangka artist painting with fine brush"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmBD1XYK4mXD18jXQXT8NPVTqtaJwHG1RI8DgUvQkpT4o2kQuct3nlz-sj1UjyOrWuJoX99ezAsype_rEXS-mcufIhGGwrViU85CoCJ4tegNJv02JGZX4Ad62c1nS9lBdxU-UDU7UaIyExAb-xdrVTwkuy_O9YVLKxPkmxu45rt7LV9QQ3PWvPgc_sg1QUOe4VZDylgQ25OZATmHemtnbDEuUzXN_uORmtI2MaTIhCxt9kCaRnD-48HsOz8XL0rZkbBcwb-m1tYgA");'>
-                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
-                                    </div>
-                                </div>
-                                <div class="space-y-1">
-                                    <p class="text-white text-xl font-bold font-mono-header">Maya Devi</p>
-                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Thangka
-                                        Artist • Patan</p>
-                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"Painting is my
-                                        meditation. I paint the stories of the Buddha to preserve our spiritual
-                                        identity."</p>
-                                </div>
-                            </div>
-                            <!-- Artist 3 -->
-                            <div
-                                class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-primary transition-all">
-                                <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-                                    data-alt="Modern Nepali woman painting in a contemporary style"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3LShIJezxNBHoMOovC3d0hfK896yVL81CLXWU5hqtVYgSrCg1gstiDpex-Fbv3gyr4ABSwVSlPsiVoph4Dro7Rnu61VfLR92SMnQDjTAiU10NruHJnxJDPIilQ534GWu1lRTBforSpDquyYsbvdH3KEo5Pny3nbookCjPAHFXdyAUCqsCdny1orN_Y7P-FlXh2HScopp2b9FJeRfxhf67ZardxTHheb8LveefuY7p0g2cMl9QNVTH-TFCb8SeZBFnaPcQpLwieM4");'>
-                                    <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all">
-                                    </div>
-                                </div>
-                                <div class="space-y-1">
-                                    <p class="text-white text-xl font-bold font-mono-header">Anjali Rai</p>
-                                    <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Contemporary
-                                        Painter • Kathmandu</p>
-                                    <p class="text-white/70 text-sm line-clamp-2 mt-2 italic">"I blend traditional
-                                        motifs with modern struggles to give voice to the unspoken stories of Himalayan
-                                        women."</p>
-                                </div>
-                            </div>
-                        </div>
+                        <%- include('partials/community-stories') %>
                     </div>
                 </div>
                 <!-- Featured Artworks Section -->
                 <div class="px-4 md:px-20 py-12 bg-deep-maroon/10 border-t border-rich-red/20">
                     <div class="max-w-[1200px] mx-auto">
                         <div class="flex items-center justify-between px-4 pb-8">
-                            <h2 class="text-white text-3xl font-bold font-mono-header border-l-4 border-primary pl-4">
+                            <h2 class="text-white text-3xl font-bold font-mono-header">
                                 Featured Artworks</h2>
-                            <button
+                            <button onclick="window.location.href='/marketplace'"
                                 class="bg-rich-red text-white px-5 py-2 rounded-md text-sm font-mono-header hover:bg-rich-red/80 transition-all">
                                 Browse Collection
                             </button>
@@ -129,7 +68,7 @@
                                     </div>
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                        <button
+                                        <button onclick="window.location.href='/marketplace'"
                                             class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
                                             View</button>
                                     </div>
@@ -147,7 +86,7 @@
                                     </div>
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                        <button
+                                        <button onclick="window.location.href='/marketplace'"
                                             class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
                                             View</button>
                                     </div>
@@ -165,7 +104,7 @@
                                     </div>
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                        <button
+                                        <button onclick="window.location.href='/marketplace'"
                                             class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
                                             View</button>
                                     </div>
@@ -183,7 +122,7 @@
                                     </div>
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                        <button
+                                        <button onclick="window.location.href='/marketplace'"
                                             class="w-full py-2 bg-primary text-background-dark font-bold rounded-md text-xs font-mono-header">Quick
                                             View</button>
                                     </div>

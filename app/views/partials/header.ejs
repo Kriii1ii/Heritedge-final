@@ -37,7 +37,7 @@
 
     <% } else { %>
         <!-- STANDARD HEADER -->
-        <div class="flex-none">
+        <div class="flex-1 flex justify-start">
             <a href="/" class="flex items-center text-white group pl-0 md:pl-2">
                 <div class="h-16 w-16 md:h-16 md:w-16 flex items-center justify-center">
                     <img src="/images/logo.png" alt="HeritEdge Logo"
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Center Nav -->
-        <nav class="hidden lg:flex justify-center items-center gap-4 lg:gap-6 xl:gap-10 font-mono-header">
+        <nav class="hidden lg:flex flex-none justify-center items-center gap-4 lg:gap-6 xl:gap-10 font-mono-header">
             <a class="text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-colors" href="/">Home</a>
             <a class="text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-colors" href="/about">About Us</a>
             <a class="text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-colors" href="/marketplace">Art Marketplace</a>
@@ -61,7 +61,7 @@
             <% } %>
         </nav>
 
-        <div class="flex-none flex justify-end gap-4 lg:gap-6 items-center">
+        <div class="flex-1 flex justify-end gap-4 lg:gap-6 items-center">
             <% if (!currentUser || currentUser.role !=='ADMIN' ) { %>
                 <label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
                     <form action="/marketplace" method="GET"
