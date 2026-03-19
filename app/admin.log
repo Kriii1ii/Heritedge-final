@@ -2,9 +2,8 @@
 > app@1.0.0 start:admin
 > ADMIN_ONLY=true PORT=3001 node index.js
 
-[dotenv@17.3.1] injecting env (1) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
-[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
-[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
-[32minfo[39m: HeritEdge platform running on http://localhost:3001 {"timestamp":"2026-03-11 16:46:36"}
+[dotenv@17.3.1] injecting env (1) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[dotenv@17.3.1] injecting env (0) from .env -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
+[32minfo[39m: HeritEdge platform running on http://localhost:3001 {"timestamp":"2026-03-19 09:30:24"}
 HeritEdge platform running on http://localhost:3001
-[32minfo[39m: ::1 - - [11/Mar/2026:11:01:38 +0000] "HEAD / HTTP/1.1" 302 28 "-" "curl/8.7.1" {"timestamp":"2026-03-11 16:46:38"}

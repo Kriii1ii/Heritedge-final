@@ -9,34 +9,81 @@
     <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
         <%- include('partials/header') %>
             <main class="flex flex-col flex-1">
-                <!-- Hero Section -->
-                <div class="px-4 md:px-20 py-8 bg-background-light dark:bg-background-dark">
-                    <div class="max-w-[1200px] mx-auto w-full">
-                        <div class="@container">
-                            <div class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-sm items-center justify-center p-8 border-4 border-rich-red"
-                                data-alt="Intricate Nepali Thangka painting with vibrant colors and gold leaf"
-                                style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8BcCJrgd4ZU3VM0gjVeNMzG5YXf4BEzCzOrVlh6cQOcOzcafsYKwDgiEW-6TXVZbMCVv93qPSEjWMhZI4mTFQGmf3YmayvZHxfDnc60s-t7auR6mF6Wg8FvWadeG_TktFFfXoaW2htYMFc_SYHRX6AB_Kjq3mDZe6LiIA-Rabd3J60lc_YlmojNjsLG3HCU6UD10mTX-ZIgihJmoAdctF4LgKPl-UIEfHlRCT4mH8kkQD0DQ5UJHRJzV2WUrZpL-pjYTFF7fbmp8");'>
-                                <div class="flex flex-col gap-4 text-center max-w-2xl">
-                                    <h1
-                                        class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight font-mono-header">
-                                        Authentic Nepali Art
-                                    </h1>
-                                    <p class="text-white/90 text-lg md:text-xl font-normal leading-relaxed">
-                                        Empowering women and marginalized artists in Nepal by showcasing their heritage
-                                        and craftsmanship to the world.
-                                    </p>
-                                </div>
-                                <div class="flex gap-4 mt-4">
-                                    <button onclick="window.location.href='/marketplace'"
-                                        class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-primary text-background-dark text-base font-bold font-mono-header shadow-lg hover:scale-105 transition-transform">
-                                        Explore Art
-                                    </button>
-                                    <button onclick="window.location.href='/about'"
-                                        class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-md h-12 px-6 bg-dusty-rose text-white text-base font-bold font-mono-header shadow-lg hover:bg-opacity-90 transition-all">
-                                        Our Story
-                                    </button>
+                <!-- Hero Section (Magazine Style) -->
+                <div class="relative w-full min-h-[85vh] md:min-h-[100vh] bg-cover bg-center overflow-hidden border-b border-black/10 dark:border-white/10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8BcCJrgd4ZU3VM0gjVeNMzG5YXf4BEzCzOrVlh6cQOcOzcafsYKwDgiEW-6TXVZbMCVv93qPSEjWMhZI4mTFQGmf3YmayvZHxfDnc60s-t7auR6mF6Wg8FvWadeG_TktFFfXoaW2htYMFc_SYHRX6AB_Kjq3mDZe6LiIA-Rabd3J60lc_YlmojNjsLG3HCU6UD10mTX-ZIgihJmoAdctF4LgKPl-UIEfHlRCT4mH8kkQD0DQ5UJHRJzV2WUrZpL-pjYTFF7fbmp8");'>
+                    
+                    <div class="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+
+                    <!-- The Background Typography -> Left -->
+                    <div class="absolute top-[10%] md:top-[12%] left-[2%] lg:left-[5%] z-10 pointer-events-none origin-bottom-left">
+                        <h1 class="flex flex-col text-primary-auth font-serif uppercase tracking-tighter drop-shadow-2xl" style="line-height: 0.75;">
+                            <span class="text-[6rem] sm:text-[8rem] md:text-[12rem] lg:text-[16rem] xl:text-[18rem]">THE</span>
+                            <span class="text-[6rem] sm:text-[8rem] md:text-[12rem] lg:text-[16rem] xl:text-[18rem] pl-4 md:pl-12">ART</span>
+                        </h1>
+                    </div>
+
+                    <!-- The Background Typography -> Right overlapping -->
+                    <div class="absolute bottom-[10%] right-[2%] lg:right-[5%] z-20 pointer-events-none flex flex-col items-end">
+                        <span class="text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-serif uppercase tracking-tighter text-white/40 drop-shadow-lg" style="line-height: 0.8;">
+                            IS ALWAYS
+                        </span>
+                        <div class="relative flex flex-col items-end mt-[-1rem] md:mt-[-3rem]">
+                            <span class="text-white text-[2.5rem] sm:text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif italic z-30 transform -rotate-3 mr-4 md:mr-10 drop-shadow-2xl" style="line-height: 0.5;">
+                                A Story
+                            </span>
+                            <span class="text-primary-auth text-[5rem] sm:text-[7rem] md:text-[10rem] lg:text-[14rem] xl:text-[16rem] font-serif uppercase tracking-tighter drop-shadow-2xl" style="line-height: 0.8;">
+                                TELLS
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Top Right Text Block -->
+                    <div class="hidden lg:flex flex-col absolute top-[15%] right-[5%] max-w-[280px] z-20 text-right mt-16">
+                        <div class="mb-4 flex justify-end">
+                            <span class="material-symbols-outlined text-4xl text-white/70">landscape</span>
+                        </div>
+                        <p class="font-serif text-sm leading-relaxed text-white drop-shadow-md">
+                            Each work is an encounter with time — where beauty does not fade, but transforms. We invite you to experience art not as an object on display, but as a living dialogue between the artist and the viewer.
+                        </p>
+                    </div>
+
+                    <!-- Bottom Left Ticket Block -->
+                    <div class="hidden sm:block absolute bottom-[8%] left-[5%] z-30 w-56 bg-black rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] group cursor-pointer hover:-translate-y-2 transition-transform duration-300 border border-white/10" onclick="window.location.href='/events'">
+                        <!-- Ticket jagged top -->
+                        <div class="h-3 w-full flex justify-between px-1 pt-1 opacity-50">
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mt-2"></div>
+                        </div>
+                        
+                        <div class="px-6 py-4 flex flex-col gap-5 w-full items-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 to-transparent relative">
+                            <div class="w-full text-center text-white text-[0.65rem] tracking-[0.25em] font-medium uppercase group-hover:text-primary-auth transition-colors drop-shadow-md">
+                                Buy Ticket
+                            </div>
+                            
+                            <!-- Ticket perforation line -->
+                            <div class="w-full border-t-[1.5px] border-dashed border-white/30 relative">
+                                <!-- Edge perforation illusion -->
+                            </div>
+
+                            <div class="w-full pt-1 relative z-10">
+                                <div class="w-full aspect-square border-[6px] border-[#222] p-1.5 bg-[#111]">
+                                    <div class="w-full h-full bg-cover bg-center grayscale shadow-inner brightness-75 group-hover:-translate-y-1 transition-transform" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDy-KeotEQn3Frd-pR0hgkCVPMpmAs5GWvCTmujmyirYN9ICN4ZIRhir6aw4PRzYTDbKAkEkGaEPN6Xs6sH0Qq_l6WeY1Gt05Qy1XitTYmFUBKMbPPWusfdJ1Ho8GeYWHZDPB8o7ilwE90faR4-_apKoJ0aR00OYusEh004o7vK14MowAh1BSSTozH0P3PLKlbGGNnuINmRr_yktTXhx7Tof4mLGFre6Lild4Qtwq78TYjQy9HXoXlpVBNohyUevhtMw2fEYKmcqZs')"></div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Ticket jagged bottom -->
+                        <div class="h-3 w-full flex justify-between px-1 pb-1 opacity-50">
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
+                            <div class="w-2 h-2 rounded-full bg-white/30 -mb-2"></div>
                         </div>
                     </div>
                 </div>

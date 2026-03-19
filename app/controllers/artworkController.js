@@ -2,7 +2,7 @@ const prisma = require('../config/prisma');
 
 exports.getMarketplace = async (req, res, next) => {
     try {
-        const { category, region, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query;
+        const { category, region, minPrice, maxPrice, sort, page = 1, limit = 12, q } = req.query;
 
         const currentPage = Math.max(1, parseInt(page) || 1);
         const pageSize = Math.max(1, parseInt(limit) || 12);
@@ -14,6 +14,14 @@ exports.getMarketplace = async (req, res, next) => {
 
         if (category) filter.category = category;
         if (region) filter.region = region;
+        
+        if (q) {
+            filter.OR = [
+                { title: { contains: q, mode: 'insensitive' } },
+                { description: { contains: q, mode: 'insensitive' } },
+                { category: { contains: q, mode: 'insensitive' } }
+            ];
+        }
 
         if (minPrice || maxPrice) {
             filter.price = {};
