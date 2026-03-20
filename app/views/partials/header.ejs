@@ -86,9 +86,7 @@
                         class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-md h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Logout</a>
                 <% } else { %>
                     <a href="/login"
-                        class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-md h-10 px-4 bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition-all font-mono-header border border-white/10">Login</a>
-                    <a href="/register"
-                        class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-md h-10 px-4 bg-amber-yellow text-background-dark text-sm font-bold tracking-tight hover:brightness-110 transition-all font-mono-header shadow">Sign Up</a>
+                        class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-md h-10 px-4 bg-amber-yellow text-background-dark text-sm font-bold tracking-tight hover:brightness-110 transition-all font-mono-header shadow">Login / Sign Up</a>
                 <% } %>
 
                 <!-- Mobile Menu Button -->
@@ -112,9 +110,7 @@
             Marketplace</a>
         <a class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors" href="/events">Events</a>
         <hr class="border-white/10 my-2">
-        <a href="/login" class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors">Login</a>
-        <a href="/register" class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors">Sign
-            Up</a>
+        <a href="/login" class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors">Login / Sign Up</a>
         <% } else if (currentUser.role==='BUYER' ) { %>
             <a class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors" href="/">Home</a>
             <a class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors" href="/about">About
