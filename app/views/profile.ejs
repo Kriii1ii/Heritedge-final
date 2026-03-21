@@ -1,140 +1,257 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <%- include('partials/head') %>
+    <script>
+        function toggleEditProfile() {
+            const displayView = document.getElementById('profile-display');
+            const editView = document.getElementById('profile-edit');
+            if (displayView.classList.contains('hidden')) {
+                displayView.classList.remove('hidden');
+                editView.classList.add('hidden');
+            } else {
+                displayView.classList.add('hidden');
+                editView.classList.remove('hidden');
+            }
+        }
+
+        function handleAvatarClick() {
+            const hasAvatar = <%= !!user.avatar %>;
+            if (hasAvatar) {
+                document.getElementById('avatar-modal').classList.remove('hidden');
+            } else {
+                document.getElementById('quick-avatar-upload').click();
+            }
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatar-modal').classList.add('hidden');
+        }
+
+        function validateAvatarSize(input) {
+            if (input.files && input.files[0]) {
+                if (input.files[0].size > 5 * 1024 * 1024) {
+                    alert("File size must be under 5MB!");
+                    input.value = "";
+                } else {
+                    document.getElementById('quick-avatar-form').submit();
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-white">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
         <%- include('partials/header') %>
-            <main class="flex flex-1 justify-center py-12 px-4 md:px-10">
-                <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
-                    <div class="flex items-center gap-4 pb-6 border-b border-white/10 mb-8 w-full">
-                        <div
-                            class="h-20 w-20 rounded-full overflow-hidden border-2 border-amber-yellow bg-deep-maroon shadow-lg grid place-items-center">
-                            <span class="material-symbols-outlined text-4xl text-white/50">person</span>
-                        </div>
-                        <div>
-                            <h2
-                                class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
-                                <%= user.name %>
-                            </h2>
-                            <span
-                                class="px-2 py-0.5 mt-1 inline-flex bg-amber-yellow/20 text-amber-yellow border border-amber-yellow/30 text-xs font-bold uppercase tracking-widest rounded shadow">
-                                <%= user.role %>
-                            </span>
-                        </div>
+            <main class="flex flex-1 justify-center py-12 px-4 md:px-10 relative">
+                
+                <!-- Avatar Modal -->
+                <div id="avatar-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                    <div class="bg-deep-maroon border border-rich-red rounded-xl p-6 shadow-2xl w-full max-w-sm flex flex-col gap-4 text-center">
+                        <h3 class="text-xl font-bold font-mono-header text-white mb-2">Profile Picture</h3>
+                        
+                        <button onclick="document.getElementById('avatar-modal').classList.add('hidden'); document.getElementById('quick-avatar-upload').click();" class="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-md transition-colors border border-white/10 uppercase tracking-widest text-sm font-mono-header">
+                            Change Picture
+                        </button>
+                        
+                        <form action="/profile/remove-avatar?_csrf=<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>" method="POST">
+                            <button type="submit" class="w-full py-3 bg-red-500/20 hover:bg-red-500/40 text-red-500 font-bold rounded-md transition-colors border border-red-500/30 uppercase tracking-widest text-sm font-mono-header">
+                                Remove Picture
+                            </button>
+                        </form>
+                        
+                        <button onclick="closeAvatarModal()" class="mt-2 text-white/50 hover:text-white transition-colors text-sm font-bold uppercase pb-1 border-b border-transparent hover:border-white w-fit mx-auto">
+                            Cancel
+                        </button>
                     </div>
+                </div>
 
-                    <div class="bg-white/5 border border-white/10 rounded-sm p-8 mb-8 shadow-lg w-full">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Email</label>
-                                <p class="text-white font-mono text-lg">
-                                    <%= user.email %>
-                                </p>
-                            </div>
-                            <div>
-                                <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Account
-                                    Created</label>
-                                <p class="text-white font-mono text-lg">
-                                    <%= new Date(user.createdAt).toLocaleDateString() %>
-                                </p>
-                            </div>
+                <!-- Hidden form for quick avatar upload from clicking picture directly -->
+                <form id="quick-avatar-form" action="/profile?_csrf=<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>" method="POST" enctype="multipart/form-data" class="hidden">
+                    <input type="hidden" name="name" value="<%= user.name %>">
+                    <input type="hidden" name="email" value="<%= user.email %>">
+                    <input type="file" id="quick-avatar-upload" name="avatar" accept="image/*" onchange="validateAvatarSize(this)">
+                </form>
 
-                            <% if (user.role==='CREATOR' ) { %>
-                                <div class="md:col-span-2">
-                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Region /
-                                        Location</label>
-                                    <p class="text-white font-mono text-lg">
-                                        <%= user.region || 'Not Specified' %>
-                                    </p>
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Artist
-                                        Biography</label>
-                                    <p
-                                        class="text-white bg-black/20 p-4 rounded text-sm italic border-l border-white/20">
-                                        <%= user.bio || 'Please update your story via the Creator Dashboard.' %>
-                                    </p>
-                                </div>
-                                <% } %>
+                <div class="layout-content-container flex flex-col max-w-[1000px] flex-1">
+                    
+                    <% if (typeof message !== 'undefined' && message) { %>
+                        <div class="bg-green-500/20 border border-green-500/50 text-green-400 p-4 rounded mb-6 font-mono-header text-sm">
+                            <%= message %>
                         </div>
-                    </div>
+                    <% } %>
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="bg-red-500/20 border border-red-500/50 text-red-400 p-4 rounded mb-6 font-mono-header text-sm">
+                            <%= error === 'email_exists' ? 'Email already in use.' : error %>
+                        </div>
+                    <% } %>
 
-                    <% if (user.role==='BUYER' || (orders && orders.length> 0)) { %>
-                        <div class="mb-8 w-full">
-                            <h3
-                                class="text-xl font-bold font-mono-header mb-4 text-white">
-                                Your Orders & Preferences</h3>
-                            <div class="bg-white/5 border border-white/10 rounded-sm p-6 shadow-lg">
-                                <div class="mb-6">
-                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-1 block">Preferred
-                                        Art Types</label>
-                                    <div class="flex flex-wrap gap-2 mt-2">
-                                        <% if (typeof preferredCategories !=='undefined' && preferredCategories.length>
-                                            0) { %>
-                                            <% preferredCategories.forEach(cat=> { %>
-                                                <span
-                                                    class="px-2 py-1 bg-amber-yellow/10 text-amber-yellow text-xs font-bold uppercase rounded border border-amber-yellow/20">
-                                                    <%= cat %>
-                                                </span>
-                                                <% }) %>
-                                                    <% } else { %>
-                                                        <p class="text-sm text-white/40 italic">No preferences
-                                                            established yet (Purchase artworks to set preferences).</p>
-                                                        <% } %>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+                        
+                        <!-- LEFT COLUMN: Profile Info & Edit Form -->
+                        <div class="md:col-span-5 flex flex-col gap-6">
+                            
+                            <!-- Display View -->
+                            <div id="profile-display" class="flex flex-col gap-6">
+                                <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-deep-maroon border border-rich-red relative group cursor-pointer" onclick="handleAvatarClick()">
+                                    <img src="<%= user.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDFnIxnWb9AzaIzvWrYMJX_D3tKYwNJAqsz7ynWqtZFM_f8IUT0mOWiipjLeMR4iYYAzOPIClPUgpC99-gthpbSfWVeviaLEUoNOoUeGLJypwiFOr2X2i-u5vkQmgBu973yjjsvrpzvZvW91bnVbTpO7oaOJxrs96Q642WMDlodB_khNexQsuUcw5Q8USKfHkf3CnNqb1jU8FpP5NCGNrtOZgw70iJHCV6yBVCW44dSLnD6XGcrAHXNlULt1fqHLSKLDPll__tayLg' %>" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white font-bold tracking-widest uppercase font-mono-header text-sm pointer-events-none">
+                                        <span class="material-symbols-outlined mr-2"><%= user.avatar ? 'settings' : 'upload' %></span> <%= user.avatar ? 'Options' : 'Upload Avatar' %>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <label class="text-xs text-white/50 uppercase tracking-widest mb-4 block">Order
-                                        History</label>
-                                    <% if (typeof orders !=='undefined' && orders.length> 0) { %>
-                                        <div class="flex flex-col gap-4">
-                                            <% orders.forEach(order=> { %>
-                                                <div
-                                                    class="flex justify-between items-center p-4 bg-black/20 rounded border border-white/5">
-                                                    <div class="flex items-center gap-4">
-                                                        <div
-                                                            class="h-12 w-12 rounded bg-white/10 overflow-hidden shrink-0">
-                                                            <img src="<%= order.artwork.images && order.artwork.images.length > 0 ? order.artwork.images[0] : '/images/placeholder.jpg' %>"
-                                                                class="w-full h-full object-cover">
-                                                        </div>
-                                                        <div>
-                                                            <h4 class="font-bold text-white font-mono leading-tight">
-                                                                <%= order.artwork.title %>
-                                                            </h4>
-                                                            <p class="text-xs text-white/50">
-                                                                <%= new Date(order.createdAt).toLocaleDateString() %> •
-                                                                    रू <%= order.amount %>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="text-xs font-bold uppercase tracking-widest px-2 py-1 bg-white/10 text-white rounded opacity-80">
-                                                        <%= order.orderStatus %>
-                                                    </div>
-                                                </div>
-                                                <% }) %>
-                                        </div>
+                                <div class="flex flex-col">
+                                    <h1 class="text-5xl font-black mb-4 font-mono-header leading-tight tracking-tight">
+                                        <%= user.name %>
+                                    </h1>
+                                    
+                                    <div class="flex flex-wrap gap-3 mb-6">
+                                        <span class="px-4 py-1.5 bg-white text-black text-sm font-bold rounded-full border border-white/20">
+                                            @<%= user.email.split('@')[0] %>
+                                        </span>
+                                        <span class="px-4 py-1.5 bg-black/40 text-white/80 text-sm font-bold rounded-full border border-white/20 flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[16px]">account_circle</span>
+                                            <%= user.role %>
+                                        </span>
+                                        <% if (user.portfolioUrl) { %>
+                                            <a href="<%= user.portfolioUrl %>" target="_blank" class="px-4 py-1.5 bg-black/40 hover:bg-white/10 text-white/80 text-sm font-bold rounded-full border border-white/20 transition-colors flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[16px]">link</span> Portfolio
+                                            </a>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="space-y-4 text-white/80 leading-relaxed font-mono text-sm max-w-[400px]">
+                                        <% if (user.bio) { %>
+                                            <% user.bio.split('\n').filter(p => p.trim()).forEach(p => { %>
+                                                <p><%= p %></p>
+                                            <% }) %>
                                         <% } else { %>
-                                            <p class="text-sm text-white/40 italic">You have no past orders.</p>
-                                            <% } %>
+                                            <p class="italic text-white/40">No biography provided. Click 'Edit Profile' to add your story.</p>
+                                        <% } %>
+                                        
+                                        <% if (user.region) { %>
+                                            <p class="font-bold text-amber-yellow mt-4">Based in <%= user.region %></p>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- Edit Profile Button Placed Below the Info -->
+                                    <button onclick="toggleEditProfile()" class="w-full mt-8 flex items-center justify-center py-4 bg-white/5 hover:bg-white/10 text-white font-bold tracking-widest uppercase font-mono-header text-sm rounded border border-white/10 transition-colors">
+                                        <span class="material-symbols-outlined mr-2">edit</span> Edit Details
+                                    </button>
+
                                 </div>
                             </div>
-                        </div>
-                        <% } %>
 
-                            <div class="flex justify-start border-t border-white/10 pt-6">
-                                <a href="/logout"
-                                    class="bg-white/10 text-white hover:bg-red-500/20 hover:text-red-500 hover:border-red-500/40 border border-white/10 font-bold uppercase tracking-widest text-sm py-3 px-8 rounded transition-all shadow">Sign
-                                    Out</a>
+                            <!-- Edit View -->
+                            <div id="profile-edit" class="hidden flex flex-col gap-6 bg-deep-maroon/20 p-6 rounded-xl border border-rich-red/30 shadow-2xl">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-2xl font-bold font-mono-header text-amber-yellow">Edit Details</h3>
+                                    <button onclick="toggleEditProfile()" class="text-white/40 hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
+                                </div>
+                                <form action="/profile?_csrf=<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>" method="POST" enctype="multipart/form-data" class="space-y-4">
+                                    
+                                    <div class="flex flex-col">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Full Name</label>
+                                        <input type="text" name="name" value="<%= user.name %>" required class="bg-black/30 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:border-amber-yellow font-mono text-sm">
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Email Address</label>
+                                        <input type="email" name="email" value="<%= user.email %>" required class="bg-black/30 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:border-amber-yellow font-mono text-sm">
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Bio / Story</label>
+                                        <textarea name="bio" rows="4" class="bg-black/30 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:border-amber-yellow font-mono text-sm resize-none"><%= user.bio || '' %></textarea>
+                                    </div>
+                                    
+                                    <div class="flex flex-col">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Location / Region</label>
+                                        <input type="text" name="region" value="<%= user.region || '' %>" class="bg-black/30 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:border-amber-yellow font-mono text-sm">
+                                    </div>
+                                    
+                                    <div class="flex flex-col">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Portfolio URL (Optional)</label>
+                                        <input type="url" name="portfolioUrl" value="<%= user.portfolioUrl || '' %>" placeholder="https://" class="bg-black/30 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:border-amber-yellow font-mono text-sm">
+                                    </div>
+
+                                    <!-- Keep a file input here if they still want to edit it while editing text, optional but helpful -->
+                                    <div class="flex flex-col pt-4 border-t border-white/10 mt-4">
+                                        <label class="text-xs uppercase tracking-widest font-bold text-white/60 mb-1 font-mono-header">Profile Image (Optional)</label>
+                                        <input type="file" name="avatar" accept="image/*" class="w-full text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-rich-red file:text-white hover:file:bg-deep-maroon transition-all cursor-pointer bg-black/20 border border-white/10 rounded overflow-hidden">
+                                    </div>
+
+                                    <button type="submit" class="w-full flex items-center justify-center h-12 bg-amber-yellow hover:bg-white text-black font-bold uppercase tracking-widest text-sm rounded-md transition-colors mt-4 font-mono-header shadow-lg">
+                                        Save Changes
+                                    </button>
+                                </form>
                             </div>
+
+                        </div>
+
+                        <!-- RIGHT COLUMN: Activity Feed / Orders -->
+                        <div class="md:col-span-7 flex flex-col gap-4 pt-2">
+                            <h2 class="text-xl font-bold font-mono-header text-white/80 mb-2 border-b border-white/10 pb-4">Recent Activity</h2>
+
+                            <% if (typeof orders !=='undefined' && orders.length > 0) { %>
+                                <% orders.forEach(order => { %>
+                                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4 shadow-lg flex gap-4 transition-transform hover:-translate-y-1 hover:border-white/20">
+                                        <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-white/20">
+                                            <img src="<%= order.artwork.images && order.artwork.images.length > 0 ? order.artwork.images[0] : '/images/placeholder.jpg' %>" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex-1 flex flex-col justify-center">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <h4 class="font-bold text-white font-mono-header text-sm">
+                                                    <%= order.artwork.title %>
+                                                </h4>
+                                                <span class="text-xs font-mono text-dusty-rose font-bold">रू <%= order.amount %></span>
+                                            </div>
+                                            <p class="text-sm text-white/60 font-mono leading-snug">
+                                                Ordered an artwork. Status: <span class="<%= order.orderStatus === 'DELIVERED' ? 'text-green-400' : 'text-amber-yellow' %>"><%= order.orderStatus %></span>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-lg text-center flex flex-col items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-4xl text-white/20">inbox</span>
+                                    <p class="text-sm text-white/60 font-mono">No recent activity found. Start exploring!</p>
+                                    <a href="/marketplace" class="mt-2 text-xs font-bold uppercase tracking-widest text-amber-yellow hover:underline">Go to Marketplace</a>
+                                </div>
+                            <% } %>
+
+                            <!-- Extra mocked card just for visual matching if needed -->
+                            <% if (user.role === 'CREATOR') { %>
+                                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 shadow-lg flex gap-4 transition-transform hover:-translate-y-1 hover:border-white/20 mt-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-white/20 bg-deep-maroon flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white/50 text-xl">palette</span>
+                                    </div>
+                                    <div class="flex-1 flex flex-col justify-center">
+                                        <h4 class="font-bold text-white font-mono-header text-sm mb-1">Creator Hub</h4>
+                                        <p class="text-sm text-white/60 font-mono leading-snug mb-3">
+                                            Access your dashboard to upload more artworks or review your profile.
+                                        </p>
+                                        <a href="/creator/home" class="flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-amber-yellow hover:text-white transition-colors w-fit">
+                                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span> Go to Dashboard
+                                        </a>
+                                    </div>
+                                </div>
+                            <% } %>
+
+                            <div class="mt-8 pt-6 border-t border-white/10">
+                                <a href="/logout" class="text-dusty-rose hover:text-white transition-colors text-sm font-bold uppercase tracking-widest font-mono-header flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">logout</span> Sign Out
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </main>
     </div>
 </body>
-
 </html>

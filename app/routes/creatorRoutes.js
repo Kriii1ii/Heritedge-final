@@ -4,17 +4,22 @@ const creatorController = require('../controllers/creatorController');
 const { requireAuth, requireCreator } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('../config/cloudinary');
+const fs = require('fs');
 const validate = require('../middleware/validate');
 const { artworkSchema } = require('../validators/artworkValidator');
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: 'heritedge/artworks',
-        allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
-        transformation: [{ width: 800, crop: 'limit', quality: 'auto', fetch_format: 'auto' }]
+const uploadDir = path.join(__dirname, '../public/images/artworks');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
     }
 });
 

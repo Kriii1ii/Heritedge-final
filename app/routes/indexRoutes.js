@@ -2,6 +2,29 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../config/prisma');
 const { requireAuth } = require('../middleware/auth');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const uploadDir = path.join(__dirname, '../public/images/avatars');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const avatarStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const uploadAvatar = multer({
+    storage: avatarStorage,
+    limits: { fileSize: 5 * 1024 * 1024 }
+});
 
 router.get('/', (req, res) => {
     res.render('index', { primaryColor: '#f2b90d' });
@@ -101,7 +124,51 @@ router.get('/profile', requireAuth, async (req, res, next) => {
 
         const preferredCategories = [...new Set(orders.map(o => o.artwork.category))];
 
-        res.render('profile', { primaryColor: '#b81430', user, orders, preferredCategories });
+        res.render('profile', { primaryColor: '#b81430', user, orders, preferredCategories, message: req.query.message, error: req.query.error });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/profile', requireAuth, uploadAvatar.single('avatar'), async (req, res, next) => {
+    try {
+        const { name, email, bio, region, portfolioUrl } = req.body;
+        const updateData = { 
+            name, 
+            bio, 
+            region, 
+            portfolioUrl 
+        };
+        if (email) updateData.email = email.trim().toLowerCase();
+
+        if (req.file) {
+            updateData.avatar = '/images/avatars/' + req.file.filename;
+            req.session.user.avatar = updateData.avatar; // update session
+        }
+        
+        if (updateData.name) req.session.user.name = updateData.name;
+        if (updateData.email) req.session.user.email = updateData.email;
+
+        await prisma.user.update({
+            where: { id: req.session.user.id },
+            data: updateData
+        });
+
+        res.redirect('/profile?message=Profile+Updated');
+    } catch (err) {
+        if (err.code === 'P2002') return res.redirect('/profile?error=email_exists');
+        next(err);
+    }
+});
+
+router.post('/profile/remove-avatar', requireAuth, async (req, res, next) => {
+    try {
+        await prisma.user.update({
+            where: { id: req.session.user.id },
+            data: { avatar: null }
+        });
+        req.session.user.avatar = null;
+        res.redirect('/profile?message=Avatar+Removed');
     } catch (err) {
         next(err);
     }

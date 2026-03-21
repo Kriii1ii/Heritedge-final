@@ -27,7 +27,8 @@ exports.getRegisterPage = (req, res) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+        email = email.trim().toLowerCase();
         const user = await prisma.user.findUnique({ where: { email } });
 
         if (!user) {
@@ -69,6 +70,7 @@ exports.register = async (req, res, next) => {
     if (process.env.ADMIN_ONLY === 'true') return res.redirect('/login');
     try {
         let { email, password, confirm_password, name } = req.body;
+        email = email.trim().toLowerCase();
 
         if (password !== confirm_password) {
             return res.redirect('/register?error=password_mismatch');

@@ -48,6 +48,7 @@ model User {
   inspiration        String?
   lifeStory          String?
   portfolioUrl       String?
+  avatar             String?
   verificationStatus VerificationStatus @default(PENDING)
   createdAt          DateTime           @default(now())
 

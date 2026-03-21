@@ -1,7 +1,7 @@
 const prisma = require('../config/prisma');
 const logger = require('../utils/logger');
-const deleteCloudinaryImage = require('../utils/deleteCloudinaryImage');
-
+const fs = require('fs');
+const path = require('path');
 exports.getDashboard = async (req, res, next) => {
     try {
         const user = await prisma.user.findUnique({
@@ -57,7 +57,7 @@ exports.uploadArtwork = async (req, res, next) => {
             return res.status(400).send('At least one image is required.');
         }
 
-        const imagePaths = req.files.map(file => file.path); // Cloudinary secure URL from multer-storage-cloudinary
+        const imagePaths = req.files.map(file => '/images/artworks/' + file.filename); // Local disk path mapped to public relative URL
 
         try {
             const newArtwork = await prisma.artwork.create({
@@ -77,9 +77,11 @@ exports.uploadArtwork = async (req, res, next) => {
             logger.info('Artwork uploaded', { artworkId: newArtwork.id, creatorId: req.session.user.id });
             res.redirect('/creator/artworks');
         } catch (dbErr) {
-            // Delete images from Cloudinary if database insertion fails
-            for (const imgUrl of imagePaths) {
-                await deleteCloudinaryImage(imgUrl);
+            // Delete images from disk if database insertion fails
+            for (const file of req.files) {
+                if (fs.existsSync(file.path)) {
+                    fs.unlinkSync(file.path);
+                }
             }
             throw dbErr;
         }
@@ -134,10 +136,14 @@ exports.deleteArtwork = async (req, res, next) => {
             return res.status(404).send('Artwork not found.');
         }
 
-        // Delete associated Cloudinary images
+        // Delete associated local images
         if (artwork.images && artwork.images.length > 0) {
             for (const imgUrl of artwork.images) {
-                await deleteCloudinaryImage(imgUrl);
+                const basename = path.basename(imgUrl);
+                const localPath = path.join(__dirname, '../public/images/artworks', basename);
+                if (fs.existsSync(localPath)) {
+                    fs.unlinkSync(localPath);
+                }
             }
         }
 
