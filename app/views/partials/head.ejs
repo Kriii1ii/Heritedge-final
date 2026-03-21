@@ -2,6 +2,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>HeritEdge - Empowering Artists</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
     rel="stylesheet" />
 <script id="tailwind-config">
@@ -11,7 +12,7 @@
             extend: {
                 colors: {
                     "background-light": "#f8f8f5",
-                    "background-dark": "#221e10",
+                    "background-dark": "#230f08",
                     "amber-yellow": "#f2b90d",
                     "deep-maroon": "#3f101a",
                     "dusty-rose": "#c08497",
@@ -27,9 +28,9 @@
                     "primary": "<%- typeof primaryColor !== 'undefined' ? primaryColor : '#f2b90d' %>"
                 },
                 fontFamily: {
-                    "sans": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-                    "display": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-                    "mono": ["Universal Sans", "Haffer", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+                    "sans": ["Chilia", "serif"],
+                    "display": ["Chilia", "serif"],
+                    "mono": ["Chilia", "serif"]
                 },
                 borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
             },
@@ -37,14 +38,23 @@
     }
 </script>
 <style>
+    @font-face {
+        font-family: "Chilia";
+        src: url("/fonts/Chilia-Regular.otf") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
     body {
-        font-family: 'Universal Sans', 'Haffer', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        font-family: 'Chilia', serif !important;
     }
 
     .font-mono,
     .font-mono-header,
     .pt-mono,
     .mono-font {
-        font-family: 'Universal Sans', 'Haffer', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        font-family: 'Chilia', serif !important;
+        letter-spacing: 0.05em;
     }
 </style>
