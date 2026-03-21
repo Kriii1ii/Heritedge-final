@@ -14,5 +14,6 @@ router.get('/orders', adminController.getOrders);
 router.post('/orders/:id/status', adminController.updateOrderStatus);
 
 router.get('/users', adminController.getUsers);
+router.post('/users/:id/delete', adminController.deleteUser);
 
 module.exports = router;

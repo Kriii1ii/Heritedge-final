@@ -11,13 +11,10 @@ const adminRoutes = require('./adminRoutes');
 if (process.env.ADMIN_ONLY === 'true') {
     router.use('/', authRoutes);
     router.use('/admin', adminRoutes);
-    router.get('/', (req, res) => {
-        if (req.session.user && req.session.user.role === 'ADMIN') {
-            res.redirect('/admin');
-        } else {
-            res.redirect('/login');
-        }
-    });
+    router.use('/', indexRoutes);
+    router.use('/', artworkRoutes);
+    router.use('/', orderRoutes);
+    // Remove the intercepting redirect so the actual indexRoutes can serve '/'
 } else {
     router.use('/', indexRoutes);
     router.use('/', artworkRoutes);

@@ -1757,3 +1757,96 @@ Invalid `prisma.artwork.findMany()` invocation in
 2026-03-20 19:52:32 [INFO]: ::1 - - [20/Mar/2026:14:07:32 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
 2026-03-20 19:52:32 [INFO]: ::1 - - [20/Mar/2026:14:07:32 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
 2026-03-20 22:07:41 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-21 07:53:04 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /login HTTP/1.1" 200 15938 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /login HTTP/1.1" 200 15938 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /login HTTP/1.1" 200 15938 "-" "com.apple.WebKit.Networking/21623.2.7.111.2 Network/5569.81.5 macOS/26.3.1" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:07 [INFO]: ::1 - - [21/Mar/2026:02:08:07 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:08 [INFO]: ::1 - - [21/Mar/2026:02:08:08 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:08 [INFO]: ::1 - - [21/Mar/2026:02:08:08 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:08 [INFO]: ::1 - - [21/Mar/2026:02:08:08 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:08 [INFO]: ::1 - - [21/Mar/2026:02:08:08 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:23 [INFO]: ::1 - - [21/Mar/2026:02:08:23 +0000] "GET /login HTTP/1.1" 200 15938 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:24 [INFO]: ::1 - - [21/Mar/2026:02:08:24 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:24 [INFO]: ::1 - - [21/Mar/2026:02:08:24 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:25 [INFO]: ::1 - - [21/Mar/2026:02:08:25 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:25 [INFO]: ::1 - - [21/Mar/2026:02:08:25 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:25 [INFO]: ::1 - - [21/Mar/2026:02:08:25 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:25 [INFO]: ::1 - - [21/Mar/2026:02:08:25 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:34 [ERROR]: Unhandled Exception 
+Invalid `prisma.user.findUnique()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:40
+
+  29 try {
+  30     let { email, password } = req.body;
+  31     email = email.trim().toLowerCase();
+→ 32     const user = await prisma.user.findUnique(
+ {"statusCode":500,"method":"POST","url":"/login","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.user.findUnique()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:40\n\n  29 try {\n  30     let { email, password } = req.body;\n  31     email = email.trim().toLowerCase();\n→ 32     const user = await prisma.user.findUnique(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async exports.login (/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:22)"}
+2026-03-21 07:53:34 [INFO]: ::1 - - [21/Mar/2026:02:08:34 +0000] "POST /login HTTP/1.1" 500 8809 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:35 [INFO]: ::1 - - [21/Mar/2026:02:08:35 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:36 [INFO]: ::1 - - [21/Mar/2026:02:08:36 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:42 [INFO]: ::1 - - [21/Mar/2026:02:08:42 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:42 [INFO]: ::1 - - [21/Mar/2026:02:08:42 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:43 [INFO]: ::1 - - [21/Mar/2026:02:08:43 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /apple-touch-icon.png HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:53:45 [INFO]: ::1 - - [21/Mar/2026:02:08:45 +0000] "GET /login HTTP/1.1" 200 15938 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:56:36 [INFO]: HeritEdge platform running on http://localhost:3001 
+2026-03-21 07:56:39 [INFO]: ::1 - - [21/Mar/2026:02:11:39 +0000] "HEAD / HTTP/1.1" 302 28 "-" "curl/8.7.1" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET / HTTP/1.1" 302 35 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET /login HTTP/1.1" 200 15626 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 171 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET /apple-touch-icon.png HTTP/1.1" 404 159 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 07:59:31 [INFO]: ::1 - - [21/Mar/2026:02:14:31 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari" 
+2026-03-21 08:00:02 [ERROR]: Unhandled Exception 
+Invalid `prisma.user.findUnique()` invocation in
+/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:40
+
+  29 try {
+  30     let { email, password } = req.body;
+  31     email = email.trim().toLowerCase();
+→ 32     const user = await prisma.user.findUnique(
+ {"statusCode":500,"method":"POST","url":"/login","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.user.findUnique()` invocation in\n/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:40\n\n  29 try {\n  30     let { email, password } = req.body;\n  31     email = email.trim().toLowerCase();\n→ 32     const user = await prisma.user.findUnique(\n\n    at zr.handleRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:8286)\n    at zr.handleAndLogRequestError (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7581)\n    at zr.request (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/kritikaacharya/HeritEgde/app/node_modules/@prisma/client/runtime/client.js:75:5816)\n    at async exports.login (/Users/kritikaacharya/HeritEgde/app/controllers/authController.js:32:22)"}
+2026-03-21 08:00:02 [INFO]: ::1 - - [21/Mar/2026:02:15:02 +0000] "POST /login HTTP/1.1" 500 8809 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:20:10 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-21 08:24:10 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-21 08:24:13 [INFO]: HeritEdge platform running on http://localhost:3001 
+2026-03-21 08:24:16 [INFO]: ::1 - - [21/Mar/2026:02:39:16 +0000] "HEAD /login HTTP/1.1" 200 15626 "-" "curl/8.7.1" 
+2026-03-21 08:24:40 [INFO]: User login successful {"userId":"b5cc6327-3862-4b0c-80be-414126117b15","email":"admin@heritedge.com","role":"ADMIN"}
+2026-03-21 08:24:40 [INFO]: ::1 - - [21/Mar/2026:02:39:40 +0000] "POST /login HTTP/1.1" 302 35 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:24:41 [INFO]: ::1 - - [21/Mar/2026:02:39:41 +0000] "GET /admin HTTP/1.1" 200 26840 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:24:41 [INFO]: ::1 - - [21/Mar/2026:02:39:41 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:24:45 [INFO]: ::1 - - [21/Mar/2026:02:39:45 +0000] "GET /events HTTP/1.1" 404 145 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:26:58 [INFO]: ::1 - - [21/Mar/2026:02:41:58 +0000] "GET /admin HTTP/1.1" 200 26839 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:26:58 [INFO]: ::1 - - [21/Mar/2026:02:41:58 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:27:01 [INFO]: ::1 - - [21/Mar/2026:02:42:01 +0000] "GET /about HTTP/1.1" 404 144 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:27:07 [INFO]: Admin changed creator verification status {"adminId":"b5cc6327-3862-4b0c-80be-414126117b15","targetUserId":"c231be8a-712f-4179-8657-c2887c25d2f0","status":"VERIFIED"}
+2026-03-21 08:27:07 [INFO]: ::1 - - [21/Mar/2026:02:42:07 +0000] "POST /admin/creator/c231be8a-712f-4179-8657-c2887c25d2f0/verify HTTP/1.1" 302 35 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:27:07 [INFO]: ::1 - - [21/Mar/2026:02:42:07 +0000] "GET /admin HTTP/1.1" 200 23872 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:27:07 [INFO]: ::1 - - [21/Mar/2026:02:42:07 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" 
+2026-03-21 08:28:59 [INFO]: HeritEdge platform running on http://localhost:3000 

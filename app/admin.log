@@ -4,6 +4,19 @@
 
 [dotenv@17.3.1] injecting env (1) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
 [dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
-[dotenv@17.3.1] injecting env (0) from .env -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
-[32minfo[39m: HeritEdge platform running on http://localhost:3001 {"timestamp":"2026-03-19 09:30:24"}
+[dotenv@17.3.1] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[32minfo[39m: HeritEdge platform running on http://localhost:3001 {"timestamp":"2026-03-21 08:24:13"}
 HeritEdge platform running on http://localhost:3001
+[32minfo[39m: ::1 - - [21/Mar/2026:02:39:16 +0000] "HEAD /login HTTP/1.1" 200 15626 "-" "curl/8.7.1" {"timestamp":"2026-03-21 08:24:16"}
+[32minfo[39m: User login successful {"email":"admin@heritedge.com","role":"ADMIN","timestamp":"2026-03-21 08:24:40","userId":"b5cc6327-3862-4b0c-80be-414126117b15"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:39:40 +0000] "POST /login HTTP/1.1" 302 35 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:24:40"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:39:41 +0000] "GET /admin HTTP/1.1" 200 26840 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:24:41"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:39:41 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:24:41"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:39:45 +0000] "GET /events HTTP/1.1" 404 145 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:24:45"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:41:58 +0000] "GET /admin HTTP/1.1" 200 26839 "http://localhost:3001/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:26:58"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:41:58 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:26:58"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:42:01 +0000] "GET /about HTTP/1.1" 404 144 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:27:01"}
+[32minfo[39m: Admin changed creator verification status {"adminId":"b5cc6327-3862-4b0c-80be-414126117b15","status":"VERIFIED","targetUserId":"c231be8a-712f-4179-8657-c2887c25d2f0","timestamp":"2026-03-21 08:27:07"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:42:07 +0000] "POST /admin/creator/c231be8a-712f-4179-8657-c2887c25d2f0/verify HTTP/1.1" 302 35 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:27:07"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:42:07 +0000] "GET /admin HTTP/1.1" 200 23872 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:27:07"}
+[32minfo[39m: ::1 - - [21/Mar/2026:02:42:07 +0000] "GET /images/placeholder.jpg HTTP/1.1" 404 161 "http://localhost:3001/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" {"timestamp":"2026-03-21 08:27:07"}

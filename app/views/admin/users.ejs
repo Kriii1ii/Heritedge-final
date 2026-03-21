@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <%- include('../partials/head') %>
@@ -37,6 +37,8 @@
                                     </th>
                                     <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Joined
                                     </th>
+                                    <th class="p-4 text-center text-white font-mono-header text-sm tracking-wider uppercase">Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-white/5 font-mono text-sm">
@@ -67,6 +69,18 @@
                                             </td>
                                             <td class="p-4 text-white/50">
                                                 <%= new Date(usr.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td class="p-4 flex justify-center">
+                                                <% if(usr.role !== 'ADMIN') { %>
+                                                <form action="/admin/users/<%= usr.id %>/delete" method="POST"
+                                                    onsubmit="return confirm('WARNING: This will permanently delete the user and their artworks. Proceed?');">
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                    <button type="submit"
+                                                        class="bg-red-500/10 hover:bg-red-500/30 text-red-500 p-2 rounded-md transition-colors border border-red-500/20 flex items-center justify-center">
+                                                        <span class="material-symbols-outlined text-sm">delete_forever</span>
+                                                    </button>
+                                                </form>
+                                                <% } %>
                                             </td>
                                         </tr>
                                         <% }) %>
