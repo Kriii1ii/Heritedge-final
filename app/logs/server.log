@@ -2068,3 +2068,203 @@ C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
 2026-03-22 01:56:48 [INFO]: ::1 - - [21/Mar/2026:20:11:48 +0000] "GET /about HTTP/1.1" 200 19121 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
 2026-03-22 01:56:48 [INFO]: ::1 - - [21/Mar/2026:20:11:48 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/about" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
 2026-03-22 01:56:48 [INFO]: ::1 - - [21/Mar/2026:20:11:48 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/about" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:26:50 [INFO]: ::1 - - [22/Mar/2026:02:41:50 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/about" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:26:50 [INFO]: ::1 - - [22/Mar/2026:02:41:50 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:26:50 [INFO]: ::1 - - [22/Mar/2026:02:41:50 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:01 [INFO]: ::1 - - [22/Mar/2026:02:42:01 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/about" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:01 [INFO]: ::1 - - [22/Mar/2026:02:42:01 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:01 [INFO]: ::1 - - [22/Mar/2026:02:42:01 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:02 [INFO]: ::1 - - [22/Mar/2026:02:42:02 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/about" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:02 [INFO]: ::1 - - [22/Mar/2026:02:42:02 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:27:02 [INFO]: ::1 - - [22/Mar/2026:02:42:02 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:32:54 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-22 08:32:59 [INFO]: ::1 - - [22/Mar/2026:02:47:59 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:33:00 [INFO]: ::1 - - [22/Mar/2026:02:48:00 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:33:00 [INFO]: ::1 - - [22/Mar/2026:02:48:00 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:34:21 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:34:21 [INFO]: ::1 - - [22/Mar/2026:02:49:21 +0000] "GET /events HTTP/1.1" 500 13646 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:34:21 [INFO]: ::1 - - [22/Mar/2026:02:49:21 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:34:22 [INFO]: ::1 - - [22/Mar/2026:02:49:22 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:34:27 [INFO]: ::1 - - [22/Mar/2026:02:49:27 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:34:27 [INFO]: ::1 - - [22/Mar/2026:02:49:27 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:20 [INFO]: ::1 - - [22/Mar/2026:02:55:20 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:21 [INFO]: ::1 - - [22/Mar/2026:02:55:21 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:21 [INFO]: ::1 - - [22/Mar/2026:02:55:21 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:25 [INFO]: ::1 - - [22/Mar/2026:02:55:25 +0000] "GET /register HTTP/1.1" 200 20866 "http://localhost:3000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:25 [INFO]: ::1 - - [22/Mar/2026:02:55:25 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:40:25 [INFO]: ::1 - - [22/Mar/2026:02:55:25 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:41:03 [ERROR]: Unhandled Exception 
+Invalid `prisma.user.create()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\authController.js:82:40
+
+  79 const role = 'BUYER';
+  80 
+  81 const hashedPassword = await bcrypt.hash(password, 10);
+→ 82 const user = await prisma.user.create(
+ {"statusCode":500,"method":"POST","url":"/register","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.user.create()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\authController.js:82:40\n\n  79 const role = 'BUYER';\n  80 \n  81 const hashedPassword = await bcrypt.hash(password, 10);\n→ 82 const user = await prisma.user.create(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async exports.register (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\authController.js:82:22)"}
+2026-03-22 08:41:03 [INFO]: ::1 - - [22/Mar/2026:02:56:03 +0000] "POST /register HTTP/1.1" 500 13646 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:41:03 [INFO]: ::1 - - [22/Mar/2026:02:56:03 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:41:03 [INFO]: ::1 - - [22/Mar/2026:02:56:03 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:41:08 [INFO]: ::1 - - [22/Mar/2026:02:56:08 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:41:08 [INFO]: ::1 - - [22/Mar/2026:02:56:08 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:42:35 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:42:35 [INFO]: ::1 - - [22/Mar/2026:02:57:35 +0000] "GET /marketplace HTTP/1.1" 500 13646 "http://localhost:3000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:42:36 [INFO]: ::1 - - [22/Mar/2026:02:57:36 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:42:36 [INFO]: ::1 - - [22/Mar/2026:02:57:36 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:25 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.count()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:51:28
+
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+  50     prisma.artwork.findMany(queryOptions),
+→ 51     prisma.artwork.count(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.count()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:51:28\n\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n  50     prisma.artwork.findMany(queryOptions),\n→ 51     prisma.artwork.count(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 1)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:48:25 [INFO]: ::1 - - [22/Mar/2026:03:03:25 +0000] "GET /marketplace HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:25 [INFO]: ::1 - - [22/Mar/2026:03:03:25 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:25 [INFO]: ::1 - - [22/Mar/2026:03:03:25 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:26 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:48:26 [INFO]: ::1 - - [22/Mar/2026:03:03:26 +0000] "GET /events HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:27 [INFO]: ::1 - - [22/Mar/2026:03:03:27 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:48:27 [INFO]: ::1 - - [22/Mar/2026:03:03:27 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:31 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:55:31 [INFO]: ::1 - - [22/Mar/2026:03:10:31 +0000] "GET /events HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:31 [INFO]: ::1 - - [22/Mar/2026:03:10:31 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:31 [INFO]: ::1 - - [22/Mar/2026:03:10:31 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:33 [INFO]: ::1 - - [22/Mar/2026:03:10:33 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:33 [INFO]: ::1 - - [22/Mar/2026:03:10:33 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:35 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:55:35 [INFO]: ::1 - - [22/Mar/2026:03:10:35 +0000] "GET /marketplace HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:35 [INFO]: ::1 - - [22/Mar/2026:03:10:35 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:35 [INFO]: ::1 - - [22/Mar/2026:03:10:35 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:37 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:55:37 [INFO]: ::1 - - [22/Mar/2026:03:10:37 +0000] "GET /marketplace HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:37 [INFO]: ::1 - - [22/Mar/2026:03:10:37 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:37 [INFO]: ::1 - - [22/Mar/2026:03:10:37 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:38 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:55:38 [INFO]: ::1 - - [22/Mar/2026:03:10:38 +0000] "GET /marketplace HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:39 [INFO]: ::1 - - [22/Mar/2026:03:10:39 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:39 [INFO]: ::1 - - [22/Mar/2026:03:10:39 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:40 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:55:40 [INFO]: ::1 - - [22/Mar/2026:03:10:40 +0000] "GET /events HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:40 [INFO]: ::1 - - [22/Mar/2026:03:10:40 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:40 [INFO]: ::1 - - [22/Mar/2026:03:10:40 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:42 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:55:42 [INFO]: ::1 - - [22/Mar/2026:03:10:42 +0000] "GET /events HTTP/1.1" 500 13646 "http://localhost:3000/marketplace" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:42 [INFO]: ::1 - - [22/Mar/2026:03:10:42 +0000] "GET /favicon.ico HTTP/1.1" 302 28 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:55:42 [INFO]: ::1 - - [22/Mar/2026:03:10:42 +0000] "GET /login HTTP/1.1" 200 20863 "http://localhost:3000/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" 
+2026-03-22 08:59:15 [INFO]: HeritEdge platform running on http://localhost:3000 
+2026-03-22 08:59:43 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"HEAD","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "HEAD /marketplace HTTP/1.1" 500 13646 "-" "Go-http-client/1.1" 
+2026-03-22 08:59:43 [ERROR]: Unhandled Exception 
+Invalid `prisma.artwork.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\controllers\artworkController.js:50:28
+
+  47 if (orderBy) queryOptions.orderBy = orderBy;
+  48 
+  49 const [artworks, totalCount] = await Promise.all([
+→ 50     prisma.artwork.findMany(
+ {"statusCode":500,"method":"GET","url":"/marketplace","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.artwork.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:50:28\n\n  47 if (orderBy) queryOptions.orderBy = orderBy;\n  48 \n  49 const [artworks, totalCount] = await Promise.all([\n→ 50     prisma.artwork.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async Promise.all (index 0)\n    at async exports.getMarketplace (C:\\Users\\Simran Gurung\\HeritEgde\\app\\controllers\\artworkController.js:49:40)"}
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "GET /marketplace HTTP/1.1" 500 13646 "-" "Go-http-client/1.1" 
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "HEAD /login HTTP/1.1" 200 20863 "-" "Go-http-client/1.1" 
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "GET /login HTTP/1.1" 200 20863 "-" "Go-http-client/1.1" 
+2026-03-22 08:59:43 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"HEAD","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "HEAD /events HTTP/1.1" 500 13646 "-" "Go-http-client/1.1" 
+2026-03-22 08:59:43 [ERROR]: Unhandled Exception 
+Invalid `prisma.event.findMany()` invocation in
+C:\Users\Simran Gurung\HeritEgde\app\routes\indexRoutes.js:35:43
+
+  32 
+  33 router.get('/events', async (req, res, next) => {
+  34     try {
+→ 35         const events = await prisma.event.findMany(
+ {"statusCode":500,"method":"GET","url":"/events","ip":"::1","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.event.findMany()` invocation in\nC:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:43\n\n  32 \n  33 router.get('/events', async (req, res, next) => {\n  34     try {\n→ 35         const events = await prisma.event.findMany(\n\n    at zr.handleRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:8286)\n    at zr.handleAndLogRequestError (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7581)\n    at zr.request (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:65:7288)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async a (C:\\Users\\Simran Gurung\\HeritEgde\\app\\node_modules\\@prisma\\client\\runtime\\client.js:75:5816)\n    at async C:\\Users\\Simran Gurung\\HeritEgde\\app\\routes\\indexRoutes.js:35:24"}
+2026-03-22 08:59:43 [INFO]: ::1 - - [22/Mar/2026:03:14:43 +0000] "GET /events HTTP/1.1" 500 13646 "-" "Go-http-client/1.1" 

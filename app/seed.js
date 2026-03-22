@@ -35,32 +35,32 @@ async function main() {
     await prisma.artwork.createMany({
         data: [
             {
-                title: 'Neon Heritage',
+                title: 'Mokha Art tiles Pattern 1',
                 description: 'A fusion of cyberpunk and traditional motifs.',
                 price: 150.00,
                 category: 'Digital Painting',
                 region: 'Asia',
-                images: ['/images/placeholder.jpg'],
+                images: ['/images/artist1.jpg'],
                 status: 'PUBLISHED',
                 creatorId: creator.id
             },
             {
-                title: 'Desert Echoes',
+                title: 'Mokha Art tiles Pattern 2',
                 description: 'Abstract representation of ancestral lands.',
                 price: 200.00,
                 category: 'Abstract',
                 region: 'Africa',
-                images: ['/images/placeholder.jpg'],
+                images: ['/images/artist2.jpg'],
                 status: 'PUBLISHED',
                 creatorId: creator.id
             },
             {
-                title: 'Forest Whispers',
+                title: 'Mokha Art tiles Pattern 3',
                 description: 'Soundscapes rendered visually.',
                 price: 75.50,
                 category: 'Generative',
                 region: 'Global',
-                images: ['/images/placeholder.jpg'],
+                images: ['/images/artist3.jpg'],
                 status: 'PUBLISHED',
                 creatorId: creator.id
             }
