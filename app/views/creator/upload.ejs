@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <%- include('../partials/head') %>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
         <%- include('../partials/header') %>
             <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
                 <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
@@ -15,6 +15,16 @@
                             class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
                             Upload Artwork</p>
                     </div>
+                    
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="bg-red-500/20 border border-red-500/50 text-red-100 p-4 rounded mb-6 font-mono text-sm shadow-lg">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="material-symbols-outlined text-red-500">error</span>
+                                <span class="font-bold uppercase tracking-wider">Upload Error</span>
+                            </div>
+                            <p class="pl-8 text-white/80"><%= error %></p>
+                        </div>
+                    <% } %>
 
                     <form action="/creator/upload?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data"
                         class="bg-white/5 p-8 rounded-sm border border-white/10 shadow-lg space-y-6">
@@ -53,13 +63,13 @@
                                     Inspiration</label>
                                 <input type="text" name="region" required
                                     class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors"
-                                    placeholder="e.g. Asia/Nepal">
+                                    placeholder="e.g. Kathmandu, Nepal">
                             </div>
                         </div>
 
                         <div>
                             <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Artwork
-                                Images (Max 5, up to 5MB each)</label>
+                                Images (Select 1 to 5 files, Max 5MB each)</label>
                             <input type="file" name="images" accept="image/jpeg, image/png, image/webp" multiple
                                 required
                                 class="w-full bg-black/20 text-white/60 border border-white/20 p-3 rounded-md focus:border-amber-yellow outline-none file:mr-4 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-yellow file:text-black cursor-pointer hover:file:bg-white transition-all text-sm">

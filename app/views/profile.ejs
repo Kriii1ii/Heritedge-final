@@ -224,23 +224,7 @@
                                 </div>
                             <% } %>
 
-                            <!-- Extra mocked card just for visual matching if needed -->
-                            <% if (user.role === 'CREATOR') { %>
-                                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 shadow-lg flex gap-4 transition-transform hover:-translate-y-1 hover:border-white/20 mt-4">
-                                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-white/20 bg-deep-maroon flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-white/50 text-xl">palette</span>
-                                    </div>
-                                    <div class="flex-1 flex flex-col justify-center">
-                                        <h4 class="font-bold text-white font-mono-header text-sm mb-1">Creator Hub</h4>
-                                        <p class="text-sm text-white/60 font-mono leading-snug mb-3">
-                                            Access your dashboard to upload more artworks or review your profile.
-                                        </p>
-                                        <a href="/creator/home" class="flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-amber-yellow hover:text-white transition-colors w-fit">
-                                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span> Go to Dashboard
-                                        </a>
-                                    </div>
-                                </div>
-                            <% } %>
+
 
                             <div class="mt-8 pt-6 border-t border-white/10">
                                 <a href="/logout" class="text-dusty-rose hover:text-white transition-colors text-sm font-bold uppercase tracking-widest font-mono-header flex items-center gap-2">

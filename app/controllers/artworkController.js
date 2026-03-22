@@ -114,7 +114,8 @@ exports.getMarketplace = async (req, res, next) => {
                 currentPage,
                 totalPages,
                 pageSize
-            }
+            },
+            user: req.session.user
         });
     } catch (err) {
         next(err);
@@ -137,7 +138,8 @@ exports.getArtworkDetail = async (req, res, next) => {
 
         res.render('artwork', {
             primaryColor: '#8b0000',
-            artwork
+            artwork,
+            user: req.session.user
         });
     } catch (err) {
         next(err);
@@ -159,7 +161,8 @@ exports.getArtistPage = async (req, res, next) => {
         res.render('artist', {
             primaryColor: '#f2b90d',
             artist,
-            artworks: artworksDb
+            artworks: artworksDb,
+            user: req.session.user
         });
     } catch (err) {
         next(err);

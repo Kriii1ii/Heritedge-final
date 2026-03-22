@@ -104,7 +104,7 @@ exports.getOrders = async (req, res, next) => {
             orderBy: { createdAt: 'desc' },
             include: { buyer: true, artwork: true }
         });
-        res.render('admin/orders', { primaryColor: '#000000', orders, csrfToken: req.csrfToken() });
+        res.render('admin/orders', { primaryColor: '#000000', user: req.session.user, orders, csrfToken: req.csrfToken() });
     } catch (err) {
         next(err);
     }
@@ -172,7 +172,7 @@ exports.getUsers = async (req, res, next) => {
         const users = await prisma.user.findMany({
             orderBy: { createdAt: 'desc' }
         });
-        res.render('admin/users', { primaryColor: '#000000', users, csrfToken: req.csrfToken() });
+        res.render('admin/users', { primaryColor: '#000000', user: req.session.user, users, csrfToken: req.csrfToken() });
     } catch (err) {
         next(err);
     }
