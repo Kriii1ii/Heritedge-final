@@ -27,7 +27,7 @@ const uploadAvatar = multer({
 });
 
 router.get('/', (req, res) => {
-    res.render('index', { primaryColor: '#f2b90d' });
+    res.render('index', { primaryColor: '#f2b90d', user: req.session.user });
 });
 
 router.get('/events', async (req, res, next) => {
@@ -35,18 +35,18 @@ router.get('/events', async (req, res, next) => {
         const events = await prisma.event.findMany({
             orderBy: { eventDate: 'asc' }
         });
-        res.render('events', { primaryColor: '#eead2b', events });
+        res.render('events', { primaryColor: '#eead2b', events, user: req.session.user });
     } catch (err) {
         next(err);
     }
 });
 
 router.get('/about', (req, res) => {
-    res.render('about', { primaryColor: '#8b0000' });
+    res.render('about', { primaryColor: '#8b0000', user: req.session.user });
 });
 
 router.get('/faq', (req, res) => {
-    res.render('faq', { primaryColor: '#8b0000' });
+    res.render('faq', { primaryColor: '#8b0000', user: req.session.user });
 });
 
 router.post('/api/events/:id/register', requireAuth, async (req, res, next) => {

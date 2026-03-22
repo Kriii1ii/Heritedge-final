@@ -45,7 +45,8 @@ exports.getDashboard = async (req, res, next) => {
 exports.getUploadPage = (req, res) => {
     res.render('creator/upload', {
         primaryColor: '#b81430',
-        user: req.session.user
+        user: req.session.user,
+        error: req.query.error
     });
 };
 
@@ -86,7 +87,21 @@ exports.uploadArtwork = async (req, res, next) => {
             throw dbErr;
         }
     } catch (err) {
-        next(err);
+        // Cleanup local files on error
+        if (req.files) {
+            req.files.forEach(file => {
+                if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+            });
+        }
+        
+        // If validation error from Zod (passed via next(error) from validate middleware usually, 
+        // but here we are in the controller after validation)
+        // Let's render the form again with the error
+        res.render('creator/upload', {
+            primaryColor: '#b81430',
+            user: req.session.user,
+            error: err.message || 'Something went wrong during upload'
+        });
     }
 };
 

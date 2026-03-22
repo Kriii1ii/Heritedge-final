@@ -15,15 +15,14 @@
         </div>
 
         <nav class="hidden lg:flex justify-end flex-1 items-center gap-4 lg:gap-8 xl:gap-10 font-mono-header pr-8 lg:pr-12">
-            <a class="inline-block text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/marketplace">Art</a>
-            <a class="inline-block text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/events">Events</a>
-            <!-- Active red/yellow styling on Dashboard -->
-            <a class="inline-block text-amber-yellow border-b-2 border-amber-yellow pb-1 text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/creator/home">Dashboard</a>
-            <a class="inline-block text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/profile">Profile</a>
+            <a class="inline-block <%= path === '/marketplace' ? 'text-amber-yellow border-b-2 border-amber-yellow pb-1' : 'text-white' %> hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/marketplace">Art</a>
+            <a class="inline-block <%= path === '/events' ? 'text-amber-yellow border-b-2 border-amber-yellow pb-1' : 'text-white' %> hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/events">Events</a>
+            <a class="inline-block <%= path === '/creator/home' ? 'text-amber-yellow border-b-2 border-amber-yellow pb-1' : 'text-white' %> hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/creator/home">Dashboard</a>
+            <a class="inline-block <%= path === '/profile' ? 'text-amber-yellow border-b-2 border-amber-yellow pb-1' : 'text-white' %> hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/profile">Profile</a>
         </nav>
 
         <div class="flex-none flex justify-end gap-5 items-center">
-            <a href="/creator/new-artwork"
+            <a href="/creator/upload"
                 class="hidden md:flex cursor-pointer items-center justify-center rounded-md h-10 px-5 bg-rich-red text-white text-sm font-bold hover:bg-[#b52424] transition-all font-mono-header border border-white/10 shadow-sm">
                 Post New Artwork
             </a>
@@ -56,7 +55,7 @@
 
             <% if (currentUser && currentUser.role==='BUYER') { %>
                 <a class="inline-block text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/become-artist">Become an Artist</a>
-            <% } else if (currentUser && currentUser.role==='ADMIN') { %>
+            <% } else if (currentUser && currentUser.role==='ADMIN' && typeof path !== 'undefined' && path.startsWith('/admin')) { %>
                 <a class="inline-block text-white hover:text-amber-yellow text-[15px] xl:text-[16px] font-bold tracking-wide transition-all duration-300 hover:scale-110" href="/admin">Admin Hub</a>
             <% } %>
         </nav>
@@ -141,7 +140,7 @@
                 <hr class="border-white/10 my-2">
                 <a href="/logout"
                     class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors">Logout</a>
-                <% } else if (currentUser.role==='ADMIN' ) { %>
+                <% } else if (currentUser.role==='ADMIN' && typeof path !== 'undefined' && path.startsWith('/admin')) { %>
                     <a class="text-white/90 hover:text-amber-yellow text-lg font-medium transition-colors"
                         href="/admin">Admin Hub</a>
                     <hr class="border-white/10 my-2">

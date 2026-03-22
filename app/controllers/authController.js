@@ -11,7 +11,8 @@ exports.getLoginPage = (req, res) => {
         primaryColor: process.env.ADMIN_ONLY === 'true' ? '#000000' : '#d42511',
         mode: 'login',
         error: errorMsg,
-        adminOnly: process.env.ADMIN_ONLY === 'true'
+        adminOnly: process.env.ADMIN_ONLY === 'true',
+        user: req.session.user
     });
 };
 
@@ -21,7 +22,8 @@ exports.getRegisterPage = (req, res) => {
         primaryColor: '#d42511',
         mode: 'signup',
         adminOnly: false,
-        error: req.query.error === 'exists' ? 'Email already in use.' : (req.query.error === 'password_mismatch' ? 'Passwords do not match.' : null)
+        error: req.query.error === 'exists' ? 'Email already in use.' : (req.query.error === 'password_mismatch' ? 'Passwords do not match.' : null),
+        user: req.session.user
     });
 };
 
