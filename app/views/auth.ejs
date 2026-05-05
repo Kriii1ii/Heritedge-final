@@ -3,132 +3,526 @@
 
 <head>
     <%- include('partials/head') %>
-        <script>
-            function toggleAuthMode(mode) {
-                document.getElementById('login-form').style.display = mode === 'login' ? 'block' : 'none';
-                document.getElementById('signup-form').style.display = mode === 'signup' ? 'block' : 'none';
-            }
-            window.onload = function () {
-                toggleAuthMode('<%= mode %>');
-                document.getElementById('login-tab').className = '<%= mode %>' === 'login' ? 'text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none' : 'text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none';
-                document.getElementById('signup-tab').className = '<%= mode %>' === 'signup' ? 'text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none' : 'text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none';
-            };
-        </script>
+    <title>Login / Sign Up — HeritEdge</title>
+    <style>
+        /* Full-screen layout */
+        html, body { height: 100%; overflow: hidden; }
+
+        /* Polished input fields */
+        .auth-input {
+            width: 100%;
+            height: 50px;
+            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.11);
+            border-radius: 10px;
+            padding: 0 44px 0 16px;
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+            caret-color: #f2b90d;
+            font-size: 14.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .auth-input:focus {
+            border-color: #f2b90d;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(242,185,13,0.1);
+        }
+        .auth-input::placeholder {
+            color: rgba(255,255,255,0.35);
+            -webkit-text-fill-color: rgba(255,255,255,0.35);
+        }
+        /* Force white text even when browser autofills (Chrome/Safari override) */
+        .auth-input:-webkit-autofill,
+        .auth-input:-webkit-autofill:hover,
+        .auth-input:-webkit-autofill:focus,
+        .auth-input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 60px #1a0a06 inset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            caret-color: #f2b90d;
+            transition: background-color 9999s ease-in-out 0s;
+        }
+
+        /* Left panel: subtle dot grid */
+        .visual-dots {
+            background-image: radial-gradient(circle, rgba(242,185,13,0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Form panel transitions */
+        .form-panel {
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+        .form-panel.is-hidden {
+            opacity: 0;
+            transform: translateX(10px);
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+        .form-panel.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+        }
+
+        /* Tab underline */
+        .auth-tab {
+            position: relative;
+            padding-bottom: 12px;
+            padding-top: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            background: none;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            outline: none;
+        }
+        .auth-tab.tab-active {
+            color: white;
+            border-bottom-color: #f2b90d;
+        }
+        .auth-tab.tab-inactive {
+            color: rgba(255,255,255,0.42);
+            border-bottom-color: transparent;
+        }
+        .auth-tab.tab-inactive:hover { color: rgba(255,255,255,0.75); }
+
+        /* Submit button press animation */
+        .auth-submit:active { transform: scale(0.98); }
+
+        /* Gradient shimmer on visual panel */
+        @keyframes shimmer {
+            0%   { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .shimmer-bar {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+            animation: shimmer 4s infinite ease-in-out;
+        }
+
+        /* Fade in for the form panel on load */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .form-enter { animation: fadeSlideIn 0.5s ease forwards; }
+    </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-white">
-    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-        <%- include('partials/header') %>
+<body class="bg-background-dark text-white">
+<div class="flex flex-col" style="height:100dvh; height:100vh;">
 
-            <!-- Hero / Auth Section Background -->
-            <div class="flex flex-1 justify-center items-center px-4 py-12 bg-cover bg-center"
-                style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmBD1XYK4mXD18jXQXT8NPVTqtaJwHG1RI8DgUvQkpT4o2kQuct3nlz-sj1UjyOrWuJoX99ezAsype_rEXS-mcufIhGGwrViU85CoCJ4tegNJv02JGZX4Ad62c1nS9lBdxU-UDU7UaIyExAb-xdrVTwkuy_O9YVLKxPkmxu45rt7LV9QQ3PWvPgc_sg1QUOe4VZDylgQ25OZATmHemtnbDEuUzXN_uORmtI2MaTIhCxt9kCaRnD-48HsOz8XL0rZkbBcwb-m1tYgA');">
+    <%- include('partials/header') %>
 
-                <div
-                    class="w-full max-w-[480px] bg-background-dark/90 backdrop-blur-md p-8 border border-white/10 rounded-sm space-y-8 shadow-2xl">
+    <main class="flex flex-1 min-h-0">
 
-                    <div class="text-center">
-                        <h1 class="text-3xl font-bold tracking-tight text-white lg:text-4xl font-mono-header">Welcome to
-                            HeritEdge</h1>
-                        <p class="mt-2 text-sm text-dusty-rose">Preserving the future of Nepali craftsmanship.</p>
-                        <% if (typeof error !=='undefined' && error) { %>
-                            <p class="mt-4 text-sm text-red-500 font-bold bg-amber-yellow/10 p-2 rounded">
-                                <%= error %>
-                            </p>
-                            <% } %>
-                    </div>
+        <!-- ════════════════════════════════════════
+             LEFT — Visual / Brand Panel
+        ════════════════════════════════════════ -->
+        <div class="hidden lg:flex lg:w-[58%] xl:w-[60%] relative flex-col justify-center overflow-hidden shrink-0">
 
-                    <div class="flex border-b border-white/20 gap-8 justify-center mb-6">
-                        <a href="/login" id="login-tab"
-                            class="text-white pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-white hover:text-amber-yellow focus:outline-none">Login</a>
-                        <% if (!adminOnly) { %>
-                        <a href="/register" id="signup-tab"
-                            class="text-white/60 pb-3 pt-2 text-xs font-bold uppercase tracking-widest font-mono-header border-b-2 border-transparent hover:text-white focus:outline-none">Sign
-                            Up</a>
-                        <% } %>
-                    </div>
+            <!-- Background image -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image:url('/images/hero_portrait.jpg'); filter:brightness(0.38) saturate(0.8);">
+            </div>
+            <!-- Gradient layers -->
+            <div class="absolute inset-0 pointer-events-none"
+                style="background:linear-gradient(to right, rgba(15,6,4,0.1) 0%, rgba(15,6,4,0.0) 50%, #0f0604 100%)"></div>
+            <div class="absolute inset-0 pointer-events-none"
+                style="background:linear-gradient(to bottom, rgba(15,6,4,0.6) 0%, transparent 25%, transparent 65%, rgba(15,6,4,0.95) 100%)"></div>
+            <div class="absolute inset-0 pointer-events-none"
+                style="background:linear-gradient(135deg, rgba(63,16,26,0.3) 0%, transparent 60%)"></div>
+            <!-- Dot grid overlay -->
+            <div class="absolute inset-0 visual-dots pointer-events-none"></div>
+            <!-- Shimmer -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="shimmer-bar"></div>
+            </div>
+            <!-- Left amber accent bar -->
+            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-yellow/50 via-amber-yellow/15 to-transparent pointer-events-none"></div>
 
-                    <!-- Login Form -->
-                    <form id="login-form" action="/login" method="POST" class="space-y-6">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="space-y-4">
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Email
-                                    Address</label>
-                                <input name="email" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="you@example.com" type="email" />
-                            </div>
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Password</label>
-                                <input name="password" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="••••••••" type="password" />
-                            </div>
-                        </div>
-
-                        <button
-                            class="flex w-full items-center justify-center bg-deep-maroon h-14 text-white font-mono-header text-sm font-bold uppercase tracking-[0.1em] hover:bg-rich-red transition-colors rounded-none shadow-lg mt-8"
-                            type="submit">
-                            Sign In
-                        </button>
-                    </form>
-
-                    <!-- Signup Form -->
-                    <form id="signup-form" action="/register" method="POST" class="space-y-6" style="display: none;">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="space-y-4">
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Full
-                                    Name</label>
-                                <input name="name" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="Your name here" type="text" />
-                            </div>
-                            <div class="flex flex-col hidden">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Role</label>
-                                <input type="hidden" name="role" value="buyer">
-                            </div>
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Email
-                                    Address</label>
-                                <input name="email" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="you@example.com" type="email" />
-                            </div>
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Password</label>
-                                <input name="password" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="••••••••" type="password" />
-                            </div>
-                            <div class="flex flex-col">
-                                <label
-                                    class="text-xs font-bold uppercase tracking-widest text-white/80 pb-2 font-mono-header">Confirm
-                                    Password</label>
-                                <input name="confirm_password" required
-                                    class="form-input flex w-full rounded-none border-0 border-b border-white/20 bg-transparent p-3 text-base focus:border-amber-yellow focus:ring-0 placeholder:text-white/40 text-white"
-                                    placeholder="••••••••" type="password" />
-                            </div>
-                        </div>
-
-                        <button
-                            class="flex w-full items-center justify-center bg-amber-yellow h-14 text-background-dark font-mono-header text-sm font-bold uppercase tracking-[0.1em] hover:bg-white transition-colors rounded-none shadow-lg mt-8"
-                            type="submit">
-                            Create Account
-                        </button>
-                    </form>
-
+            <!-- Center: Quote + tagline -->
+            <div class="relative z-10 px-10 xl:px-14">
+                <span class="material-symbols-outlined text-amber-yellow/22 leading-none block mb-1 select-none"
+                    style="font-variation-settings:'FILL' 1; font-size:70px;">format_quote</span>
+                <blockquote class="text-white text-[1.55rem] xl:text-[1.8rem] font-bold font-mono-header leading-[1.35] tracking-tight max-w-[420px] mb-6">
+                    "Where every thread, every brushstroke, and every fired vessel carries the weight of a thousand years."
+                </blockquote>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-px bg-amber-yellow/45"></div>
+                    <span class="text-amber-yellow/65 text-[10px] font-bold uppercase tracking-[0.2em]">The HeritEdge Promise</span>
                 </div>
             </div>
-                <%- include('partials/footer') %>
+
+        </div>
+
+        <!-- ════════════════════════════════════════
+             RIGHT — Form Panel
+        ════════════════════════════════════════ -->
+        <div class="flex-1 flex flex-col justify-center overflow-y-auto px-6 sm:px-10 xl:px-16 py-10"
+            style="background:#0f0604;">
+            <div class="w-full max-w-[400px] mx-auto form-enter">
+
+                <!-- Mobile logo -->
+                <a href="/" class="flex items-center gap-3 mb-8 lg:hidden">
+                    <div class="w-9 h-9 overflow-hidden rounded-lg">
+                        <img src="/images/logo.png" alt="HeritEdge" class="w-full h-full object-contain" />
+                    </div>
+                    <span class="text-white font-bold text-base tracking-tight">HeritEdge</span>
+                </a>
+
+                <!-- Heading block -->
+                <div class="mb-7">
+                    <h1 id="auth-heading" class="text-[1.9rem] font-bold font-mono-header text-white tracking-tight mb-1.5">
+                        <%= mode === 'login' ? 'Welcome back' : 'Create account' %>
+                    </h1>
+                    <p id="auth-subheading" class="text-white/42 text-sm leading-relaxed">
+                        <%= mode === 'login' ? 'Sign in to your HeritEdge account.' : "Join Nepal's cultural art community." %>
+                    </p>
+                </div>
+
+                <!-- Alert messages -->
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="mb-6 flex items-start gap-3 text-sm font-semibold p-4 rounded-xl"
+                        style="background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.25); color:#f87171;">
+                        <span class="material-symbols-outlined text-[17px] shrink-0 mt-0.5">error</span>
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if (typeof info !== 'undefined' && info) { %>
+                    <div class="mb-6 flex items-start gap-3 text-sm font-semibold p-4 rounded-xl"
+                        style="background:rgba(242,185,13,0.1); border:1px solid rgba(242,185,13,0.25); color:#f2b90d;">
+                        <span class="material-symbols-outlined text-[17px] shrink-0 mt-0.5">info</span>
+                        <%= info %>
+                    </div>
+                <% } %>
+
+                <!-- Tabs -->
+                <div class="flex border-b mb-7" style="border-color:rgba(255,255,255,0.1);">
+                    <button id="login-tab" onclick="switchTab('login')"
+                        class="auth-tab <%= mode === 'login' ? 'tab-active' : 'tab-inactive' %>">
+                        Sign In
+                    </button>
+                    <% if (!adminOnly) { %>
+                    <button id="signup-tab" onclick="switchTab('signup')"
+                        class="auth-tab <%= mode === 'signup' ? 'tab-active' : 'tab-inactive' %>">
+                        Sign Up
+                    </button>
+                    <% } %>
+                </div>
+
+                <!-- Forms container -->
+                <div class="relative">
+
+                    <!-- ── LOGIN FORM ── -->
+                    <form id="login-form" action="/login" method="POST"
+                        class="form-panel <%= mode === 'login' ? 'is-visible' : 'is-hidden' %> flex flex-col gap-5">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                        <!-- Email -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Email Address</label>
+                            <input name="email" type="email" required placeholder="you@example.com" class="auth-input" />
+                        </div>
+
+                        <!-- Password -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Password</label>
+                            <div class="relative">
+                                <input id="pw-login" name="password" type="password" required placeholder="••••••••" class="auth-input" />
+                                <button type="button" onclick="toggleVisibility('pw-login', this)"
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/28 hover:text-white/65 transition-colors"
+                                    tabindex="-1">
+                                    <span class="material-symbols-outlined text-[19px]">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="auth-submit mt-1 w-full h-[50px] bg-amber-yellow text-background-dark font-mono-header font-bold text-sm uppercase tracking-[0.12em] rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+                            style="box-shadow: 0 6px 24px rgba(242,185,13,0.2);">
+                            Sign In
+                            <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+                        </button>
+
+                        <% if (!adminOnly) { %>
+                        <p class="text-center text-white/35 text-sm mt-1">
+                            New to HeritEdge?
+                            <button type="button" onclick="switchTab('signup')"
+                                class="text-amber-yellow font-semibold hover:underline underline-offset-2 ml-1 bg-none border-none cursor-pointer">
+                                Create account
+                            </button>
+                        </p>
+                        <% } %>
+                    </form>
+
+                    <!-- ── SIGNUP FORM ── -->
+                    <form id="signup-form" action="/register" method="POST"
+                        onsubmit="return validateSignup(event)"
+                        class="form-panel <%= mode === 'signup' ? 'is-visible' : 'is-hidden' %> flex flex-col gap-4">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="role" value="buyer">
+
+                        <!-- Full Name -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Full Name</label>
+                            <input id="su-name" name="name" type="text" required placeholder="Your full name" class="auth-input" />
+                            <p id="err-name" class="text-red-400 text-[11px] font-semibold hidden">Please enter your full name.</p>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Email Address</label>
+                            <input id="su-email" name="email" type="email" required placeholder="you@example.com" class="auth-input"
+                                oninput="liveValidateEmail(this)" />
+                            <p id="err-email" class="text-red-400 text-[11px] font-semibold hidden">Enter a valid email address (e.g. name@domain.com).</p>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Password</label>
+                            <div class="relative">
+                                <input id="pw-signup" name="password" type="password" required placeholder="Min. 8 characters"
+                                    class="auth-input" oninput="liveValidatePassword(this)" />
+                                <button type="button" onclick="toggleVisibility('pw-signup', this)"
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/28 hover:text-white/65 transition-colors"
+                                    tabindex="-1">
+                                    <span class="material-symbols-outlined text-[19px]">visibility</span>
+                                </button>
+                            </div>
+                            <!-- Requirements checklist -->
+                            <div id="pw-rules" class="flex flex-col gap-1 mt-1">
+                                <div id="rule-len"   class="pw-rule flex items-center gap-1.5 text-[11px] text-white/35 transition-colors duration-200">
+                                    <span class="material-symbols-outlined text-[13px]">radio_button_unchecked</span> At least 8 characters
+                                </div>
+                                <div id="rule-upper" class="pw-rule flex items-center gap-1.5 text-[11px] text-white/35 transition-colors duration-200">
+                                    <span class="material-symbols-outlined text-[13px]">radio_button_unchecked</span> One uppercase letter (A–Z)
+                                </div>
+                                <div id="rule-lower" class="pw-rule flex items-center gap-1.5 text-[11px] text-white/35 transition-colors duration-200">
+                                    <span class="material-symbols-outlined text-[13px]">radio_button_unchecked</span> One lowercase letter (a–z)
+                                </div>
+                                <div id="rule-num"   class="pw-rule flex items-center gap-1.5 text-[11px] text-white/35 transition-colors duration-200">
+                                    <span class="material-symbols-outlined text-[13px]">radio_button_unchecked</span> One number (0–9)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-white/50 text-[10.5px] font-bold uppercase tracking-[0.12em]">Confirm Password</label>
+                            <div class="relative">
+                                <input id="pw-confirm" name="confirm_password" type="password" required placeholder="Re-enter password"
+                                    class="auth-input" oninput="liveValidateConfirm(this)" />
+                                <button type="button" onclick="toggleVisibility('pw-confirm', this)"
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/28 hover:text-white/65 transition-colors"
+                                    tabindex="-1">
+                                    <span class="material-symbols-outlined text-[19px]">visibility</span>
+                                </button>
+                            </div>
+                            <p id="err-confirm" class="text-red-400 text-[11px] font-semibold hidden">Passwords do not match.</p>
+                        </div>
+
+                        <button type="submit"
+                            class="auth-submit mt-1 w-full h-[50px] bg-amber-yellow text-background-dark font-mono-header font-bold text-sm uppercase tracking-[0.12em] rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+                            style="box-shadow: 0 6px 24px rgba(242,185,13,0.2);">
+                            Create Account
+                            <span class="material-symbols-outlined text-[17px]">person_add</span>
+                        </button>
+
+                        <p class="text-center text-white/35 text-sm mt-0.5">
+                            Already have an account?
+                            <button type="button" onclick="switchTab('login')"
+                                class="text-amber-yellow font-semibold hover:underline underline-offset-2 ml-1 bg-none border-none cursor-pointer">
+                                Sign in
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Legal footnote -->
+                <p class="text-white/22 text-[11px] text-center mt-10 leading-relaxed">
+                    By continuing, you agree to HeritEdge's
+                    <a href="/about" class="underline underline-offset-2 hover:text-white/45 transition-colors">Terms of Service</a>
+                    and
+                    <a href="/about" class="underline underline-offset-2 hover:text-white/45 transition-colors">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+    </main>
 </div>
+
+<script>
+    /* ── Tab switching ── */
+    const COPY = {
+        login:  { h: 'Welcome back',   sub: 'Sign in to your HeritEdge account.' },
+        signup: { h: 'Create account', sub: "Join Nepal's cultural art community." }
+    };
+
+    function switchTab(mode) {
+        const lf = document.getElementById('login-form');
+        const sf = document.getElementById('signup-form');
+        const lt = document.getElementById('login-tab');
+        const st = document.getElementById('signup-tab');
+        const heading = document.getElementById('auth-heading');
+        const sub     = document.getElementById('auth-subheading');
+
+        if (mode === 'login') {
+            lf.classList.replace('is-hidden', 'is-visible');
+            sf.classList.replace('is-visible', 'is-hidden');
+            lt.classList.replace('tab-inactive', 'tab-active');
+            if (st) st.classList.replace('tab-active', 'tab-inactive');
+        } else {
+            sf.classList.replace('is-hidden', 'is-visible');
+            lf.classList.replace('is-visible', 'is-hidden');
+            if (st) st.classList.replace('tab-inactive', 'tab-active');
+            lt.classList.replace('tab-active', 'tab-inactive');
+        }
+
+        heading.textContent = COPY[mode].h;
+        sub.textContent     = COPY[mode].sub;
+        history.replaceState(null, '', mode === 'login' ? '/login' : '/register');
+    }
+
+    /* ── Password visibility toggle ── */
+    function toggleVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon  = btn.querySelector('.material-symbols-outlined');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility_off';
+        } else {
+            input.type = 'password';
+            icon.textContent = 'visibility';
+        }
+    }
+
+    /* ── Validation helpers ── */
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    const PW_RULES = {
+        'rule-len':   v => v.length >= 8,
+        'rule-upper': v => /[A-Z]/.test(v),
+        'rule-lower': v => /[a-z]/.test(v),
+        'rule-num':   v => /[0-9]/.test(v),
+    };
+
+    function setFieldError(errId, show) {
+        const el = document.getElementById(errId);
+        if (el) el.classList.toggle('hidden', !show);
+    }
+
+    function setInputState(input, valid) {
+        if (valid) {
+            input.style.borderColor = 'rgba(0,168,107,0.6)';
+        } else {
+            input.style.borderColor = 'rgba(239,68,68,0.6)';
+        }
+    }
+
+    function resetInputState(input) {
+        input.style.borderColor = '';
+    }
+
+    /* ── Live validators (called on oninput) ── */
+    function liveValidateEmail(input) {
+        const ok = EMAIL_RE.test(input.value.trim());
+        setFieldError('err-email', input.value.length > 0 && !ok);
+        if (input.value.length > 0) setInputState(input, ok);
+        else resetInputState(input);
+    }
+
+    function liveValidatePassword(input) {
+        const v = input.value;
+        let allPassed = true;
+        for (const [ruleId, test] of Object.entries(PW_RULES)) {
+            const passed = test(v);
+            if (!passed) allPassed = false;
+            const row = document.getElementById(ruleId);
+            if (!row) continue;
+            const icon = row.querySelector('.material-symbols-outlined');
+            if (passed) {
+                row.style.color = '#00A86B';
+                if (icon) icon.textContent = 'check_circle';
+            } else {
+                row.style.color = v.length > 0 ? 'rgba(239,68,68,0.8)' : 'rgba(255,255,255,0.35)';
+                if (icon) icon.textContent = v.length > 0 ? 'cancel' : 'radio_button_unchecked';
+            }
+        }
+        if (v.length > 0) setInputState(input, allPassed);
+        else resetInputState(input);
+
+        // Re-check confirm if already typed
+        const confirm = document.getElementById('pw-confirm');
+        if (confirm && confirm.value.length > 0) liveValidateConfirm(confirm);
+    }
+
+    function liveValidateConfirm(input) {
+        const pw = document.getElementById('pw-signup')?.value || '';
+        const ok = input.value === pw && pw.length > 0;
+        setFieldError('err-confirm', input.value.length > 0 && !ok);
+        if (input.value.length > 0) setInputState(input, ok);
+        else resetInputState(input);
+    }
+
+    /* ── Form submit validation ── */
+    function validateSignup(e) {
+        let valid = true;
+
+        // Name
+        const name = document.getElementById('su-name');
+        if (!name.value.trim()) {
+            setFieldError('err-name', true);
+            setInputState(name, false);
+            valid = false;
+        } else {
+            setFieldError('err-name', false);
+            setInputState(name, true);
+        }
+
+        // Email
+        const email = document.getElementById('su-email');
+        if (!EMAIL_RE.test(email.value.trim())) {
+            setFieldError('err-email', true);
+            setInputState(email, false);
+            valid = false;
+        } else {
+            setFieldError('err-email', false);
+            setInputState(email, true);
+        }
+
+        // Password rules
+        const pw = document.getElementById('pw-signup');
+        const pwValid = Object.values(PW_RULES).every(fn => fn(pw.value));
+        liveValidatePassword(pw);
+        if (!pwValid) {
+            setInputState(pw, false);
+            valid = false;
+        }
+
+        // Confirm password
+        const confirm = document.getElementById('pw-confirm');
+        if (confirm.value !== pw.value || !confirm.value) {
+            setFieldError('err-confirm', true);
+            setInputState(confirm, false);
+            valid = false;
+        } else {
+            setFieldError('err-confirm', false);
+            setInputState(confirm, true);
+        }
+
+        if (!valid) e.preventDefault();
+        return valid;
+    }
+</script>
 </body>
 
 </html>

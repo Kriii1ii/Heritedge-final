@@ -1,74 +1,151 @@
 <!-- Community Stories Section -->
-<div class="flex items-center justify-between px-4 md:px-0 pb-6">
-    <h2 class="text-white text-3xl font-bold font-mono-header">
-        Community Stories</h2>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-0">
-    <!-- Artist 1 -->
-    <div onclick="openStoryModal('Sita Thapa', 'TRADITIONAL POTTER • BHAKTAPUR', '/images/sitathapa.jpg', 'Each piece of clay carries the weight of generations. Through HeritEdge, my craft now reaches hands across the ocean. Growing up in Bhaktapur, the potter\'s wheel was the center of our household. Each piece of clay I shape carries the wisdom of generations before me. Through HeritEdge, my craft reaches hands globally, ensuring that our ancestral techniques survive and provide a sustainable future for my family.')"
-        class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
-        <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-            style='background-image: url("/images/sitathapa.jpg");'>
-            <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-        </div>
-        <div class="space-y-1">
-            <p class="text-white text-xl font-bold font-mono-header group-hover:text-amber-yellow transition-colors">Sita Thapa</p>
-            <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Traditional Potter • Bhaktapur</p>
-            <p class="text-white/70 text-sm line-clamp-2 mt-2 italic flex-grow">"Each piece of clay carries the weight of generations. Through HeritEdge, my craft now reaches hands across the ocean..."</p>
-        </div>
+<div class="flex items-end justify-between px-4 md:px-0 pb-8 gap-4">
+    <div>
+        <p class="text-amber-yellow/80 text-xs font-bold uppercase tracking-[0.18em] mb-2 font-mono-header">Voices from Nepal</p>
+        <h2 class="text-white text-3xl md:text-4xl font-bold font-mono-header tracking-tight leading-tight">Community Stories</h2>
     </div>
-    <!-- Artist 2 -->
-    <div onclick="openStoryModal('Maya Devi', 'THANGKA ARTIST • PATAN', '/images/mayadevi.jpeg', 'Painting is my meditation. I paint the stories of the Buddha to preserve our spiritual identity. For many years, Thangka painting was a male-dominated field, but I insisted on learning. Now, I run my own workshop in Patan, teaching other young women the sacred geometry and intense focus required to master this art form. HeritEdge has given us a voice and financial independence.')"
-        class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
-        <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-            style='background-image: url("/images/mayadevi.jpeg");'>
-            <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-        </div>
-        <div class="space-y-1">
-            <p class="text-white text-xl font-bold font-mono-header group-hover:text-amber-yellow transition-colors">Maya Devi</p>
-            <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Thangka Artist • Patan</p>
-            <p class="text-white/70 text-sm line-clamp-2 mt-2 italic flex-grow">"Painting is my meditation. I paint the stories of the Buddha to preserve our spiritual identity..."</p>
-        </div>
-    </div>
-    <!-- Artist 3 -->
-    <div onclick="openStoryModal('Anjali Rai', 'CONTEMPORARY PAINTER • KATHMANDU', '/images/anjalirai.jpg', 'I blend traditional motifs with modern struggles to give voice to the unspoken stories of Himalayan women. As a contemporary artist, I want to challenge the boundaries of what Nepali art looks like, while still honoring our rich aesthetic past. Through my canvases, I paint the resilience, the silence, and the quiet power of the women who raised me. Joining HeritEdge connected me with collectors who truly understand my vision.')"
-        class="flex flex-col gap-4 group cursor-pointer bg-deep-maroon/20 p-4 rounded-sm border border-rich-red/30 hover:border-amber-yellow transition-all shadow-lg hover:shadow-amber-yellow/10">
-        <div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-md overflow-hidden border-2 border-rich-red"
-            style='background-image: url("/images/anjalirai.jpg");'>
-            <div class="w-full h-full bg-black/20 group-hover:bg-transparent transition-all"></div>
-        </div>
-        <div class="space-y-1">
-            <p class="text-white text-xl font-bold font-mono-header group-hover:text-amber-yellow transition-colors">Anjali Rai</p>
-            <p class="text-dusty-rose text-sm font-medium uppercase tracking-wider">Contemporary Painter • Kathmandu</p>
-            <p class="text-white/70 text-sm line-clamp-2 mt-2 italic flex-grow">"I blend traditional motifs with modern struggles to give voice to the unspoken stories of Himalayan women..."</p>
-        </div>
-    </div>
+    <a href="/marketplace" class="hidden sm:flex items-center gap-1.5 text-white/60 text-sm font-semibold hover:text-amber-yellow transition-colors group shrink-0">
+        Meet all artists
+        <span class="material-symbols-outlined text-[17px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+    </a>
 </div>
 
-<!-- Modal Container -->
-<div id="story-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
-    <div id="story-modal-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-md cursor-pointer transition-opacity duration-300 opacity-0" onclick="closeStoryModal()"></div>
-    
-    <div id="story-modal-content" class="relative z-10 w-full md:w-1/2 max-w-4xl bg-deep-maroon border border-amber-yellow/50 rounded-md shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row overflow-hidden max-h-[90vh]">
-        <!-- Close button inside modal -->
-        <button onclick="closeStoryModal()" class="absolute top-3 right-3 text-white/50 hover:text-amber-yellow hover:scale-110 transition-all bg-black/40 rounded-full w-8 h-8 flex items-center justify-center z-20 shadow-lg">
-            <span class="material-symbols-outlined text-lg font-bold">close</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 md:px-0">
+    <!-- Artist 1 -->
+    <button onclick="openStoryModal('Sita Thapa','TRADITIONAL POTTER • BHAKTAPUR','/images/sitathapa.jpg','Born into a family of potters in the narrow lanes of Bhaktapur, the wheel was my first teacher and clay my first language. Each vessel I throw carries the memory of my grandmother\'s hands guiding mine. Through HeritEdge, my craft has traveled to homes across continents — and with every sale, I can send my daughter to school. This is what it means to preserve: not just an art form, but a way of life.')"
+        class="story-card flex flex-col group cursor-pointer bg-deep-maroon/30 rounded-2xl border border-rich-red/20 hover:border-amber-yellow/50 transition-all duration-300 shadow-lg hover:shadow-amber-yellow/8 hover:-translate-y-1.5 overflow-hidden text-left w-full">
+        <div class="w-full aspect-[3/4] bg-cover bg-center relative overflow-hidden" style='background-image:url("/images/sitathapa.jpg");'>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5 transition-opacity duration-300 group-hover:from-black/70"></div>
+            <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div class="flex-1 h-px bg-amber-yellow/50"></div>
+                <span class="text-amber-yellow text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">Read Story</span>
+                <span class="material-symbols-outlined text-amber-yellow text-[14px]">arrow_forward</span>
+            </div>
+        </div>
+        <div class="p-5">
+            <p class="text-white font-bold text-base font-mono-header group-hover:text-amber-yellow transition-colors leading-snug mb-1">Sita Thapa</p>
+            <p class="text-dusty-rose text-[11px] font-bold uppercase tracking-wider mb-3">Traditional Potter • Bhaktapur</p>
+            <p class="text-white/70 text-sm leading-relaxed line-clamp-2 italic">"Each piece of clay carries the weight of generations..."</p>
+        </div>
+    </button>
+
+    <!-- Artist 2 -->
+    <button onclick="openStoryModal('Maya Devi','THANGKA ARTIST • PATAN','/images/mayadevi.jpeg','For many years, Thangka painting was a world closed to women. I learned in secret, tracing sacred geometries by candlelight after my chores were done. Now I run my own studio in Patan, teaching twelve young women the same art that once denied us. Each brushstroke is a prayer, each completed Thangka a testament to our right to create. HeritEdge didn\'t just sell my art — they gave me a voice in a conversation I was never meant to join.')"
+        class="story-card flex flex-col group cursor-pointer bg-deep-maroon/30 rounded-2xl border border-rich-red/20 hover:border-amber-yellow/50 transition-all duration-300 shadow-lg hover:shadow-amber-yellow/8 hover:-translate-y-1.5 overflow-hidden text-left w-full">
+        <div class="w-full aspect-[3/4] bg-cover bg-center relative overflow-hidden" style='background-image:url("/images/mayadevi.jpeg");'>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5 transition-opacity duration-300 group-hover:from-black/70"></div>
+            <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div class="flex-1 h-px bg-amber-yellow/50"></div>
+                <span class="text-amber-yellow text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">Read Story</span>
+                <span class="material-symbols-outlined text-amber-yellow text-[14px]">arrow_forward</span>
+            </div>
+        </div>
+        <div class="p-5">
+            <p class="text-white font-bold text-base font-mono-header group-hover:text-amber-yellow transition-colors leading-snug mb-1">Maya Devi</p>
+            <p class="text-dusty-rose text-[11px] font-bold uppercase tracking-wider mb-3">Thangka Artist • Patan</p>
+            <p class="text-white/70 text-sm leading-relaxed line-clamp-2 italic">"Painting is my meditation. I paint the stories of the Buddha..."</p>
+        </div>
+    </button>
+
+    <!-- Artist 3 -->
+    <button onclick="openStoryModal('Kamala Tamang','CONTEMPORARY PAINTER • KATHMANDU','/images/anjalirai.jpg','I grew up watching my mother weave stories into fabric, her face illuminated by the fire\'s glow. I swore I would find a way to honour those silent, powerful women. My canvases are my tribute — I blend the ancient iconography of our mountains with the raw edges of a modern, struggling world. When a collector from London told me my work made them feel the weight of Nepal\'s history, I wept. Joining HeritEdge connected me with collectors who don\'t just buy art — they carry our stories.')"
+        class="story-card flex flex-col group cursor-pointer bg-deep-maroon/30 rounded-2xl border border-rich-red/20 hover:border-amber-yellow/50 transition-all duration-300 shadow-lg hover:shadow-amber-yellow/8 hover:-translate-y-1.5 overflow-hidden text-left w-full">
+        <div class="w-full aspect-[3/4] bg-cover bg-center relative overflow-hidden" style='background-image:url("/images/anjalirai.jpg");'>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5 transition-opacity duration-300 group-hover:from-black/70"></div>
+            <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div class="flex-1 h-px bg-amber-yellow/50"></div>
+                <span class="text-amber-yellow text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">Read Story</span>
+                <span class="material-symbols-outlined text-amber-yellow text-[14px]">arrow_forward</span>
+            </div>
+        </div>
+        <div class="p-5">
+            <p class="text-white font-bold text-base font-mono-header group-hover:text-amber-yellow transition-colors leading-snug mb-1">Kamala Tamang</p>
+            <p class="text-dusty-rose text-[11px] font-bold uppercase tracking-wider mb-3">Contemporary Painter • Kathmandu</p>
+            <p class="text-white/70 text-sm leading-relaxed line-clamp-2 italic">"I blend traditional motifs with modern struggles..."</p>
+        </div>
+    </button>
+</div>
+
+<!-- ── STORY MODAL ── -->
+<style>
+    #story-modal-content {
+        will-change: transform, opacity;
+    }
+    #story-modal-image::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, transparent 60%, #0f0604 100%);
+    }
+    @media (max-width: 768px) {
+        #story-modal-image::after {
+            background: linear-gradient(to bottom, transparent 60%, #0f0604 100%);
+        }
+    }
+    @keyframes modalIn {
+        from { opacity: 0; transform: scale(0.94) translateY(12px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes backdropIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    #story-modal.open #story-modal-backdrop { animation: backdropIn 0.3s ease forwards; }
+    #story-modal.open #story-modal-content  { animation: modalIn 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
+</style>
+
+<div id="story-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 md:p-8"
+    role="dialog" aria-modal="true" aria-labelledby="story-modal-name">
+
+    <!-- Backdrop -->
+    <div id="story-modal-backdrop"
+        class="absolute inset-0 bg-black/85 backdrop-blur-[6px] cursor-pointer"
+        onclick="closeStoryModal()"></div>
+
+    <!-- Modal -->
+    <div id="story-modal-content"
+        class="relative z-10 w-full max-w-[880px] flex flex-col md:flex-row overflow-hidden rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/8 max-h-[92vh]"
+        style="background: #0f0604;">
+
+        <!-- Close -->
+        <button onclick="closeStoryModal()" aria-label="Close"
+            class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-white/10 hover:bg-amber-yellow hover:text-background-dark text-white/60 flex items-center justify-center transition-all duration-200 hover:scale-110 border border-white/15 backdrop-blur-sm">
+            <span class="material-symbols-outlined text-[18px]">close</span>
         </button>
-        
-        <!-- Left half: Image -->
-        <div class="w-full md:w-2/5 aspect-square md:aspect-auto md:h-auto bg-cover bg-center shrink-0 border-b md:border-b-0 md:border-r border-amber-yellow/20" id="story-modal-image"></div>
-        
-        <!-- Right half: Content text -->
-        <div class="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto bg-background-dark/30">
-            <span class="material-symbols-outlined text-amber-yellow/40 text-[48px] leading-none mb-6 -ml-2 drop-shadow" style="font-variation-settings: 'FILL' 1;">format_quote</span>
-            
-            <p id="story-modal-text" class="text-white/95 text-lg md:text-xl italic font-medium leading-relaxed mb-8 font-mono border-l-2 border-amber-yellow/50 pl-5">
-                Full story goes here...
-            </p>
-            
-            <div class="flex flex-col gap-1 mt-auto pt-6 border-t border-white/10">
-                <p id="story-modal-name" class="text-amber-yellow text-2xl font-bold font-mono-header tracking-wide"></p>
-                <p id="story-modal-role" class="text-white/60 text-sm font-bold uppercase tracking-widest mt-1"></p>
+
+        <!-- Left: Full image -->
+        <div id="story-modal-image"
+            class="w-full md:w-[42%] min-h-[240px] md:min-h-full shrink-0 bg-cover bg-center relative">
+        </div>
+
+        <!-- Right: Story content -->
+        <div class="flex-1 flex flex-col justify-between p-7 md:p-10 lg:p-12 overflow-y-auto">
+
+            <!-- Decorative quote mark -->
+            <div class="flex flex-col gap-5 flex-1">
+                <div class="flex items-start gap-1">
+                    <span class="material-symbols-outlined text-amber-yellow/20 text-[56px] leading-none select-none -mt-2 -ml-1 shrink-0" style="font-variation-settings:'FILL' 1;">format_quote</span>
+                </div>
+
+                <p id="story-modal-text"
+                    class="text-white text-[17px] md:text-[18px] italic font-normal leading-[1.8] tracking-[0.005em] flex-1 border-l-[2px] border-amber-yellow/30 pl-5">
+                </p>
+            </div>
+
+            <!-- Artist signature -->
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <div id="story-modal-avatar"
+                        class="w-14 h-14 rounded-full bg-cover bg-center shrink-0 border-2 border-amber-yellow/30 shadow-lg">
+                    </div>
+                    <div>
+                        <p id="story-modal-name" class="text-amber-yellow text-xl font-bold font-mono-header leading-tight tracking-tight"></p>
+                        <p id="story-modal-role" class="text-white/60 text-[11px] font-bold uppercase tracking-[0.14em] mt-1"></p>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="material-symbols-outlined text-amber-yellow/20 text-[32px]" style="font-variation-settings:'FILL' 1;">verified</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -77,66 +154,41 @@
 <script>
     function openStoryModal(name, role, imageUrl, fullText) {
         const modal = document.getElementById('story-modal');
-        const backdrop = document.getElementById('story-modal-backdrop');
-        const content = document.getElementById('story-modal-content');
-        
-        // Populate modal data
         document.getElementById('story-modal-name').textContent = name;
         document.getElementById('story-modal-role').textContent = role;
-        document.getElementById('story-modal-text').textContent = '"' + fullText + '"';
+        document.getElementById('story-modal-text').textContent = '“' + fullText + '”';
         document.getElementById('story-modal-image').style.backgroundImage = `url('${imageUrl}')`;
-        
-        // Show modal base container
+        document.getElementById('story-modal-avatar').style.backgroundImage = `url('${imageUrl}')`;
+
         modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        
-        // Let the browser paint the flex display, then trigger transitions
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                backdrop.classList.remove('opacity-0');
-                backdrop.classList.add('opacity-100');
-                
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
-            });
-        });
-        
-        // Prevent background scrolling
+        modal.classList.add('flex', 'open');
         document.body.style.overflow = 'hidden';
     }
-    
+
     function closeStoryModal() {
         const modal = document.getElementById('story-modal');
-        const backdrop = document.getElementById('story-modal-backdrop');
         const content = document.getElementById('story-modal-content');
-        
-        // Start hiding transitions
-        backdrop.classList.remove('opacity-100');
-        backdrop.classList.add('opacity-0');
-        
-        content.classList.remove('scale-100', 'opacity-100');
-        content.classList.add('scale-95', 'opacity-0');
-        
-        // After transition duration, completely hide elements
+
+        content.style.animation = 'none';
+        content.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        content.style.opacity = '0';
+        content.style.transform = 'scale(0.96) translateY(8px)';
+
         setTimeout(() => {
-            modal.classList.remove('flex');
             modal.classList.add('hidden');
+            modal.classList.remove('flex', 'open');
+            content.style.animation = '';
+            content.style.transition = '';
+            content.style.opacity = '';
+            content.style.transform = '';
             document.body.style.overflow = '';
-        }, 300); // 300ms matches Tailwind's duration-300
+        }, 220);
     }
-    
-    // Close modal on Escape key press
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            const modal = document.getElementById('story-modal');
-            if (!modal.classList.contains('hidden')) {
-                closeStoryModal();
-            }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !document.getElementById('story-modal').classList.contains('hidden')) {
+            closeStoryModal();
         }
     });
-
-    // Make sure click propagation inside the modal doesn't trigger a close
-    document.getElementById('story-modal-content')?.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
+    document.getElementById('story-modal-content')?.addEventListener('click', (e) => e.stopPropagation());
 </script>

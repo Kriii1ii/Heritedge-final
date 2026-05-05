@@ -39,4 +39,8 @@ router.post('/artworks/:id/status', creatorController.changeArtworkStatus);
 router.post('/artworks/:id/delete', creatorController.deleteArtwork);
 router.post('/onboarding', creatorController.completeOnboarding);
 
+router.get('/analytics', creatorController.getAnalytics);
+router.get('/profile-edit', creatorController.getProfileEdit);
+router.post('/profile-edit', upload.single('avatar'), creatorController.updateProfileEdit);
+
 module.exports = router;

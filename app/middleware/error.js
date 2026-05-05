@@ -1,6 +1,9 @@
 const logger = require('../utils/logger');
 
 const errorHandler = (err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
     const statusCode = err.status || err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     const details = err.errors || err.details || (process.env.NODE_ENV === 'development' ? err.stack : undefined);
@@ -11,6 +14,8 @@ const errorHandler = (err, req, res, next) => {
         method: req.method,
         url: req.originalUrl,
         ip: req.ip,
+        prismaCode: err.code,       // e.g. P2021 = table not found
+        prismaMeta: err.meta,       // e.g. { modelName: 'Event' }
         stack: err.stack
     });
 
@@ -23,7 +28,7 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
-    res.status(statusCode).render('error', {
+    return res.status(statusCode).render('error', {
         message: statusCode === 500 ? 'Something went wrong! Please try again later.' : message,
         details,
         statusCode,

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title>Analytics — Creator Dashboard</title>
+  <style>
+    .bar-fill { transition: width 0.7s cubic-bezier(.4,0,.2,1); }
+    @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .stat-num { animation: countUp 0.4s ease both; }
+  </style>
+</head>
+<body class="min-h-screen text-white" style="background:#0a0401;">
+<div class="flex min-h-screen">
+
+  <%- include('../partials/creator-nav', { currentPage: 'analytics' }) %>
+
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(242,185,13,0.55);">Creator Dashboard</p>
+          <h1 class="text-2xl font-bold text-white font-mono-header">Analytics</h1>
+          <p class="text-white/40 text-sm mt-1">Your artwork performance and sales overview.</p>
+        </div>
+
+        <!-- Top stat cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <div class="rounded-xl p-5" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header mb-2">Total Artworks</p>
+            <p class="stat-num text-3xl font-bold text-white font-mono"><%= totalArtworks %></p>
+            <p class="text-white/25 text-xs mt-1"><%= publishedArtworks %> published · <%= draftArtworks %> draft</p>
+          </div>
+          <div class="rounded-xl p-5" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header mb-2">Total Sales</p>
+            <p class="stat-num text-3xl font-bold text-white font-mono"><%= totalSales %></p>
+            <p class="text-white/25 text-xs mt-1">Completed orders</p>
+          </div>
+          <div class="rounded-xl p-5" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header mb-2">Total Revenue</p>
+            <p class="stat-num text-2xl font-bold text-amber-yellow font-mono">रू <%= totalRevenue.toLocaleString() %></p>
+            <p class="text-white/25 text-xs mt-1">From all sales</p>
+          </div>
+          <div class="rounded-xl p-5" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header mb-2">Avg. Per Sale</p>
+            <p class="stat-num text-2xl font-bold text-white font-mono">
+              रू <%= totalSales > 0 ? Math.round(totalRevenue / totalSales).toLocaleString() : '0' %>
+            </p>
+            <p class="text-white/25 text-xs mt-1">Average order value</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 mb-10">
+
+          <!-- Monthly revenue bar chart -->
+          <div class="rounded-xl p-6" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+            <h2 class="text-sm font-bold text-white font-mono-header uppercase tracking-wider mb-5">Revenue — Last 6 Months</h2>
+            <%
+              const maxRev = monthlyRevenue.reduce((m, r) => Math.max(m, r.revenue), 1);
+            %>
+            <div class="space-y-3">
+              <% monthlyRevenue.forEach(m => { %>
+                <% const pct = maxRev > 0 ? Math.round((m.revenue / maxRev) * 100) : 0; %>
+                <div class="flex items-center gap-3">
+                  <span class="text-[11px] text-white/40 font-mono-header w-14 flex-shrink-0 text-right"><%= m.month %></span>
+                  <div class="flex-1 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.05); height:8px;">
+                    <div class="bar-fill h-full rounded-full" style="width:<%= pct %>%; background:<%= pct > 0 ? '#f2b90d' : 'rgba(255,255,255,0.08)' %>;"></div>
+                  </div>
+                  <span class="text-[11px] font-bold font-mono text-amber-yellow w-20 flex-shrink-0">
+                    <%= m.revenue > 0 ? 'रू ' + m.revenue.toLocaleString() : '—' %>
+                  </span>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <!-- Top artworks -->
+          <div class="rounded-xl p-6" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+            <h2 class="text-sm font-bold text-white font-mono-header uppercase tracking-wider mb-5">Top Selling Artworks</h2>
+            <% if (topArtworks && topArtworks.length > 0) { %>
+              <div class="space-y-3">
+                <% topArtworks.forEach((art, idx) => { %>
+                  <div class="flex items-center gap-3">
+                    <span class="text-[10px] font-bold text-white/20 font-mono w-4 flex-shrink-0"><%= idx + 1 %></span>
+                    <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0" style="border:1px solid rgba(255,255,255,0.1);">
+                      <img src="<%= art.image || '/images/placeholder.jpg' %>" class="w-full h-full object-cover" alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-white text-xs font-bold font-mono-header truncate"><%= art.title %></p>
+                      <p class="text-white/30 text-[10px]"><%= art.sales %> sale<%= art.sales !== 1 ? 's' : '' %></p>
+                    </div>
+                    <span class="text-amber-yellow font-bold font-mono text-sm flex-shrink-0">
+                      रू <%= art.revenue.toLocaleString() %>
+                    </span>
+                  </div>
+                <% }) %>
+              </div>
+            <% } else { %>
+              <div class="flex flex-col items-center justify-center py-8 text-center">
+                <span class="material-symbols-outlined text-white/10 mb-2" style="font-size:36px;">trending_up</span>
+                <p class="text-white/30 text-sm">No sales yet. Keep creating!</p>
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Recent orders -->
+        <div>
+          <h2 class="text-sm font-bold text-white font-mono-header uppercase tracking-wider mb-4">Recent Sales</h2>
+          <% if (recentOrders && recentOrders.length > 0) { %>
+            <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+              <div class="divide-y" style="divide-color:rgba(255,255,255,0.05);">
+                <% recentOrders.forEach(order => { %>
+                  <div class="flex items-center gap-4 px-5 py-3.5 hover:bg-white/3 transition-colors">
+                    <div class="w-11 h-11 rounded-lg overflow-hidden flex-shrink-0" style="border:1px solid rgba(255,255,255,0.1);">
+                      <img src="<%= order.artwork?.images?.[0] || '/images/placeholder.jpg' %>" class="w-full h-full object-cover" alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-white text-sm font-bold font-mono-header truncate"><%= order.artwork?.title || 'Artwork' %></p>
+                      <p class="text-white/30 text-[11px]"><%= new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full text-jade-green"
+                            style="background:rgba(0,168,107,0.12); border:1px solid rgba(0,168,107,0.2);">Completed</span>
+                      <span class="text-amber-yellow font-bold font-mono text-sm">रू <%= parseFloat(order.amount || 0).toLocaleString() %></span>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="rounded-xl flex flex-col items-center justify-center py-12 text-center"
+                 style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);">
+              <span class="material-symbols-outlined text-white/10 mb-2" style="font-size:40px;">receipt_long</span>
+              <p class="text-white/30 text-sm">No completed sales yet.</p>
+            </div>
+          <% } %>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>

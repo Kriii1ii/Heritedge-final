@@ -1,135 +1,132 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
+  <title><%= user.name %> — Creator Dashboard</title>
 </head>
+<body class="min-h-screen text-white" style="background:#0a0401;">
+<div class="flex min-h-screen">
 
-<body class="bg-background-light dark:bg-background-dark text-white min-h-screen">
-    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-        <%- include('../partials/header') %>
-            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
-                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
-                    <div class="flex flex-wrap justify-between gap-3 mb-8">
-                        <div class="flex min-w-72 flex-col gap-1">
-                            <p
-                                class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
-                                Creator Dashboard</p>
-                            <p class="text-white/60 text-base font-mono">Welcome back, <%= user.name %>! Track your
-                                    journey and sales.</p>
-                        </div>
+  <%- include('../partials/creator-nav', { currentPage: 'home' }) %>
+
+  <!-- Main -->
+  <div class="flex-1 min-h-screen flex flex-col" style="margin-left:0;">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Page heading -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(242,185,13,0.55);">Creator Dashboard</p>
+          <h1 class="text-2xl md:text-[1.9rem] font-bold text-white font-mono-header leading-tight">
+            Welcome back, <%= user.name.split(' ')[0] %>.
+          </h1>
+          <p class="text-white/40 text-sm mt-1">Here's a snapshot of your creator activity.</p>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          <div class="rounded-xl p-5 flex flex-col gap-1" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header">Artworks Listed</span>
+              <span class="material-symbols-outlined text-[20px]" style="color:rgba(242,185,13,0.55);">palette</span>
+            </div>
+            <p class="text-3xl font-bold text-white font-mono"><%= totalArtworks %></p>
+            <p class="text-white/30 text-xs mt-0.5 font-mono-header">Total pieces</p>
+          </div>
+          <div class="rounded-xl p-5 flex flex-col gap-1" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header">Total Sales</span>
+              <span class="material-symbols-outlined text-[20px]" style="color:rgba(0,168,107,0.65);">shopping_bag</span>
+            </div>
+            <p class="text-3xl font-bold text-white font-mono"><%= totalSales %></p>
+            <p class="text-white/30 text-xs mt-0.5 font-mono-header">Completed orders</p>
+          </div>
+          <div class="rounded-xl p-5 flex flex-col gap-1" style="background:rgba(63,16,26,0.25); border:1px solid rgba(255,255,255,0.07);">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35 font-mono-header">Total Revenue</span>
+              <span class="material-symbols-outlined text-[20px]" style="color:rgba(242,185,13,0.55);">payments</span>
+            </div>
+            <p class="text-3xl font-bold text-white font-mono">रू <%= (revenueSum || 0).toLocaleString() %></p>
+            <p class="text-white/30 text-xs mt-0.5 font-mono-header">From completed sales</p>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="/creator/upload"
+             class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-background-dark transition-all hover:opacity-90 shadow-lg"
+             style="background:#f2b90d;">
+            <span class="material-symbols-outlined text-[16px]">add_photo_alternate</span>
+            Add Artwork
+          </a>
+          <a href="/creator/analytics"
+             class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white/80 transition-all hover:text-white hover:bg-white/8"
+             style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);">
+            <span class="material-symbols-outlined text-[16px]">bar_chart</span>
+            View Analytics
+          </a>
+          <a href="/creator/profile-edit"
+             class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white/80 transition-all hover:text-white hover:bg-white/8"
+             style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);">
+            <span class="material-symbols-outlined text-[16px]">manage_accounts</span>
+            Edit Profile
+          </a>
+        </div>
+
+        <!-- Recent artworks -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-bold text-white font-mono-header uppercase tracking-wider">Recent Artworks</h2>
+            <a href="/creator/artworks" class="text-amber-yellow text-xs font-bold hover:underline flex items-center gap-1 font-mono-header">
+              View all <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+          </div>
+
+          <% if (artworks && artworks.length > 0) { %>
+            <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+              <div class="divide-y" style="divide-color:rgba(255,255,255,0.05);">
+                <% artworks.forEach(art => { %>
+                  <div class="flex items-center gap-5 px-5 py-4 hover:bg-white/3 transition-colors">
+                    <div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0" style="border:1px solid rgba(255,255,255,0.1);">
+                      <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>"
+                           class="w-full h-full object-cover" alt="">
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-10">
-                        <div class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-bold uppercase tracking-widest font-mono-header">Artworks Listed</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-2xl">palette</span>
-                            </div>
-                            <p class="text-white tracking-light text-3xl font-bold font-mono">
-                                <%= totalArtworks %>
-                            </p>
-                        </div>
-                        <div class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-bold uppercase tracking-widest font-mono-header">Total Sales</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-2xl">shopping_cart</span>
-                            </div>
-                            <p class="text-white tracking-light text-3xl font-bold font-mono">
-                                <%= totalSales %>
-                            </p>
-                        </div>
-                        <div class="flex flex-col gap-2 rounded-sm p-6 border border-white/10 bg-deep-maroon shadow-sm shadow-black/20">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-bold uppercase tracking-widest font-mono-header">Total Revenue</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-2xl">account_balance</span>
-                            </div>
-                            <p class="text-white tracking-light text-3xl font-bold font-mono">रू <%= (revenueSum || 0).toLocaleString() %>
-                            </p>
-                        </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-white font-bold text-sm font-mono-header truncate mb-1"><%= art.title %></p>
+                      <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-white/35 border border-white/10 px-2 py-0.5 rounded-full"><%= art.category %></span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider <%= art.status === 'PUBLISHED' ? 'text-jade-green' : 'text-white/35' %>">
+                          <% if (art.status === 'PUBLISHED') { %><span class="inline-block w-1.5 h-1.5 bg-jade-green rounded-full mr-1 -mb-0.5"></span><% } %>
+                          <%= art.status %>
+                        </span>
+                      </div>
                     </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                        <div class="lg:col-span-1 flex flex-col">
-                            <div class="px-2 pb-4 border-b border-white/10 mb-4">
-                                <h2 class="text-white text-[20px] font-bold tracking-tight font-mono-header uppercase">Creator Identity</h2>
-                            </div>
-                            <form action="/creator/onboarding" method="POST"
-                                class="bg-white/5 p-8 rounded-sm border border-white/10 shadow-lg">
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                
-                                <div class="space-y-6">
-                                    <div>
-                                        <label class="text-[10px] text-white/40 uppercase tracking-[0.2em] mb-2 block font-bold font-mono-header">Your Heritage Story</label>
-                                        <textarea name="story" rows="6"
-                                            class="w-full bg-black/30 text-white border border-white/10 p-4 rounded-sm focus:border-amber-yellow focus:ring-1 focus:ring-amber-yellow outline-none placeholder:text-white/10 text-sm font-mono leading-relaxed"
-                                            placeholder="Tell potential buyers about your journey..."><%= user.bio %></textarea>
-                                    </div>
-
-                                    <div>
-                                        <label class="text-[10px] text-white/40 uppercase tracking-[0.2em] mb-2 block font-bold font-mono-header">Primary Region</label>
-                                        <input type="text" name="region" value="<%= user.region || '' %>"
-                                            class="w-full bg-black/30 text-white border border-white/10 p-4 rounded-sm focus:border-amber-yellow outline-none text-sm font-mono"
-                                            placeholder="e.g. Bhaktapur, Nepal">
-                                    </div>
-
-                                    <button type="submit"
-                                        class="mt-4 px-6 py-4 bg-amber-yellow text-background-dark font-bold font-mono-header uppercase tracking-widest text-xs hover:bg-white rounded-none transition-all w-full shadow-lg hover:translate-y-[-2px] active:translate-y-0">
-                                        Update Creator Profile
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="lg:col-span-2 flex flex-col">
-                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
-                                <h2 class="text-white text-[20px] font-bold tracking-tight font-mono-header uppercase">Recent Collections</h2>
-                                <a href="/creator/upload" class="text-amber-yellow hover:text-white text-xs font-bold font-mono-header uppercase tracking-widest transition-colors flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-sm">add</span> Add New
-                                </a>
-                            </div>
-                            <div class="bg-white/5 rounded-sm border border-white/10 shadow-lg overflow-hidden">
-                                <% if (artworks && artworks.length > 0) { %>
-                                    <div class="divide-y divide-white/5">
-                                        <% artworks.forEach(art => { %>
-                                            <div class="flex items-center gap-6 p-5 hover:bg-white/5 transition-colors">
-                                                <div class="h-16 w-16 rounded bg-black/50 overflow-hidden shrink-0 border border-white/10">
-                                                    <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>" class="w-full h-full object-cover">
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-white font-bold font-mono-header text-base mb-1 truncate">
-                                                        <%= art.title %>
-                                                    </p>
-                                                    <div class="flex items-center gap-2">
-                                                        <span class="text-[10px] uppercase font-bold tracking-[0.1em] text-white/40 border border-white/10 px-2 py-0.5 rounded-none"><%= art.category %></span>
-                                                        <span class="text-[10px] uppercase font-bold tracking-[0.1em] <%= art.status === 'PUBLISHED' ? 'text- jade-green' : 'text-dusty-rose' %>"><%= art.status %></span>
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <p class="text-amber-yellow font-bold font-mono text-lg">रू <%= (art.price || 0).toLocaleString() %></p>
-                                                    <p class="text-[9px] uppercase tracking-tighter text-white/30 font-mono-header">
-                                                        Listed on <%= new Date(art.createdAt).toLocaleDateString() %>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        <% }) %>
-                                    </div>
-                                <% } else { %>
-                                    <div class="flex flex-col items-center justify-center p-16 text-center">
-                                        <span class="material-symbols-outlined text-white/10 text-6xl mb-4">art_track</span>
-                                        <p class="text-white/30 italic font-mono-header mb-6">Your gallery is currently empty.</p>
-                                        <a href="/creator/upload" class="px-8 py-3 border border-amber-yellow text-amber-yellow hover:bg-amber-yellow hover:text-background-dark transition-all font-mono-header text-xs font-bold uppercase tracking-widest">
-                                            List your first artwork
-                                        </a>
-                                    </div>
-                                <% } %>
-                            </div>
-                        </div>
+                    <div class="text-right flex-shrink-0">
+                      <p class="text-amber-yellow font-bold font-mono text-base">रू <%= parseFloat(art.price || 0).toLocaleString() %></p>
+                      <p class="text-white/25 text-[10px] font-mono-header"><%= new Date(art.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></p>
                     </div>
-                </div>
-            </main>
-                <%- include('../partials/footer') %>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="rounded-xl flex flex-col items-center justify-center py-16 text-center"
+                 style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);">
+              <span class="material-symbols-outlined mb-4 text-white/10" style="font-size:52px;">art_track</span>
+              <p class="text-white/35 text-sm font-semibold mb-1">Your gallery is empty</p>
+              <p class="text-white/25 text-xs mb-6">List your first artwork to start selling.</p>
+              <a href="/creator/upload"
+                 class="px-6 py-2.5 rounded-xl text-sm font-bold text-background-dark"
+                 style="background:#f2b90d;">
+                Add your first artwork
+              </a>
+            </div>
+          <% } %>
+        </div>
+
+      </main>
+    </div>
+  </div>
 </div>
 </body>
-
 </html>

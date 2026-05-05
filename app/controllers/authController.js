@@ -6,11 +6,16 @@ exports.getLoginPage = (req, res) => {
     let errorMsg = null;
     if (req.query.error === 'invalid') errorMsg = 'Invalid credentials';
     if (req.query.error === 'not_admin') errorMsg = 'Only administrators can access this server';
-    
+
+    const infoMsg = req.query.reason === 'auth_required'
+        ? 'Sign in or create an account to view artist profiles.'
+        : null;
+
     res.render('auth', {
         primaryColor: process.env.ADMIN_ONLY === 'true' ? '#000000' : '#d42511',
         mode: 'login',
         error: errorMsg,
+        info: infoMsg,
         adminOnly: process.env.ADMIN_ONLY === 'true',
         user: req.session.user
     });
@@ -23,6 +28,7 @@ exports.getRegisterPage = (req, res) => {
         mode: 'signup',
         adminOnly: false,
         error: req.query.error === 'exists' ? 'Email already in use.' : (req.query.error === 'password_mismatch' ? 'Passwords do not match.' : null),
+        info: null,
         user: req.session.user
     });
 };
@@ -48,20 +54,27 @@ exports.login = async (req, res, next) => {
 
         logger.info('User login successful', { userId: user.id, email: user.email, role: user.role });
 
+        const returnTo = req.session.returnTo;
+        delete req.session.returnTo;
+
         if (process.env.ADMIN_ONLY === 'true') {
             if (user.role !== 'ADMIN') {
                 logger.warn('Failed admin login attempt', { email, reason: 'not_admin' });
                 return res.redirect('/login?error=not_admin');
             }
-            res.redirect('/admin');
+            return res.redirect('/admin');
+        }
+
+        if (returnTo) {
+            return res.redirect(returnTo);
+        }
+
+        if (user.role === 'ADMIN') {
+            return res.redirect('/admin');
+        } else if (user.role === 'CREATOR') {
+            return res.redirect('/creator/home');
         } else {
-            if (user.role === 'ADMIN') {
-                return res.redirect('/admin'); // Or redirect them elsewhere since admin isn't hosted here
-            } else if (user.role === 'CREATOR') {
-                res.redirect('/creator/home');
-            } else {
-                res.redirect('/marketplace');
-            }
+            return res.redirect('/marketplace');
         }
     } catch (err) {
         next(err);

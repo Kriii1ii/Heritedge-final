@@ -177,3 +177,122 @@ exports.getUsers = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.getApplications = async (req, res, next) => {
+    try {
+        const statusFilter = ['PENDING', 'APPROVED', 'REJECTED'].includes(req.query.status)
+            ? req.query.status : '';
+        const where = statusFilter ? { status: statusFilter } : {};
+        const [applications, counts] = await Promise.all([
+            prisma.artistApplication.findMany({
+                where,
+                orderBy: { createdAt: 'desc' },
+                include: { user: { select: { id: true, name: true, avatar: true, email: true, role: true } } }
+            }),
+            Promise.all([
+                prisma.artistApplication.count({ where: { status: 'PENDING' } }),
+                prisma.artistApplication.count({ where: { status: 'APPROVED' } }),
+                prisma.artistApplication.count({ where: { status: 'REJECTED' } })
+            ])
+        ]);
+        res.render('admin/applications', {
+            primaryColor: '#000000',
+            user: req.session.user,
+            applications,
+            statusFilter,
+            pendingCount: counts[0],
+            approvedCount: counts[1],
+            rejectedCount: counts[2],
+            csrfToken: req.csrfToken()
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.reviewApplication = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { action, adminNote } = req.body;
+        if (!['APPROVED', 'REJECTED'].includes(action)) {
+            const e = new Error('Invalid action'); e.status = 400; return next(e);
+        }
+
+        const application = await prisma.artistApplication.findUnique({
+            where: { id },
+            include: { user: true }
+        });
+        if (!application) {
+            const e = new Error('Application not found'); e.status = 404; return next(e);
+        }
+
+        const isApprove = action === 'APPROVED';
+        const notifMessage = isApprove
+            ? 'Congratulations! Your artist application has been approved. Welcome to HeritEdge as a Creator.'
+            : 'Your artist application was not approved at this time. You may reapply after reviewing our guidelines.';
+
+        await Promise.all([
+            prisma.artistApplication.update({
+                where: { id },
+                data: { status: action, adminNote: adminNote?.trim() || null }
+            }),
+            prisma.user.update({
+                where: { id: application.userId },
+                data: {
+                    role: isApprove ? 'CREATOR' : 'BUYER',
+                    verificationStatus: isApprove ? 'VERIFIED' : 'REJECTED'
+                }
+            }),
+            prisma.notification.create({
+                data: {
+                    userId: application.userId,
+                    type: isApprove ? 'APPLICATION_APPROVED' : 'APPLICATION_REJECTED',
+                    message: notifMessage
+                }
+            })
+        ]);
+
+        logger.info('Admin reviewed artist application', {
+            adminId: req.session.user.id,
+            applicationId: id,
+            applicantId: application.userId,
+            action
+        });
+
+        res.redirect('/admin/applications?status=PENDING');
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getArtworks = async (req, res, next) => {
+    try {
+        const page = Math.max(1, parseInt(req.query.page) || 1);
+        const limit = 20;
+        const skip = (page - 1) * limit;
+        const statusFilter = ['PUBLISHED', 'DRAFT'].includes(req.query.status) ? req.query.status : '';
+        const where = statusFilter ? { status: statusFilter } : {};
+        const [artworks, total] = await Promise.all([
+            prisma.artwork.findMany({
+                where,
+                orderBy: { createdAt: 'desc' },
+                skip,
+                take: limit,
+                include: { creator: { select: { id: true, name: true } } }
+            }),
+            prisma.artwork.count({ where })
+        ]);
+        res.render('admin/artworks', {
+            primaryColor: '#000000',
+            user: req.session.user,
+            artworks,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+            statusFilter,
+            csrfToken: req.csrfToken()
+        });
+    } catch (err) {
+        next(err);
+    }
+};

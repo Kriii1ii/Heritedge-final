@@ -21,7 +21,7 @@ exports.createOrder = async (req, res, next) => {
                 artworkId,
                 amount: artwork.price,
                 paymentStatus: 'PENDING',
-                orderStatus: 'PROCESSING'
+                orderStatus: 'PLACED'
             }
         });
 

@@ -12,12 +12,10 @@ const orderLimiter = rateLimit({
     message: "Too many attempts from this IP, please try again after a minute"
 });
 
-router.use(requireAuth);
+router.post('/api/order', requireAuth, orderLimiter, validate(orderSchema), orderController.createOrder);
+router.get('/orders', requireAuth, orderController.getOrders);
 
-router.post('/api/order', orderLimiter, validate(orderSchema), orderController.createOrder);
-router.get('/orders', orderController.getOrders);
-
-router.get('/api/order/success', orderController.handleEsewaSuccess);
+router.get('/api/order/success', requireAuth, orderController.handleEsewaSuccess);
 router.get('/api/order/failure', orderController.handleEsewaFailure);
 
 module.exports = router;

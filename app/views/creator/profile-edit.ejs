@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title>Edit Profile — Creator Dashboard</title>
+  <style>
+    .pe-input {
+      width: 100%;
+      background: rgba(0,0,0,0.25);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.75rem;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-text-fill-color: #fff;
+      caret-color: #f2b90d;
+    }
+    .pe-input:focus { border-color: #f2b90d; box-shadow: 0 0 0 3px rgba(242,185,13,0.07); }
+    .pe-input::placeholder { color: rgba(255,255,255,0.2); }
+    .pe-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 7px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white" style="background:#0a0401;">
+<div class="flex min-h-screen">
+
+  <%- include('../partials/creator-nav', { currentPage: 'profile-edit' }) %>
+
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[720px]">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(242,185,13,0.55);">Creator Dashboard</p>
+          <h1 class="text-2xl font-bold text-white font-mono-header">Edit Profile</h1>
+          <p class="text-white/40 text-sm mt-1">Changes reflect on your public artist page immediately.</p>
+        </div>
+
+        <!-- Flash messages -->
+        <% if (message) { %>
+          <div class="flex items-center gap-3 p-4 rounded-xl mb-6 text-sm"
+               style="background:rgba(0,168,107,0.1); border:1px solid rgba(0,168,107,0.2);">
+            <span class="material-symbols-outlined text-jade-green text-[18px]">check_circle</span>
+            <p class="text-jade-green font-semibold"><%= message.replace(/\+/g, ' ') %></p>
+          </div>
+        <% } %>
+        <% if (error) { %>
+          <div class="flex items-center gap-3 p-4 rounded-xl mb-6 text-sm"
+               style="background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.2);">
+            <span class="material-symbols-outlined text-red-400 text-[18px]">error</span>
+            <p class="text-red-300"><%= error %></p>
+          </div>
+        <% } %>
+
+        <!-- Current avatar preview -->
+        <div class="flex items-center gap-5 mb-8 p-5 rounded-xl" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+          <div class="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 flex items-center justify-center"
+               style="background:#3f101a; border:2px solid rgba(255,255,255,0.12);">
+            <% if (user.avatar) { %>
+              <img src="<%= user.avatar %>" class="w-full h-full object-cover" id="avatar-preview">
+            <% } else { %>
+              <span class="text-amber-yellow font-bold text-2xl" id="avatar-initial"><%= (user.name || '?')[0] %></span>
+            <% } %>
+          </div>
+          <div>
+            <p class="text-white font-bold text-sm mb-0.5"><%= user.name %></p>
+            <p class="text-white/40 text-xs">HeritEdge Artist</p>
+            <% if (user.verificationStatus === 'VERIFIED') { %>
+              <span class="inline-flex items-center gap-1 text-jade-green text-[10px] font-bold mt-1">
+                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings:'FILL' 1;">verified</span>
+                Verified
+              </span>
+            <% } %>
+          </div>
+        </div>
+
+        <form action="/creator/profile-edit?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data" class="space-y-5">
+
+          <!-- Name -->
+          <div>
+            <label class="pe-label">Display Name *</label>
+            <input type="text" name="name" value="<%= user.name || '' %>" required class="pe-input" placeholder="Your full name">
+          </div>
+
+          <!-- Bio -->
+          <div>
+            <label class="pe-label">Bio / About</label>
+            <textarea name="bio" rows="3" class="pe-input" style="resize:vertical;"
+                      placeholder="A short description that appears on your public profile..."><%= user.bio || '' %></textarea>
+          </div>
+
+          <!-- Region -->
+          <div>
+            <label class="pe-label">Region</label>
+            <input type="text" name="region" value="<%= user.region || '' %>" class="pe-input" placeholder="e.g. Kathmandu, Nepal">
+          </div>
+
+          <!-- Inspiration -->
+          <div>
+            <label class="pe-label">Inspiration / Artist Statement</label>
+            <textarea name="inspiration" rows="4" class="pe-input" style="resize:vertical;"
+                      placeholder="Share what drives your creative practice and cultural connection..."><%= user.inspiration || '' %></textarea>
+          </div>
+
+          <!-- Life Story -->
+          <div>
+            <label class="pe-label">Your Story <span class="normal-case tracking-normal text-white/20">(shown in the quote section of your public profile)</span></label>
+            <textarea name="lifeStory" rows="4" class="pe-input" style="resize:vertical;"
+                      placeholder="Tell collectors about your journey, heritage, and what your art means to you..."><%= user.lifeStory || '' %></textarea>
+          </div>
+
+          <!-- Portfolio URL -->
+          <div>
+            <label class="pe-label">Portfolio / Website URL</label>
+            <input type="url" name="portfolioUrl" value="<%= user.portfolioUrl || '' %>" class="pe-input" placeholder="https://yourwebsite.com">
+          </div>
+
+          <!-- Avatar upload -->
+          <div style="padding-top:16px; border-top:1px solid rgba(255,255,255,0.07);">
+            <label class="pe-label">Profile Photo <span class="normal-case tracking-normal text-white/20">(max 5 MB)</span></label>
+            <input type="file" name="avatar" accept="image/*" id="avatar-file"
+                   class="w-full text-sm text-white/50 cursor-pointer"
+                   style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:0.75rem; padding:10px 14px;
+                          file-selector-button-background:#b81430; file-selector-button-color:#fff;"
+                   onchange="previewAvatar(this)">
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center justify-end gap-4 pt-4" style="border-top:1px solid rgba(255,255,255,0.07);">
+            <a href="/creator/home" class="text-white/40 hover:text-white text-sm font-semibold transition-colors">Cancel</a>
+            <button type="submit"
+              class="flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-bold text-background-dark transition-all hover:opacity-90"
+              style="background:#f2b90d;">
+              <span class="material-symbols-outlined text-[16px]">save</span>
+              Save Changes
+            </button>
+          </div>
+        </form>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<script>
+function previewAvatar(input) {
+  if (!input.files?.[0]) return;
+  const preview = document.getElementById('avatar-preview');
+  const initial = document.getElementById('avatar-initial');
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (preview) {
+      preview.src = e.target.result;
+    } else {
+      // No existing avatar img — create one
+      const container = input.closest('form')?.previousElementSibling?.querySelector('[id$="-initial"]')?.parentElement;
+      if (container) {
+        container.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover" id="avatar-preview">`;
+      }
+    }
+    if (initial) initial.style.display = 'none';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+</script>
+</body>
+</html>

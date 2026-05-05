@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title>Artist Applications — Admin · HeritEdge</title>
+    <style>
+        .app-card { transition: border-color 0.15s; }
+        .app-card:hover { border-color: rgba(255,255,255,0.15); }
+        .status-pending  { color:#f2b90d; background:rgba(242,185,13,0.12); border-color:rgba(242,185,13,0.25); }
+        .status-approved { color:#00A86B; background:rgba(0,168,107,0.12); border-color:rgba(0,168,107,0.25); }
+        .status-rejected { color:#f87171; background:rgba(248,113,113,0.12); border-color:rgba(248,113,113,0.25); }
+        .aa-textarea { width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:10px 12px; color:white; font-size:13px; resize:none; }
+        .aa-textarea:focus { outline:none; border-color:#f2b90d; }
+        .art-chip { font-size:11px; padding:3px 10px; border-radius:999px; background:rgba(242,185,13,0.1); border:1px solid rgba(242,185,13,0.2); color:#f2b90d; font-weight:600; }
+    </style>
+</head>
+<body class="bg-background-dark min-h-screen text-white">
+<div class="flex min-h-screen">
+    <% locals.currentPage = 'applications'; %>
+    <%- include('../partials/admin-nav') %>
+
+    <main class="flex-1 lg:ml-[220px] pt-[56px] lg:pt-0 overflow-x-hidden">
+        <div class="max-w-[1100px] mx-auto px-5 md:px-8 py-8">
+
+            <!-- Page header -->
+            <div class="flex items-center justify-between mb-2">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Artist Applications</h1>
+                    <p class="text-white/50 text-sm mt-0.5">Review and manage creator applications</p>
+                </div>
+                <div class="hidden md:flex items-center gap-2 text-sm">
+                    <span class="px-3 py-1.5 rounded-lg bg-amber-yellow/10 border border-amber-yellow/20 text-amber-yellow font-bold">
+                        <%= pendingCount %> pending
+                    </span>
+                </div>
+            </div>
+
+            <!-- Status filter tabs -->
+            <div class="flex gap-2 mt-6 mb-7 overflow-x-auto pb-1">
+                <a href="/admin/applications"
+                   class="px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-colors
+                          <%= !statusFilter ? 'bg-white/10 text-white border border-white/15' : 'bg-white/4 text-white/50 hover:text-white hover:bg-white/7 border border-white/8' %>">
+                    All (<%= pendingCount + approvedCount + rejectedCount %>)
+                </a>
+                <a href="/admin/applications?status=PENDING"
+                   class="px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-colors
+                          <%= statusFilter === 'PENDING' ? 'bg-amber-yellow/15 text-amber-yellow border border-amber-yellow/25' : 'bg-white/4 text-white/50 hover:text-white hover:bg-white/7 border border-white/8' %>">
+                    Pending (<%= pendingCount %>)
+                </a>
+                <a href="/admin/applications?status=APPROVED"
+                   class="px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-colors
+                          <%= statusFilter === 'APPROVED' ? 'bg-jade-green/15 text-jade-green border border-jade-green/25' : 'bg-white/4 text-white/50 hover:text-white hover:bg-white/7 border border-white/8' %>">
+                    Approved (<%= approvedCount %>)
+                </a>
+                <a href="/admin/applications?status=REJECTED"
+                   class="px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-colors
+                          <%= statusFilter === 'REJECTED' ? 'bg-red-500/15 text-red-400 border border-red-500/25' : 'bg-white/4 text-white/50 hover:text-white hover:bg-white/7 border border-white/8' %>">
+                    Rejected (<%= rejectedCount %>)
+                </a>
+            </div>
+
+            <!-- Empty state -->
+            <% if (!applications || applications.length === 0) { %>
+                <div class="flex flex-col items-center justify-center py-24 text-center border border-white/8 rounded-2xl bg-white/2">
+                    <span class="material-symbols-outlined text-5xl text-white/15 mb-4">assignment_ind</span>
+                    <p class="text-white/50 text-base font-semibold mb-1">No applications found</p>
+                    <p class="text-white/35 text-sm">
+                        <% if (statusFilter) { %>
+                            No <%= statusFilter.toLowerCase() %> applications at the moment.
+                        <% } else { %>
+                            Applications will appear here when artists apply.
+                        <% } %>
+                    </p>
+                </div>
+
+            <% } else { %>
+                <!-- Application cards -->
+                <div class="flex flex-col gap-6">
+                    <% applications.forEach((app, idx) => { %>
+                        <%
+                          const isPending = app.status === 'PENDING';
+                          const isApproved = app.status === 'APPROVED';
+                          const statusCls = isPending ? 'status-pending' : (isApproved ? 'status-approved' : 'status-rejected');
+                          const statusLabel = isPending ? 'Pending' : (isApproved ? 'Approved' : 'Rejected');
+                          const statusIcon = isPending ? 'schedule' : (isApproved ? 'check_circle' : 'cancel');
+                          const applicantUser = app.user || {};
+                        %>
+                        <div class="app-card bg-white/3 border border-white/8 rounded-2xl overflow-hidden">
+
+                            <!-- Card header -->
+                            <div class="flex items-start gap-4 px-6 py-5 border-b border-white/8">
+                                <!-- Avatar -->
+                                <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-white/12 bg-deep-maroon/60 flex items-center justify-center">
+                                    <% if (app.profileImage) { %>
+                                        <img src="<%= app.profileImage %>" class="w-full h-full object-cover" alt="<%= app.name %>">
+                                    <% } else if (applicantUser.avatar) { %>
+                                        <img src="<%= applicantUser.avatar %>" class="w-full h-full object-cover" alt="<%= app.name %>">
+                                    <% } else { %>
+                                        <span class="text-amber-yellow font-bold text-lg"><%= (app.name || 'A')[0] %></span>
+                                    <% } %>
+                                </div>
+
+                                <!-- Name + meta -->
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex flex-wrap items-center gap-3 mb-1">
+                                        <h3 class="text-white font-bold text-base leading-none"><%= app.name %></h3>
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-bold <%= statusCls %>">
+                                            <span class="material-symbols-outlined text-[13px]" style="font-variation-settings:'FILL' 1"><%= statusIcon %></span>
+                                            <%= statusLabel %>
+                                        </span>
+                                    </div>
+                                    <p class="text-white/50 text-sm"><%= app.email %></p>
+                                    <div class="flex flex-wrap items-center gap-4 mt-2 text-xs text-white/40">
+                                        <span>Age: <span class="text-white/70 font-semibold"><%= app.age %></span></span>
+                                        <span>Applied: <span class="text-white/70 font-semibold">
+                                            <%= new Date(app.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                                        </span></span>
+                                        <% if (applicantUser.email) { %>
+                                            <a href="mailto:<%= applicantUser.email %>" class="text-amber-yellow/70 hover:text-amber-yellow transition-colors flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[12px]">email</span>Contact
+                                            </a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card body -->
+                            <div class="px-6 py-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+                                <!-- Left: About + Motivation -->
+                                <div class="flex flex-col gap-4">
+                                    <!-- Art types -->
+                                    <% if (app.artTypes && app.artTypes.length > 0) { %>
+                                        <div>
+                                            <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-2">Art Types</p>
+                                            <div class="flex flex-wrap gap-1.5">
+                                                <% app.artTypes.forEach(t => { %>
+                                                    <span class="art-chip"><%= t %></span>
+                                                <% }) %>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                    <!-- About -->
+                                    <div>
+                                        <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-1.5">About</p>
+                                        <p class="text-white/80 text-sm leading-relaxed line-clamp-4" id="about-<%= idx %>"><%= app.about %></p>
+                                        <% if (app.about && app.about.length > 200) { %>
+                                            <button onclick="toggleExpand('about-<%= idx %>',this)" class="text-amber-yellow/70 hover:text-amber-yellow text-xs font-semibold mt-1 transition-colors">Show more</button>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- Motivation -->
+                                    <div>
+                                        <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-1.5">Why They Want to Join</p>
+                                        <p class="text-white/80 text-sm leading-relaxed line-clamp-4" id="motiv-<%= idx %>"><%= app.motivation %></p>
+                                        <% if (app.motivation && app.motivation.length > 200) { %>
+                                            <button onclick="toggleExpand('motiv-<%= idx %>',this)" class="text-amber-yellow/70 hover:text-amber-yellow text-xs font-semibold mt-1 transition-colors">Show more</button>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Links + Admin action -->
+                                <div class="flex flex-col gap-4">
+
+                                    <!-- Portfolio + Social links -->
+                                    <% if (app.portfolio || (app.socialLinks && app.socialLinks.length > 0)) { %>
+                                        <div>
+                                            <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-2">Links</p>
+                                            <div class="flex flex-col gap-1.5">
+                                                <% if (app.portfolio) { %>
+                                                    <a href="<%= app.portfolio %>" target="_blank" rel="noopener"
+                                                       class="flex items-center gap-2 text-amber-yellow text-sm font-semibold hover:underline truncate">
+                                                        <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                                                        Portfolio
+                                                    </a>
+                                                <% } %>
+                                                <% if (app.socialLinks && app.socialLinks.length > 0) { %>
+                                                    <% app.socialLinks.forEach(link => { %>
+                                                        <a href="<%= link %>" target="_blank" rel="noopener"
+                                                           class="flex items-center gap-2 text-white/50 text-xs hover:text-white/80 transition-colors truncate">
+                                                            <span class="material-symbols-outlined text-[13px]">link</span>
+                                                            <%= link.replace(/^https?:\/\/(www\.)?/, '') %>
+                                                        </a>
+                                                    <% }) %>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                    <!-- Admin note (if already reviewed) -->
+                                    <% if (app.adminNote) { %>
+                                        <div class="p-3 bg-white/4 border border-white/8 rounded-lg">
+                                            <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-1.5">Admin Note</p>
+                                            <p class="text-white/70 text-xs leading-relaxed italic">"<%= app.adminNote %>"</p>
+                                        </div>
+                                    <% } %>
+
+                                    <!-- Action forms (PENDING only) -->
+                                    <% if (isPending) { %>
+                                        <div class="mt-auto pt-2">
+                                            <p class="text-white/35 text-[10px] uppercase tracking-widest font-bold mb-2">Review Decision</p>
+
+                                            <!-- Admin note input -->
+                                            <div class="mb-3">
+                                                <textarea id="note-<%= app.id %>" class="aa-textarea" rows="2"
+                                                          placeholder="Optional note for the applicant..."></textarea>
+                                            </div>
+
+                                            <!-- Approve / Reject buttons -->
+                                            <div class="flex gap-3">
+                                                <form action="/admin/applications/<%= app.id %>/review?_csrf=<%= csrfToken %>" method="POST" class="flex-1" onsubmit="injectNote(this, '<%= app.id %>')">
+                                                    <input type="hidden" name="action" value="APPROVED">
+                                                    <input type="hidden" name="adminNote" id="note-approve-<%= app.id %>">
+                                                    <button type="submit"
+                                                        class="w-full py-2.5 bg-jade-green/15 hover:bg-jade-green/25 text-jade-green font-bold text-sm rounded-xl transition-colors border border-jade-green/25 flex items-center justify-center gap-1.5">
+                                                        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                                                        Approve
+                                                    </button>
+                                                </form>
+                                                <form action="/admin/applications/<%= app.id %>/review?_csrf=<%= csrfToken %>" method="POST" class="flex-1" onsubmit="injectNote(this, '<%= app.id %>')">
+                                                    <input type="hidden" name="action" value="REJECTED">
+                                                    <input type="hidden" name="adminNote" id="note-reject-<%= app.id %>">
+                                                    <button type="submit"
+                                                        class="w-full py-2.5 bg-red-500/12 hover:bg-red-500/22 text-red-400 font-bold text-sm rounded-xl transition-colors border border-red-500/25 flex items-center justify-center gap-1.5"
+                                                        onclick="return confirm('Reject this application?')">
+                                                        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">cancel</span>
+                                                        Reject
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    function injectNote(form, appId) {
+        const noteVal = document.getElementById('note-' + appId)?.value?.trim() || '';
+        form.querySelector('input[name="adminNote"]').value = noteVal;
+        return true;
+    }
+    function toggleExpand(elId, btn) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        if (el.classList.contains('line-clamp-4')) {
+            el.classList.remove('line-clamp-4');
+            btn.textContent = 'Show less';
+        } else {
+            el.classList.add('line-clamp-4');
+            btn.textContent = 'Show more';
+        }
+    }
+</script>
+</body>
+</html>

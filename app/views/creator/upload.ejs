@@ -1,107 +1,175 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
+  <title>Add Artwork — Creator Dashboard</title>
+  <style>
+    .upload-input {
+      width: 100%;
+      background: rgba(0,0,0,0.25);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.75rem;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-text-fill-color: #fff;
+    }
+    .upload-input:focus { border-color: #f2b90d; }
+    .upload-input::placeholder { color: rgba(255,255,255,0.2); }
+    .upload-input option { background: #1a0b06; color: #fff; }
+    .upload-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 7px;
+    }
+    #preview-strip { gap: 10px; }
+    .preview-thumb { position: relative; width: 90px; height: 90px; border-radius: 10px; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.12); }
+    .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .preview-thumb .rm-btn {
+      position: absolute; top: 3px; right: 3px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(0,0,0,0.7); color: #f87171;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 12px; font-weight: 900;
+      border: none; outline: none;
+    }
+  </style>
 </head>
+<body class="min-h-screen text-white" style="background:#0a0401;">
+<div class="flex min-h-screen">
 
-<body class="bg-background-light dark:bg-background-dark text-white min-h-screen">
-    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-        <%- include('../partials/header') %>
-            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
-                <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
-                    <div class="flex flex-wrap justify-between gap-3 mb-8">
-                        <p
-                            class="text-white text-4xl font-black leading-tight font-mono-header bg-gradient-to-r from-amber-yellow to-dusty-rose bg-clip-text text-transparent">
-                            Upload Artwork</p>
-                    </div>
-                    
-                    <% if (typeof error !== 'undefined' && error) { %>
-                        <div class="bg-red-500/20 border border-red-500/50 text-red-100 p-4 rounded mb-6 font-mono text-sm shadow-lg">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="material-symbols-outlined text-red-500">error</span>
-                                <span class="font-bold uppercase tracking-wider">Upload Error</span>
-                            </div>
-                            <p class="pl-8 text-white/80"><%= error %></p>
-                        </div>
-                    <% } %>
+  <%- include('../partials/creator-nav', { currentPage: 'upload' }) %>
 
-                    <form action="/creator/upload?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data"
-                        class="bg-white/5 p-8 rounded-sm border border-white/10 shadow-lg space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label
-                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Title</label>
-                                <input type="text" name="title" required
-                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors">
-                            </div>
-                            <div>
-                                <label
-                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Price
-                                    (रू)</label>
-                                <input type="number" name="price" required
-                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors">
-                            </div>
-                        </div>
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[800px]">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label
-                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Category</label>
-                                <select name="category" required
-                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none [&>option]:text-black transition-colors">
-                                    <option value="Digital Painting">Digital Painting</option>
-                                    <option value="Abstract">Abstract</option>
-                                    <option value="Generative">Generative</option>
-                                    <option value="Photography">Photography</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Region
-                                    Inspiration</label>
-                                <input type="text" name="region" required
-                                    class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors"
-                                    placeholder="e.g. Kathmandu, Nepal">
-                            </div>
-                        </div>
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(242,185,13,0.55);">Creator Dashboard</p>
+          <h1 class="text-2xl font-bold text-white font-mono-header">Add Artwork</h1>
+          <p class="text-white/40 text-sm mt-1">Fill in the details and upload images to list your piece.</p>
+        </div>
 
-                        <div>
-                            <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Artwork
-                                Images (Select 1 to 5 files, Max 5MB each)</label>
-                            <input type="file" name="images" accept="image/jpeg, image/png, image/webp" multiple
-                                required
-                                class="w-full bg-black/20 text-white/60 border border-white/20 p-3 rounded-md focus:border-amber-yellow outline-none file:mr-4 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-yellow file:text-black cursor-pointer hover:file:bg-white transition-all text-sm">
-                        </div>
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="flex items-start gap-3 p-4 rounded-xl mb-6 text-sm"
+               style="background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.2);">
+            <span class="material-symbols-outlined text-red-400 text-[18px] flex-shrink-0 mt-0.5">error</span>
+            <p class="text-red-300"><%= error %></p>
+          </div>
+        <% } %>
 
-                        <div>
-                            <label
-                                class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Description
-                                & Meaning</label>
-                            <textarea name="description" rows="4"
-                                class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors"
-                                placeholder="Explain the artwork's symbolism..."></textarea>
-                        </div>
+        <form action="/creator/upload?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data"
+              class="space-y-6" id="upload-form">
 
-                        <div>
-                            <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block font-bold">Creative
-                                Story / Background (Optional)</label>
-                            <textarea name="story" rows="3"
-                                class="w-full bg-black/20 text-white border border-white/20 p-4 rounded-md focus:border-amber-yellow outline-none transition-colors"
-                                placeholder="Share your creative process..."></textarea>
-                        </div>
+          <!-- Title + Price -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="upload-label">Artwork Title *</label>
+              <input type="text" name="title" required placeholder="e.g. Dancing Kumari" class="upload-input">
+            </div>
+            <div>
+              <label class="upload-label">Price (रू) *</label>
+              <input type="number" name="price" required min="1" step="1" placeholder="e.g. 12000" class="upload-input"
+                     oninput="if(this.value < 0) this.value = ''">
+            </div>
+          </div>
 
-                        <div class="pt-4 border-t border-white/10 mt-6 flex justify-end">
-                            <button type="submit"
-                                class="px-8 py-4 bg-amber-yellow text-background-dark font-bold font-mono uppercase tracking-widest text-sm hover:bg-white rounded-md transition-transform hover:scale-105 shadow-xl shadow-amber-yellow/20">List
-                                Art For Sale</button>
-                        </div>
-                    </form>
-                </div>
-            </main>
-                <%- include('../partials/footer') %>
+          <!-- Category + Region -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="upload-label">Category *</label>
+              <select name="category" required class="upload-input">
+                <option value="Thangka">Thangka Painting</option>
+                <option value="Digital Painting">Digital Painting</option>
+                <option value="Traditional Painting">Traditional Painting</option>
+                <option value="Abstract">Abstract</option>
+                <option value="Sculpture">Sculpture</option>
+                <option value="Pottery">Pottery</option>
+                <option value="Photography">Photography</option>
+                <option value="Textile">Textile / Weaving</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="upload-label">Region Inspiration *</label>
+              <input type="text" name="region" required placeholder="e.g. Bhaktapur, Nepal" class="upload-input">
+            </div>
+          </div>
+
+          <!-- Image upload -->
+          <div>
+            <label class="upload-label">Artwork Images * <span class="normal-case text-white/25 tracking-normal">(1–5 files, max 5 MB each)</span></label>
+            <div class="relative rounded-xl overflow-hidden cursor-pointer group"
+                 style="background:rgba(0,0,0,0.2); border:1.5px dashed rgba(255,255,255,0.14);"
+                 onclick="document.getElementById('img-input').click()">
+              <div class="py-8 flex flex-col items-center gap-2 group-hover:bg-white/3 transition-colors">
+                <span class="material-symbols-outlined text-white/20 group-hover:text-amber-yellow/40 transition-colors"
+                      style="font-size:38px;">add_photo_alternate</span>
+                <p class="text-white/40 text-sm font-semibold group-hover:text-white/60 transition-colors">Click to select images</p>
+                <p class="text-white/25 text-xs">JPEG, PNG, WebP accepted</p>
+              </div>
+              <input type="file" id="img-input" name="images" accept="image/jpeg,image/png,image/webp" multiple required
+                     class="hidden" onchange="previewImages(this)">
+            </div>
+            <!-- Preview strip -->
+            <div id="preview-strip" class="flex flex-wrap mt-3 hidden"></div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="upload-label">Description & Meaning *</label>
+            <textarea name="description" rows="4" required placeholder="Describe the artwork's symbolism, technique, and cultural significance..."
+                      class="upload-input" style="resize:vertical;"></textarea>
+          </div>
+
+          <!-- Creative Story (optional) -->
+          <div>
+            <label class="upload-label">Creative Story <span class="normal-case text-white/20 tracking-normal">(optional)</span></label>
+            <textarea name="story" rows="3" placeholder="Share your process, inspiration, or the story behind this piece..."
+                      class="upload-input" style="resize:vertical;"></textarea>
+          </div>
+
+          <!-- Submit -->
+          <div class="flex items-center justify-end gap-4 pt-4" style="border-top:1px solid rgba(255,255,255,0.07);">
+            <a href="/creator/artworks" class="text-white/40 hover:text-white text-sm font-semibold transition-colors">Cancel</a>
+            <button type="submit"
+              class="flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-bold text-background-dark transition-all hover:opacity-90 shadow-lg"
+              style="background:#f2b90d;">
+              <span class="material-symbols-outlined text-[16px]">publish</span>
+              List for Sale
+            </button>
+          </div>
+        </form>
+
+      </main>
+    </div>
+  </div>
 </div>
-</body>
 
+<script>
+function previewImages(input) {
+  const strip = document.getElementById('preview-strip');
+  strip.innerHTML = '';
+  if (!input.files || !input.files.length) { strip.classList.add('hidden'); return; }
+  strip.classList.remove('hidden');
+  Array.from(input.files).slice(0, 5).forEach((file, i) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const thumb = document.createElement('div');
+      thumb.className = 'preview-thumb';
+      thumb.innerHTML = `<img src="${e.target.result}" alt="preview ${i+1}">`;
+      strip.appendChild(thumb);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+</script>
+</body>
 </html>

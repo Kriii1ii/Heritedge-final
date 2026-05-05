@@ -24,6 +24,14 @@ app.use(morgan('combined', { stream: { write: message => logger.info(message.tri
 
 app.use(cookieParser());
 
+// Exclude static routes from session and database middleware
+app.use((req, res, next) => {
+    if (req.path.includes('/favicon.ico') || req.path.includes('/apple-touch-icon.png')) {
+        return res.status(404).end();
+    }
+    next();
+});
+
 app.use(session({
     secret: process.env.SESSION_SECRET || 'heritedge-secret',
     resave: false,
@@ -47,10 +55,18 @@ app.use(session({
 const csrfProtection = csurf({ cookie: true });
 app.use(csrfProtection);
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     res.locals.user = req.session.user || null;
     res.locals.csrfToken = req.csrfToken();
     res.locals.path = req.path;
+    res.locals.notifCount = 0;
+    if (req.session.user) {
+        try {
+            res.locals.notifCount = await prisma.notification.count({
+                where: { userId: req.session.user.id, read: false }
+            });
+        } catch (_) {}
+    }
     next();
 });
 

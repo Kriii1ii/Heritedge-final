@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title>Manage Artworks — Admin</title>
+</head>
+<body class="min-h-screen text-white" style="background:#080101;">
+<div class="flex min-h-screen">
+
+  <%- include('../partials/admin-nav', { currentPage: 'artworks' }) %>
+
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-4 flex-wrap mb-8">
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(248,113,113,0.5);">Admin Portal</p>
+            <h1 class="text-2xl font-bold text-white font-mono-header">Manage Artworks</h1>
+            <p class="text-white/40 text-sm mt-1">
+              <%= total %> total artworks
+              <% if (statusFilter) { %> · filtered by <span class="text-amber-yellow font-semibold"><%= statusFilter %></span><% } %>
+            </p>
+          </div>
+          <!-- Filter -->
+          <div class="flex items-center gap-2">
+            <a href="/admin/artworks"
+               class="text-xs font-bold px-3.5 py-2 rounded-lg transition-colors"
+               style="<%= !statusFilter ? 'background:rgba(242,185,13,0.12);color:#f2b90d;border:1px solid rgba(242,185,13,0.2);' : 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);' %>">
+              All
+            </a>
+            <a href="/admin/artworks?status=PUBLISHED"
+               class="text-xs font-bold px-3.5 py-2 rounded-lg transition-colors"
+               style="<%= statusFilter === 'PUBLISHED' ? 'background:rgba(0,168,107,0.12);color:#00A86B;border:1px solid rgba(0,168,107,0.2);' : 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);' %>">
+              Published
+            </a>
+            <a href="/admin/artworks?status=DRAFT"
+               class="text-xs font-bold px-3.5 py-2 rounded-lg transition-colors"
+               style="<%= statusFilter === 'DRAFT' ? 'background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);' : 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);' %>">
+              Draft
+            </a>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="rounded-xl overflow-hidden mb-6" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr style="background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08);">
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Artwork</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Artist</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Price</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Status</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Listed</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (artworks && artworks.length > 0) { %>
+                  <% artworks.forEach(art => { %>
+                    <tr class="hover:bg-white/2 transition-colors" style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                      <!-- Artwork -->
+                      <td class="px-5 py-4">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0" style="border:1px solid rgba(255,255,255,0.1);">
+                            <img src="<%= art.images?.[0] || '/images/placeholder.jpg' %>" class="w-full h-full object-cover" alt="">
+                          </div>
+                          <a href="/artwork/<%= art.id %>" target="_blank"
+                             class="text-white hover:text-amber-yellow font-bold text-sm font-mono-header truncate max-w-[180px] block transition-colors">
+                            <%= art.title %>
+                          </a>
+                        </div>
+                      </td>
+                      <!-- Artist -->
+                      <td class="px-5 py-4">
+                        <a href="/artist/<%= art.creator.id %>" target="_blank"
+                           class="text-white/60 hover:text-amber-yellow text-xs font-semibold transition-colors">
+                          <%= art.creator.name %>
+                        </a>
+                      </td>
+                      <!-- Price -->
+                      <td class="px-5 py-4">
+                        <span class="text-amber-yellow font-bold font-mono text-sm">रू <%= parseFloat(art.price || 0).toLocaleString() %></span>
+                      </td>
+                      <!-- Status -->
+                      <td class="px-5 py-4">
+                        <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full"
+                          style="<%= art.status === 'PUBLISHED'
+                            ? 'color:#00A86B;background:rgba(0,168,107,0.08);border:1px solid rgba(0,168,107,0.2);'
+                            : 'color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);' %>">
+                          <%= art.status %>
+                        </span>
+                      </td>
+                      <!-- Date -->
+                      <td class="px-5 py-4 text-white/30 text-xs font-mono">
+                        <%= new Date(art.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                      </td>
+                      <!-- Delete -->
+                      <td class="px-5 py-4 text-center">
+                        <form action="/admin/artwork/<%= art.id %>/delete" method="POST"
+                              onsubmit="return confirm('Permanently delete \'<%= art.title.replace(/'/g, "\\'") %>\'?');">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="submit"
+                            class="inline-flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors"
+                            style="color:#f87171; background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.15);"
+                            onmouseover="this.style.background='rgba(248,113,113,0.18)'"
+                            onmouseout="this.style.background='rgba(248,113,113,0.08)'">
+                            <span class="material-symbols-outlined text-[13px]">delete_forever</span>
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6" class="px-5 py-16 text-center text-white/30 text-sm">No artworks found.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+          <div class="flex items-center justify-center gap-2">
+            <% for (let p = 1; p <= totalPages; p++) { %>
+              <a href="/admin/artworks?page=<%= p %><%= statusFilter ? '&status=' + statusFilter : '' %>"
+                 class="w-9 h-9 flex items-center justify-center rounded-xl text-xs font-bold transition-colors"
+                 style="<%= p === page
+                   ? 'background:rgba(242,185,13,0.15);color:#f2b90d;border:1px solid rgba(242,185,13,0.25);'
+                   : 'background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);' %>">
+                <%= p %>
+              </a>
+            <% } %>
+          </div>
+        <% } %>
+
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>

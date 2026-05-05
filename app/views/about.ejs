@@ -3,96 +3,337 @@
 
 <head>
     <%- include('partials/head') %>
+    <title>About HeritEdge — Preserving Nepal's Living Heritage</title>
+    <style>
+        .section-divider {
+            width: 52px;
+            height: 3px;
+            background: #f2b90d;
+            border-radius: 2px;
+        }
+
+        /* Decorative frame corners around images */
+        .img-frame {
+            position: relative;
+        }
+        .img-frame::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 55%;
+            height: 55%;
+            border: 1.5px solid rgba(242,185,13,0.22);
+            border-radius: 14px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .img-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: -14px;
+            width: 38%;
+            height: 38%;
+            border: 1.5px solid rgba(139,0,0,0.28);
+            border-radius: 10px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Hero fade animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+        .delay-1 { animation-delay: 0.05s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s;  opacity: 0; }
+        .delay-3 { animation-delay: 0.38s; opacity: 0; }
+        .delay-4 { animation-delay: 0.55s; opacity: 0; }
+
+        /* Value card icon animation on hover */
+        .value-card:hover .value-icon {
+            transform: scale(1.12) rotate(4deg);
+        }
+        .value-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+
+        /* Check list */
+        .check-item { display: flex; align-items: flex-start; gap: 12px; }
+
+        /* Ambient glow behind sections */
+        .glow-center {
+            background: radial-gradient(ellipse at 50% 50%, rgba(63,16,26,0.55) 0%, transparent 72%);
+        }
+
+        /* stat-number tabular figures */
+        .stat-n { font-variant-numeric: tabular-nums; line-height: 1; }
+    </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-white">
-    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-        <%- include('partials/header') %>
-            <main class="flex flex-col flex-1 px-4 md:px-20 py-16">
-                <div class="max-w-[1200px] mx-auto w-full space-y-28">
-                    
-                    <!-- Section 1: Intro + Mission -->
-                    <section class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-                        <!-- Text Base -->
-                        <div class="lg:w-1/2 space-y-6">
-                            <h1 class="text-4xl md:text-5xl font-bold font-mono-header text-amber-yellow">About HeritEdge</h1>
-                            <p class="text-lg md:text-xl text-white/80 font-mono leading-relaxed">
-                                HeritEdge is a digital platform designed to promote and sell cultural and traditional artwork while hosting events that connect artists with audiences.
-                            </p>
-                            
-                            <h2 class="text-2xl font-bold font-mono-header text-white pt-6">Our Mission & Inspiration</h2>
-                            <div class="space-y-4 text-white/80 leading-relaxed text-sm md:text-base">
-                                <p>
-                                    HeritEdge was created to empower marginalized and traditional artists by providing them with a space to showcase and sell their cultural artwork directly to a global audience. The inspiration behind building the platform was to bridge the gap between talented traditional creators and art enthusiasts who appreciate authentic cultural heritage.
-                                </p>
-                                <p>
-                                    By facilitating direct sales, the platform supports the creative community, allowing artists to sustain their livelihoods while preserving traditional art forms that might otherwise be lost.
-                                </p>
-                            </div>
-                        </div>
+<body class="bg-background-dark text-white overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col">
+    <%- include('partials/header') %>
 
-                        <!-- Image w/ UI Shape -->
-                        <div class="relative w-full lg:w-1/2">
-                            <div class="absolute -inset-5 bg-deep-maroon/60 rounded-[3rem] transform rotate-3"></div>
-                            <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/5">
-                                <img src="/images/aboutpic.jpg" alt="Community Heritage" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                            </div>
-                        </div>
-                    </section>
+    <!-- ══════════════════════════════════════
+         HERO — cinematic full-bleed
+    ══════════════════════════════════════ -->
+    <section class="relative min-h-[90vh] flex flex-col justify-end overflow-hidden">
+        <!-- BG -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style="background-image:url('/images/mahakala_thangka_bg.png'); filter:brightness(0.32) saturate(0.65);">
+        </div>
+        <!-- Gradient stack -->
+        <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to bottom, rgba(15,6,4,0.15) 0%, rgba(15,6,4,0.45) 55%, #0f0604 100%)"></div>
+        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 50% 110%, rgba(242,185,13,0.07) 0%, transparent 60%)"></div>
+        <!-- Decorative amber border at bottom -->
+        <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-yellow/25 to-transparent pointer-events-none"></div>
 
-                    <!-- Section 2: Events -->
-                    <section class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-24">
-                        <!-- Image w/ UI Shape -->
-                        <div class="relative w-full lg:w-1/2">
-                            <div class="absolute -inset-5 bg-amber-yellow/20 rounded-[3rem] transform -rotate-3"></div>
-                            <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/5">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVQ_b84XWcpTgF76lohhBEuJD_befykobre7mOwRvFS8ZM1WdauKCb5spGB0pB53gM-3NMRsQfwrvVwnWqIt6_IGoEH92AYtaV4Y_KXRcwWf4EQASlYE1LO8Bdr_QmeM51SaJ2tJIs8c0e366uzaAcSokHdFwYXLCF3XtyMF7v5rz3oElsbYM64YaP5cwezZSZ3mXYFBhRP1RJQGt-Z5BOoR_Kpev3dOOg4547EeBT0uXfWWaAitgzbyGZGlUpEEugR_sOhHjZAa8" alt="Cultural Events" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                            </div>
-                        </div>
+        <div class="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 pb-16 md:pb-24">
+            <p class="fade-up delay-1 text-amber-yellow/80 text-[11px] font-black uppercase tracking-[0.25em] mb-4 font-mono-header">Our Story</p>
+            <h1 class="fade-up delay-2 text-[3.2rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold font-mono-header tracking-tight leading-[1.0] text-white mb-6 max-w-4xl">
+                Preserving Nepal's<br>
+                <span class="text-amber-yellow">Living Heritage.</span>
+            </h1>
+            <p class="fade-up delay-3 text-white/65 text-lg md:text-xl leading-relaxed max-w-xl mb-14">
+                HeritEdge bridges the gap between Nepal's master artisans and a world eager to discover authentic cultural art — one handcrafted piece at a time.
+            </p>
 
-                        <!-- Text Base -->
-                        <div class="lg:w-1/2 space-y-6">
-                            <h2 class="text-3xl md:text-4xl font-bold font-mono-header text-amber-yellow">Connecting Through Events</h2>
-                            <div class="space-y-4 text-white/80 leading-relaxed text-sm md:text-base">
-                                <p>
-                                    Beyond being a marketplace, HeritEdge is a cultural hub. We host exhibitions, workshops, and artist talks that bring the community together. These events are designed to give audiences a hands-on experience and a deeper understanding of the traditions behind the artwork, fostering a profound connection between artists and audiences.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
+        </div>
+    </section>
 
-                    <!-- Section 3: Values -->
-                    <section class="space-y-12 mb-12">
-                        <h2 class="text-3xl font-bold font-mono-header text-center text-white">What We Stand For</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-yellow/40 transition-colors flex flex-col items-center text-center space-y-4">
-                                <div class="bg-amber-yellow/10 p-4 rounded-2xl shrink-0">
-                                    <span class="material-symbols-outlined text-4xl text-amber-yellow block">verified</span>
-                                </div>
-                                <h3 class="text-white font-bold font-mono-header text-xl">Authenticity</h3>
-                                <p class="text-white/70 text-sm leading-relaxed">Every piece on our platform is 100% authentic, handcrafted by verified artisans across Nepal.</p>
-                            </div>
-                            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-yellow/40 transition-colors flex flex-col items-center text-center space-y-4">
-                                <div class="bg-amber-yellow/10 p-4 rounded-2xl shrink-0">
-                                    <span class="material-symbols-outlined text-4xl text-amber-yellow block">diversity_2</span>
-                                </div>
-                                <h3 class="text-white font-bold font-mono-header text-xl">Fair Trade</h3>
-                                <p class="text-white/70 text-sm leading-relaxed">We ensure artists receive fair compensation for their invaluable skills, sustaining local economies.</p>
-                            </div>
-                            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-yellow/40 transition-colors flex flex-col items-center text-center space-y-4">
-                                <div class="bg-amber-yellow/10 p-4 rounded-2xl shrink-0">
-                                    <span class="material-symbols-outlined text-4xl text-amber-yellow block">public</span>
-                                </div>
-                                <h3 class="text-white font-bold font-mono-header text-xl">Global Reach</h3>
-                                <p class="text-white/70 text-sm leading-relaxed">Bridging the gap between the majestic Himalayas and art lovers worldwide through seamless logistics.</p>
-                            </div>
-                        </div>
-                    </section>
+    <!-- ══════════════════════════════════════
+         MISSION PULLQUOTE
+    ══════════════════════════════════════ -->
+    <section class="py-24 md:py-32 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 glow-center pointer-events-none"></div>
+        <div class="relative z-10 max-w-[860px] mx-auto text-center flex flex-col items-center">
+            <span class="material-symbols-outlined text-amber-yellow/12 text-[130px] leading-none block -mb-6 select-none"
+                style="font-variation-settings:'FILL' 1;">format_quote</span>
+            <blockquote class="text-2xl md:text-[1.85rem] lg:text-[2.1rem] font-bold font-mono-header text-white leading-[1.42] tracking-tight">
+                "We don't just sell art — we carry stories, breathe life into traditions, and give artisans the platform they've always deserved."
+            </blockquote>
+            <div class="mt-8 flex items-center gap-4">
+                <div class="h-px w-10 bg-amber-yellow/35"></div>
+                <p class="text-amber-yellow text-[11px] font-bold uppercase tracking-[0.18em] font-mono-header">The HeritEdge Mission</p>
+                <div class="h-px w-10 bg-amber-yellow/35"></div>
+            </div>
+        </div>
+    </section>
 
+    <!-- ══════════════════════════════════════
+         OUR STORY — text + image
+    ══════════════════════════════════════ -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[1200px] mx-auto px-6 md:px-12">
+            <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+
+                <!-- Left: Text -->
+                <div class="lg:w-1/2 flex flex-col gap-6">
+                    <div>
+                        <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] mb-3 font-mono-header">Our Foundation</p>
+                        <h2 class="text-3xl md:text-[2.3rem] font-bold font-mono-header text-white tracking-tight leading-tight">
+                            Where Heritage Meets<br>the Digital Age
+                        </h2>
+                        <div class="section-divider mt-5 mb-6"></div>
+                    </div>
+                    <p class="text-white/68 text-[16px] md:text-[17px] leading-[1.82]">
+                        HeritEdge was born from a simple but powerful observation: Nepal's most gifted artisans — potters of Bhaktapur, Thangka painters of Patan, weavers of the hills — were creating some of the most extraordinary art in the world, yet remained largely invisible to global audiences.
+                    </p>
+                    <p class="text-white/68 text-[16px] md:text-[17px] leading-[1.82]">
+                        We built HeritEdge to close that gap. By combining a curated digital marketplace with authentic cultural storytelling, we give every artist a global stage — and every collector a direct line to living heritage.
+                    </p>
+                    <div class="flex flex-col gap-3.5 mt-1 pt-4 border-t border-white/8">
+                        <div class="check-item">
+                            <span class="material-symbols-outlined text-amber-yellow text-[18px] mt-0.5 shrink-0" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                            <p class="text-white/65 text-sm leading-relaxed">Every artist is personally verified and onboarded by our cultural curators.</p>
+                        </div>
+                        <div class="check-item">
+                            <span class="material-symbols-outlined text-amber-yellow text-[18px] mt-0.5 shrink-0" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                            <p class="text-white/65 text-sm leading-relaxed">Artists keep the majority of every sale — fair trade is our baseline, not a bonus.</p>
+                        </div>
+                        <div class="check-item">
+                            <span class="material-symbols-outlined text-amber-yellow text-[18px] mt-0.5 shrink-0" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                            <p class="text-white/65 text-sm leading-relaxed">Each artwork carries the story, technique, and region behind its creation.</p>
+                        </div>
+                    </div>
                 </div>
-            </main>
-            <%- include('partials/footer') %>
-    </div>
-</body>
 
+                <!-- Right: Image -->
+                <div class="lg:w-1/2 img-frame">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.55)] border border-white/7">
+                        <img src="/images/aboutpic.jpg" alt="Nepali artisan at work"
+                            class="w-full aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.03]" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background-dark/55 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         EVENTS / COMMUNITY — reversed
+    ══════════════════════════════════════ -->
+    <section class="py-20 md:py-28 relative overflow-hidden"
+        style="background:linear-gradient(145deg, rgba(63,16,26,0.28) 0%, rgba(15,6,4,1) 55%, rgba(63,16,26,0.18) 100%);">
+        <!-- Subtle dot-grid pattern -->
+        <div class="absolute inset-0 pointer-events-none opacity-[0.025]"
+            style="background-image:radial-gradient(circle, #f2b90d 1px, transparent 1px); background-size:28px 28px;">
+        </div>
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent"></div>
+
+        <div class="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-24">
+
+                <!-- Left: Image -->
+                <div class="lg:w-1/2 img-frame">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.55)] border border-white/7">
+                        <img src="/images/wrkshop.jpeg" alt="Cultural workshop session"
+                            class="w-full aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.03]" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background-dark/55 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Text -->
+                <div class="lg:w-1/2 flex flex-col gap-6">
+                    <div>
+                        <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] mb-3 font-mono-header">Community & Events</p>
+                        <h2 class="text-3xl md:text-[2.3rem] font-bold font-mono-header text-white tracking-tight leading-tight">
+                            More Than a Marketplace —<br>A Living Cultural Hub
+                        </h2>
+                        <div class="section-divider mt-5 mb-6"></div>
+                    </div>
+                    <p class="text-white/68 text-[16px] md:text-[17px] leading-[1.82]">
+                        Art isn't just meant to be collected — it's meant to be experienced. HeritEdge hosts exhibitions, live demonstrations, and intimate artist talks that bring communities together around shared cultural identity.
+                    </p>
+                    <p class="text-white/68 text-[16px] md:text-[17px] leading-[1.82]">
+                        Whether you attend a live pottery demonstration in Bhaktapur or a Thangka painting session in Patan, our events create profound connections between creators and the people who cherish their work.
+                    </p>
+                    <a href="/events"
+                        class="mt-2 inline-flex items-center gap-2 w-fit px-6 py-3 bg-amber-yellow text-background-dark font-bold text-sm rounded-xl hover:bg-amber-yellow/90 transition-all shadow-lg shadow-amber-yellow/10 font-mono-header uppercase tracking-wide hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined text-[16px]">event</span>
+                        Explore Events
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         VALUES SECTION
+    ══════════════════════════════════════ -->
+    <section class="py-24 md:py-32 px-6">
+        <div class="max-w-[1200px] mx-auto">
+            <!-- Section header -->
+            <div class="text-center mb-16 md:mb-20">
+                <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] mb-3 font-mono-header">What We Believe</p>
+                <h2 class="text-3xl md:text-4xl font-bold font-mono-header text-white tracking-tight">What We Stand For</h2>
+                <div class="section-divider mx-auto mt-5"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
+                <!-- Card 1 -->
+                <div class="value-card group flex flex-col items-center text-center p-8 md:p-9 rounded-2xl border border-white/8 hover:border-amber-yellow/35 transition-all duration-300 hover:shadow-[0_0_50px_rgba(242,185,13,0.06)]"
+                    style="background:linear-gradient(150deg, rgba(63,16,26,0.3) 0%, rgba(15,6,4,0.55) 100%);">
+                    <div class="value-icon w-16 h-16 bg-amber-yellow/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-yellow/16 transition-colors">
+                        <span class="material-symbols-outlined text-[30px] text-amber-yellow" style="font-variation-settings:'FILL' 1;">verified</span>
+                    </div>
+                    <h3 class="text-white font-bold font-mono-header text-xl mb-3 tracking-tight">Authenticity</h3>
+                    <p class="text-white/58 text-sm leading-relaxed">Every piece is 100% authentic, handcrafted by personally verified artisans from Nepal's cultural heartlands — no reproductions, no exceptions.</p>
+                </div>
+
+                <!-- Card 2 — elevated/featured -->
+                <div class="value-card group flex flex-col items-center text-center p-8 md:p-9 rounded-2xl border border-amber-yellow/18 hover:border-amber-yellow/45 transition-all duration-300 hover:shadow-[0_0_60px_rgba(242,185,13,0.1)] md:-translate-y-5"
+                    style="background:linear-gradient(150deg, rgba(63,16,26,0.55) 0%, rgba(15,6,4,0.85) 100%);">
+                    <div class="value-icon w-16 h-16 bg-amber-yellow/14 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-yellow/22 transition-colors">
+                        <span class="material-symbols-outlined text-[30px] text-amber-yellow" style="font-variation-settings:'FILL' 1;">handshake</span>
+                    </div>
+                    <h3 class="text-white font-bold font-mono-header text-xl mb-3 tracking-tight">Fair Trade</h3>
+                    <p class="text-white/58 text-sm leading-relaxed">Artists keep the majority of every sale. We believe in radical fairness — sustaining livelihoods while preserving art forms that carry generations of knowledge.</p>
+                    <div class="mt-6 pt-5 border-t border-white/8 w-full">
+                        <span class="text-amber-yellow text-[10px] font-bold uppercase tracking-[0.18em]">Our Core Value</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="value-card group flex flex-col items-center text-center p-8 md:p-9 rounded-2xl border border-white/8 hover:border-amber-yellow/35 transition-all duration-300 hover:shadow-[0_0_50px_rgba(242,185,13,0.06)]"
+                    style="background:linear-gradient(150deg, rgba(63,16,26,0.3) 0%, rgba(15,6,4,0.55) 100%);">
+                    <div class="value-icon w-16 h-16 bg-amber-yellow/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-yellow/16 transition-colors">
+                        <span class="material-symbols-outlined text-[30px] text-amber-yellow" style="font-variation-settings:'FILL' 1;">public</span>
+                    </div>
+                    <h3 class="text-white font-bold font-mono-header text-xl mb-3 tracking-tight">Global Reach</h3>
+                    <p class="text-white/58 text-sm leading-relaxed">Bridging Nepal's sacred valleys to art lovers worldwide. Every purchase helps preserve a tradition that deserves to be seen, felt, and cherished across borders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CTA — Join the Movement
+    ══════════════════════════════════════ -->
+    <section class="py-24 md:py-32 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none"
+            style="background:radial-gradient(ellipse at 50% 50%, rgba(242,185,13,0.045) 0%, transparent 60%)"></div>
+        <div class="relative z-10 max-w-[700px] mx-auto text-center flex flex-col items-center gap-6">
+            <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] font-mono-header">Join the Movement</p>
+            <h2 class="text-4xl md:text-5xl font-bold font-mono-header text-white tracking-tight leading-tight">
+                Be Part of the Story
+            </h2>
+            <p class="text-white/58 text-base md:text-lg leading-relaxed max-w-lg">
+                Whether you're an artist ready to share your craft with the world, or a collector searching for pieces that carry soul — HeritEdge is your home.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 mt-3">
+                <a href="/marketplace"
+                    class="flex items-center justify-center gap-2 px-8 py-4 bg-amber-yellow text-background-dark font-bold font-mono-header text-sm uppercase tracking-wide rounded-xl hover:bg-amber-yellow/90 transition-all shadow-lg shadow-amber-yellow/12 hover:shadow-amber-yellow/22 hover:-translate-y-0.5">
+                    <span class="material-symbols-outlined text-[17px]">storefront</span>
+                    Explore the Marketplace
+                </a>
+                <a href="/become-artist"
+                    class="flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-bold font-mono-header text-sm uppercase tracking-wide rounded-xl border border-white/18 hover:border-amber-yellow/45 hover:text-amber-yellow transition-all hover:-translate-y-0.5">
+                    <span class="material-symbols-outlined text-[17px]">palette</span>
+                    Join as an Artist
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         TERMS & PRIVACY — anchor targets
+    ══════════════════════════════════════ -->
+    <section class="py-16 md:py-20 px-6 border-t border-white/8" style="background:rgba(15,6,4,0.98);">
+        <div class="max-w-[900px] mx-auto flex flex-col gap-16">
+
+            <!-- Terms of Service -->
+            <div id="terms">
+                <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] mb-3 font-mono-header">Legal</p>
+                <h2 class="text-2xl font-bold font-mono-header text-white mb-5 tracking-tight">Terms of Service</h2>
+                <div class="flex flex-col gap-3 text-white/58 text-sm leading-[1.8]">
+                    <p>By accessing or using HeritEdge, you agree to be bound by these terms. HeritEdge provides a platform connecting Nepali artists with global collectors. All transactions are between buyers and sellers; HeritEdge facilitates but does not guarantee the outcome of any transaction.</p>
+                    <p>Users must be 18 or older to make purchases. You are responsible for maintaining the confidentiality of your account credentials. HeritEdge reserves the right to suspend accounts that violate our community guidelines, engage in fraudulent activity, or misrepresent artwork.</p>
+                    <p>All artwork listings must be original works. Reproduction or resale of purchased artworks without the artist's consent is prohibited. HeritEdge takes a platform fee on each sale to support operations and artist verification programs.</p>
+                    <p class="text-white/35 text-xs">Last updated: January 2026. For questions, contact <a href="mailto:hello@heritedge.com" class="text-amber-yellow/70 hover:text-amber-yellow underline underline-offset-2">hello@heritedge.com</a>.</p>
+                </div>
+            </div>
+
+            <div class="h-px bg-white/8"></div>
+
+            <!-- Privacy Policy -->
+            <div id="privacy">
+                <p class="text-amber-yellow/75 text-[11px] font-black uppercase tracking-[0.22em] mb-3 font-mono-header">Data & Privacy</p>
+                <h2 class="text-2xl font-bold font-mono-header text-white mb-5 tracking-tight">Privacy Policy</h2>
+                <div class="flex flex-col gap-3 text-white/58 text-sm leading-[1.8]">
+                    <p>HeritEdge collects only the information necessary to operate the platform: your name, email address, and transactional data. We do not sell, rent, or share your personal information with third parties outside of what is required to process payments and deliver orders.</p>
+                    <p>Payment processing is handled by eSewa. HeritEdge does not store credit card or bank details. Artist profile information you choose to share (bio, region, portfolio) is displayed publicly on the platform.</p>
+                    <p>We use session cookies to keep you logged in and to remember cart and collection preferences locally in your browser. You may delete cookies at any time through your browser settings. We may send transactional emails (order confirmations, application updates) but will not send unsolicited marketing without your consent.</p>
+                    <p>You have the right to request deletion of your account and associated data at any time by contacting us.</p>
+                    <p class="text-white/35 text-xs">Last updated: January 2026. For data requests, contact <a href="mailto:hello@heritedge.com" class="text-amber-yellow/70 hover:text-amber-yellow underline underline-offset-2">hello@heritedge.com</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</div>
+</body>
 </html>

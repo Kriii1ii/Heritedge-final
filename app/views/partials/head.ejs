@@ -2,9 +2,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>HeritEdge - Empowering Artists</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-    rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 <script id="tailwind-config">
     tailwind.config = {
         darkMode: "class",
@@ -28,33 +27,209 @@
                     "primary": "<%- typeof primaryColor !== 'undefined' ? primaryColor : '#f2b90d' %>"
                 },
                 fontFamily: {
-                    "sans": ["Chilia", "serif"],
-                    "display": ["Chilia", "serif"],
-                    "mono": ["Chilia", "serif"]
+                    "sans": ["'GT Walsheim'", "'Plus Jakarta Sans'", "sans-serif"],
+                    "display": ["'GT Walsheim'", "'Plus Jakarta Sans'", "sans-serif"],
+                    "mono": ["'GT Walsheim'", "'Plus Jakarta Sans'", "sans-serif"],
+                    "mono-header": ["'GT Walsheim'", "'Plus Jakarta Sans'", "sans-serif"],
                 },
                 borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                fontSize: {
+                    "xs": ["0.8rem", { lineHeight: "1.5" }],
+                    "sm": ["0.9rem", { lineHeight: "1.6" }],
+                    "base": ["1rem", { lineHeight: "1.65" }],
+                    "lg": ["1.125rem", { lineHeight: "1.6" }],
+                    "xl": ["1.25rem", { lineHeight: "1.5" }],
+                },
             },
         },
     }
 </script>
 <style>
     @font-face {
-        font-family: "Chilia";
-        src: url("/fonts/Chilia-Regular.otf") format("opentype");
-        font-weight: normal;
+        font-family: "GT Walsheim";
+        src: url("/fonts/GTWalsheim-Regular.woff2") format("woff2"),
+             url("/fonts/GTWalsheim-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "GT Walsheim";
+        src: url("/fonts/GTWalsheim-Medium.woff2") format("woff2"),
+             url("/fonts/GTWalsheim-Medium.otf") format("opentype");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "GT Walsheim";
+        src: url("/fonts/GTWalsheim-Bold.woff2") format("woff2"),
+             url("/fonts/GTWalsheim-Bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "GT Walsheim";
+        src: url("/fonts/GTWalsheim-Black.woff2") format("woff2"),
+             url("/fonts/GTWalsheim-Black.otf") format("opentype");
+        font-weight: 900;
         font-style: normal;
         font-display: swap;
     }
 
     body {
-        font-family: 'Chilia', serif !important;
+        font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
-    .font-mono,
-    .font-mono-header,
-    .pt-mono,
-    .mono-font {
-        font-family: 'Chilia', serif !important;
-        letter-spacing: 0.05em;
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        font-weight: 700;
     }
+
+    p, span, a, li, td, th, input, textarea, select, button, label {
+        font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif;
+    }
+
+    .font-mono, .font-mono-header, .pt-mono, .mono-font, .font-sans, .font-display {
+        font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif !important;
+        letter-spacing: -0.01em;
+    }
+
+    /* Preserve icon font */
+    .material-symbols-outlined {
+        font-family: "Material Symbols Outlined" !important;
+        letter-spacing: 0 !important;
+    }
+
+    /* ── TEXT VISIBILITY IMPROVEMENTS (WCAG) ──
+       Boosts low-contrast text across all dark pages */
+    .text-white\/40 { color: rgb(255 255 255 / 0.60) !important; }
+    .text-white\/50 { color: rgb(255 255 255 / 0.70) !important; }
+    .text-white\/60 { color: rgb(255 255 255 / 0.80) !important; }
+    .text-white\/70 { color: rgb(255 255 255 / 0.87) !important; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+    ::-webkit-scrollbar-thumb { background: rgba(242,185,13,0.25); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(242,185,13,0.45); }
+
+    /* Focus ring */
+    *:focus-visible { outline: 2px solid #f2b90d; outline-offset: 2px; }
+
+    /* Toast */
+    #__he_toast { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; }
 </style>
+
+<!-- ── Global HeritEdge Utilities ── -->
+<script>
+const HE = {
+    _toastTimer: null,
+
+    toast(msg) {
+        let t = document.getElementById('__he_toast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = '__he_toast';
+            t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(10px);z-index:9999;pointer-events:none;';
+            document.body.appendChild(t);
+        }
+        t.innerHTML = `<div style="background:#1a0b06;border:1px solid rgba(242,185,13,0.4);color:white;font-size:14px;font-weight:600;padding:11px 20px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.5);white-space:nowrap;">${msg}</div>`;
+        t.style.opacity = '1';
+        t.style.transform = 'translateX(-50%) translateY(0)';
+        clearTimeout(HE._toastTimer);
+        HE._toastTimer = setTimeout(() => {
+            t.style.opacity = '0';
+            t.style.transform = 'translateX(-50%) translateY(10px)';
+        }, 2800);
+    },
+
+    requiresLogin(redirect) {
+        if (!window.__heritUser) {
+            window.location.href = '/login?redirect=' + encodeURIComponent(redirect || window.location.pathname);
+            return false;
+        }
+        return true;
+    },
+
+    cart: {
+        get() { try { return JSON.parse(localStorage.getItem('he_cart') || '[]'); } catch(e) { return []; } },
+        add(item) {
+            if (!HE.requiresLogin()) return;
+            const c = HE.cart.get();
+            if (c.find(i => i.id === item.id)) { HE.toast('Already in cart'); return; }
+            c.push({ ...item, addedAt: Date.now() });
+            localStorage.setItem('he_cart', JSON.stringify(c));
+            HE.cart.badge();
+            HE.toast('Added to cart 🛒');
+        },
+        remove(id) {
+            const c = HE.cart.get().filter(i => i.id !== id);
+            localStorage.setItem('he_cart', JSON.stringify(c));
+            HE.cart.badge();
+        },
+        badge() {
+            const n = HE.cart.get().length;
+            document.querySelectorAll('.he-cart-badge').forEach(el => {
+                el.textContent = n || '';
+                el.style.display = n > 0 ? 'flex' : 'none';
+            });
+        }
+    },
+
+    col: {
+        get() { try { return JSON.parse(localStorage.getItem('he_col') || '[]'); } catch(e) { return []; } },
+        toggle(item, btn) {
+            if (!HE.requiresLogin()) return;
+            const c = HE.col.get();
+            const idx = c.findIndex(i => i.id === item.id);
+            if (idx > -1) {
+                c.splice(idx, 1);
+                localStorage.setItem('he_col', JSON.stringify(c));
+                HE.toast('Removed from collection');
+                if (btn) { btn.title = 'Save to Collection'; btn.querySelector('.save-icon') && (btn.querySelector('.save-icon').style.fontVariationSettings = "'FILL' 0"); }
+                return false;
+            } else {
+                c.push({ ...item, savedAt: Date.now() });
+                localStorage.setItem('he_col', JSON.stringify(c));
+                HE.toast('Saved to collection ♥');
+                if (btn) { btn.title = 'Remove from Collection'; btn.querySelector('.save-icon') && (btn.querySelector('.save-icon').style.fontVariationSettings = "'FILL' 1"); }
+                return true;
+            }
+        },
+        isSaved(id) { return HE.col.get().some(i => i.id === id); }
+    },
+
+    following: {
+        get() { try { return JSON.parse(localStorage.getItem('he_following') || '[]'); } catch(e) { return []; } },
+        toggle(artist, btn) {
+            if (!HE.requiresLogin()) return;
+            const f = HE.following.get();
+            const idx = f.findIndex(a => a.id === artist.id);
+            if (idx > -1) {
+                f.splice(idx, 1);
+                localStorage.setItem('he_following', JSON.stringify(f));
+                HE.toast('Unfollowed ' + artist.name);
+                if (btn) { btn.textContent = 'Follow'; btn.classList.remove('bg-amber-yellow','text-background-dark'); btn.classList.add('bg-white/8','text-white'); }
+                return false;
+            } else {
+                f.push({ ...artist, followedAt: Date.now() });
+                localStorage.setItem('he_following', JSON.stringify(f));
+                HE.toast('Following ' + artist.name + ' ✨');
+                if (btn) { btn.textContent = 'Following'; btn.classList.remove('bg-white/8','text-white'); btn.classList.add('bg-amber-yellow','text-background-dark'); }
+                return true;
+            }
+        },
+        isFollowing(id) { return HE.following.get().some(a => a.id === id); }
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => HE.cart.badge());
+</script>

@@ -1,0 +1,117 @@
+<%
+  const _ap = locals.currentPage || '';
+  const _au = locals.user || {};
+  function _aCls(p) {
+    return p === _ap
+      ? 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-sacred-red/15 text-[#f87171] border border-[#f87171]/15'
+      : 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/50 hover:text-white hover:bg-white/5 transition-all border border-transparent';
+  }
+%>
+<style>
+  .a-nav-item { transition: background 0.15s, color 0.15s; }
+</style>
+
+<!-- ── ADMIN SIDEBAR ── -->
+<aside id="a-sidebar"
+  class="fixed inset-y-0 left-0 z-[60] flex flex-col w-[220px] transition-transform duration-300 -translate-x-full lg:translate-x-0"
+  style="background:#060101; border-right:1px solid rgba(255,255,255,0.07);">
+
+  <!-- Brand -->
+  <a href="/admin" class="flex items-center gap-3 px-5 py-4 hover:bg-white/4 transition-colors"
+     style="border-bottom:1px solid rgba(255,255,255,0.07);">
+    <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center"
+         style="background:#3f101a;">
+      <img src="/images/logo.png" alt="HE" class="w-full h-full object-contain"
+           onerror="this.parentElement.innerHTML='<span style=\'color:#f87171;font-weight:900;font-size:13px\'>HE</span>';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';">
+    </div>
+    <div>
+      <p class="text-white font-bold text-[13px] leading-none">HeritEdge</p>
+      <p class="text-[10px] uppercase tracking-[0.18em] font-bold mt-0.5" style="color:rgba(248,113,113,0.6);">Admin Portal</p>
+    </div>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+    <p class="text-[9px] text-white/20 uppercase tracking-[0.2em] font-bold px-3 mb-2">Overview</p>
+    <a href="/admin" class="a-nav-item <%- _aCls('dashboard') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">dashboard</span>
+      Dashboard
+    </a>
+
+    <p class="text-[9px] text-white/20 uppercase tracking-[0.2em] font-bold px-3 mt-4 mb-2">Management</p>
+    <a href="/admin/users" class="a-nav-item <%- _aCls('users') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">group</span>
+      Users
+    </a>
+    <a href="/admin/artworks" class="a-nav-item <%- _aCls('artworks') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">palette</span>
+      Artworks
+    </a>
+    <a href="/admin/orders" class="a-nav-item <%- _aCls('orders') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">local_shipping</span>
+      Orders
+    </a>
+    <a href="/admin/applications" class="a-nav-item <%- _aCls('applications') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">assignment_ind</span>
+      Applications
+    </a>
+
+    <div class="pt-3 pb-1 px-1">
+      <div style="height:1px;background:rgba(255,255,255,0.06);"></div>
+    </div>
+
+    <a href="/marketplace" target="_blank" rel="noopener"
+       class="a-nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/4 transition-all border border-transparent">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">storefront</span>
+      View Marketplace
+    </a>
+    <a href="/"
+       class="a-nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/4 transition-all border border-transparent">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">arrow_back</span>
+      Back to Site
+    </a>
+  </nav>
+
+  <!-- Admin strip -->
+  <div class="px-4 py-3.5" style="border-top:1px solid rgba(255,255,255,0.07);">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center"
+           style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+        <% if (_au.avatar) { %>
+          <img src="<%= _au.avatar %>" class="w-full h-full object-cover">
+        <% } else { %>
+          <span class="font-bold text-sm" style="color:#f87171;"><%= (_au.name || 'A')[0] %></span>
+        <% } %>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-white font-bold text-[12px] truncate leading-none"><%= _au.name || 'Admin' %></p>
+        <p class="text-[10px] mt-0.5" style="color:rgba(248,113,113,0.5);">Administrator</p>
+      </div>
+      <a href="/logout" title="Sign Out" class="text-white/25 hover:text-red-400 transition-colors flex-shrink-0">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile overlay -->
+<div id="a-overlay" class="fixed inset-0 bg-black/60 z-[55] hidden lg:hidden backdrop-blur-sm"
+     onclick="closeANav()"></div>
+
+<!-- Mobile top bar -->
+<header class="lg:hidden fixed top-0 left-0 right-0 z-[50] flex items-center justify-between px-4 py-3.5"
+        style="background:#060101; border-bottom:1px solid rgba(255,255,255,0.07);">
+  <button onclick="openANav()" class="text-white/60 hover:text-white transition-colors">
+    <span class="material-symbols-outlined text-[22px]">menu</span>
+  </button>
+  <span class="text-white font-bold text-sm font-mono-header tracking-wide">Admin Portal</span>
+  <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+       style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+    <span class="font-bold text-xs" style="color:#f87171;"><%= (_au.name || 'A')[0] %></span>
+  </div>
+</header>
+
+<script>
+  function openANav()  { document.getElementById('a-sidebar').classList.remove('-translate-x-full'); document.getElementById('a-overlay').classList.remove('hidden'); }
+  function closeANav() { document.getElementById('a-sidebar').classList.add('-translate-x-full');    document.getElementById('a-overlay').classList.add('hidden'); }
+</script>

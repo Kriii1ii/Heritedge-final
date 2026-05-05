@@ -1,0 +1,1 @@
+/Library/PostgreSQL/17/bin/postgres "-D" "/Users/kritikaacharya/HeritEgde/app/pgdata" "-p" "5434"

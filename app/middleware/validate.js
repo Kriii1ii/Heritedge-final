@@ -1,3 +1,4 @@
+const fs = require('fs');
 const logger = require('../utils/logger');
 const deleteCloudinaryImage = require('../utils/deleteCloudinaryImage');
 
@@ -9,7 +10,12 @@ const validate = (schema) => (req, res, next) => {
         if (err.name === 'ZodError') {
             if (req.files && req.files.length > 0) {
                 req.files.forEach(file => {
-                    if (file.path) deleteCloudinaryImage(file.path).catch(e => logger.error('Cleanup error', e));
+                    if (!file.path) return;
+                    if (file.path.includes('cloudinary.com')) {
+                        deleteCloudinaryImage(file.path).catch(e => logger.error('Cleanup error', e));
+                    } else {
+                        try { if (fs.existsSync(file.path)) fs.unlinkSync(file.path); } catch (_) {}
+                    }
                 });
             }
 

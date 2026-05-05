@@ -1,6 +1,7 @@
 const requireAuth = (req, res, next) => {
     if (!req.session.user) {
-        return res.redirect('/login');
+        req.session.returnTo = req.originalUrl;
+        return res.redirect('/login?reason=auth_required');
     }
     next();
 };

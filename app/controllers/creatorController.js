@@ -186,3 +186,97 @@ exports.completeOnboarding = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.getProfileEdit = async (req, res, next) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { id: req.session.user.id } });
+        res.render('creator/profile-edit', {
+            primaryColor: '#b81430',
+            user,
+            currentPage: 'profile-edit',
+            message: req.query.message || null,
+            error: req.query.error || null,
+            csrfToken: req.csrfToken()
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.updateProfileEdit = async (req, res, next) => {
+    try {
+        const { name, bio, region, inspiration, lifeStory, portfolioUrl } = req.body;
+        const updateData = {
+            name: (name || '').trim() || req.session.user.name,
+            bio: (bio || '').trim() || null,
+            region: (region || '').trim() || null,
+            inspiration: (inspiration || '').trim() || null,
+            lifeStory: (lifeStory || '').trim() || null,
+            portfolioUrl: (portfolioUrl || '').trim() || null
+        };
+        if (req.file) {
+            updateData.avatar = '/images/avatars/' + req.file.filename;
+        }
+        const updated = await prisma.user.update({
+            where: { id: req.session.user.id },
+            data: updateData
+        });
+        req.session.user = { ...req.session.user, name: updated.name, avatar: updated.avatar || req.session.user.avatar };
+        res.redirect('/creator/profile-edit?message=Profile+updated+successfully');
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getAnalytics = async (req, res, next) => {
+    try {
+        const creatorId = req.session.user.id;
+        const [totalArtworks, publishedArtworks, draftArtworks] = await Promise.all([
+            prisma.artwork.count({ where: { creatorId } }),
+            prisma.artwork.count({ where: { creatorId, status: 'PUBLISHED' } }),
+            prisma.artwork.count({ where: { creatorId, status: 'DRAFT' } })
+        ]);
+        const completedOrders = await prisma.order.findMany({
+            where: { artwork: { creatorId }, paymentStatus: 'COMPLETED' },
+            include: { artwork: { select: { id: true, title: true, images: true } } },
+            orderBy: { createdAt: 'desc' }
+        });
+        const totalRevenue = completedOrders.reduce((s, o) => s + parseFloat(o.amount || 0), 0);
+        const totalSales = completedOrders.length;
+        const artMap = {};
+        completedOrders.forEach(o => {
+            if (!artMap[o.artworkId]) {
+                artMap[o.artworkId] = { id: o.artworkId, title: o.artwork.title, image: o.artwork.images?.[0] || null, sales: 0, revenue: 0 };
+            }
+            artMap[o.artworkId].sales += 1;
+            artMap[o.artworkId].revenue += parseFloat(o.amount || 0);
+        });
+        const topArtworks = Object.values(artMap).sort((a, b) => b.revenue - a.revenue).slice(0, 5);
+        const now = new Date();
+        const monthlyRevenue = [];
+        for (let i = 5; i >= 0; i--) {
+            const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            const start = new Date(d.getFullYear(), d.getMonth(), 1);
+            const end = new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59);
+            const monthOrders = completedOrders.filter(o => { const od = new Date(o.createdAt); return od >= start && od <= end; });
+            monthlyRevenue.push({
+                month: d.toLocaleString('default', { month: 'short' }),
+                revenue: monthOrders.reduce((s, o) => s + parseFloat(o.amount || 0), 0),
+                sales: monthOrders.length
+            });
+        }
+        res.render('creator/analytics', {
+            primaryColor: '#b81430',
+            user: req.session.user,
+            currentPage: 'analytics',
+            totalArtworks, publishedArtworks, draftArtworks,
+            totalRevenue, totalSales,
+            topArtworks,
+            recentOrders: completedOrders.slice(0, 8),
+            monthlyRevenue,
+            csrfToken: req.csrfToken()
+        });
+    } catch (err) {
+        next(err);
+    }
+};

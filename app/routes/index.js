@@ -21,6 +21,7 @@ if (process.env.ADMIN_ONLY === 'true') {
     router.use('/', authRoutes);
     router.use('/creator', creatorRoutes);
     router.use('/', orderRoutes);
+    router.use('/admin', adminRoutes);
 }
 
 module.exports = router;

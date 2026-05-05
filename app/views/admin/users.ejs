@@ -1,102 +1,118 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
+  <title>Manage Users — Admin</title>
 </head>
+<body class="min-h-screen text-white" style="background:#080101;">
+<div class="flex min-h-screen">
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
-        <%- include('../partials/header') %>
-            <main class="flex flex-1 py-8 px-4 md:px-10 max-w-[1440px] w-full mx-auto">
-                <div class="w-full">
-                    <div class="flex flex-wrap justify-between gap-3 mb-8">
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-3xl font-black leading-tight font-mono-header">
-                                Manage Users
-                            </p>
-                            <p class="text-white/60 text-sm font-mono uppercase tracking-widest">
-                                Platform user overview
-                            </p>
+  <%- include('../partials/admin-nav', { currentPage: 'users' }) %>
+
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(248,113,113,0.5);">Admin Portal</p>
+          <h1 class="text-2xl font-bold text-white font-mono-header">Manage Users</h1>
+          <p class="text-white/40 text-sm mt-1"><%= users ? users.length : 0 %> registered users on the platform.</p>
+        </div>
+
+        <!-- Table -->
+        <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr style="background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08);">
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">User</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Role</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Verification</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Joined</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (users && users.length > 0) { %>
+                  <% users.forEach(usr => { %>
+                    <tr class="hover:bg-white/2 transition-colors" style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                      <!-- User -->
+                      <td class="px-5 py-4">
+                        <div class="flex items-center gap-3">
+                          <div class="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center"
+                               style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+                            <% if (usr.avatar) { %>
+                              <img src="<%= usr.avatar %>" class="w-full h-full object-cover">
+                            <% } else { %>
+                              <span class="text-amber-yellow font-bold text-sm"><%= (usr.name || '?')[0] %></span>
+                            <% } %>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="text-white font-bold text-sm font-mono-header truncate"><%= usr.name %></p>
+                            <p class="text-white/35 text-xs truncate"><%= usr.email %></p>
+                          </div>
                         </div>
-                        <a href="/admin" class="flex items-center text-amber-yellow text-sm hover:underline"><span
-                                class="material-symbols-outlined mr-1 text-sm">arrow_back</span> Back to Dashboard</a>
-                    </div>
+                      </td>
+                      <!-- Role -->
+                      <td class="px-5 py-4">
+                        <%
+                          const roleStyle = usr.role === 'ADMIN'
+                            ? 'color:#f87171;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);'
+                            : usr.role === 'CREATOR'
+                              ? 'color:#f2b90d;background:rgba(242,185,13,0.08);border:1px solid rgba(242,185,13,0.2);'
+                              : 'color:#60a5fa;background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.2);';
+                        %>
+                        <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full" style="<%= roleStyle %>">
+                          <%= usr.role %>
+                        </span>
+                      </td>
+                      <!-- Verification -->
+                      <td class="px-5 py-4">
+                        <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full"
+                          style="
+                            <% if (usr.verificationStatus === 'VERIFIED') { %>color:#00A86B;background:rgba(0,168,107,0.08);border:1px solid rgba(0,168,107,0.2);<% } else if (usr.verificationStatus === 'PENDING') { %>color:#f2b90d;background:rgba(242,185,13,0.08);border:1px solid rgba(242,185,13,0.2);<% } else { %>color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);<% } %>">
+                          <%= usr.verificationStatus %>
+                        </span>
+                      </td>
+                      <!-- Joined -->
+                      <td class="px-5 py-4 text-white/35 text-xs font-mono">
+                        <%= new Date(usr.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                      </td>
+                      <!-- Action -->
+                      <td class="px-5 py-4 text-center">
+                        <% if (usr.role !== 'ADMIN') { %>
+                          <form action="/admin/users/<%= usr.id %>/delete" method="POST"
+                                onsubmit="return confirm('Permanently delete <%= usr.name.replace(/'/g, "\\'") %> and all their data?');">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="submit"
+                              class="inline-flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors"
+                              style="color:#f87171; background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.15);"
+                              onmouseover="this.style.background='rgba(248,113,113,0.18)'"
+                              onmouseout="this.style.background='rgba(248,113,113,0.08)'">
+                              <span class="material-symbols-outlined text-[13px]">delete_forever</span>
+                              Delete
+                            </button>
+                          </form>
+                        <% } else { %>
+                          <span class="text-white/15 text-xs">—</span>
+                        <% } %>
+                      </td>
+                    </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="5" class="px-5 py-16 text-center text-white/30 text-sm">No users found.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-                    <div class="bg-white/5 rounded-sm border border-white/10 shadow-lg overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-white/10 border-b border-white/20">
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Name
-                                    </th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Email
-                                    </th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Role
-                                    </th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Status
-                                    </th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Joined
-                                    </th>
-                                    <th class="p-4 text-center text-white font-mono-header text-sm tracking-wider uppercase">Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-white/5 font-mono text-sm">
-                                <% if (users && users.length> 0) { %>
-                                    <% users.forEach(usr=> { %>
-                                        <tr class="hover:bg-white/5 transition-colors">
-                                            <td class="p-4 text-white/90 font-bold">
-                                                <%= usr.name %>
-                                            </td>
-                                            <td class="p-4 text-white/70">
-                                                <%= usr.email %>
-                                            </td>
-                                            <td class="p-4">
-                                                <span
-                                                    class="px-2 py-1 rounded text-[10px] font-bold uppercase border 
-                                                    <%= usr.role === 'ADMIN' ? 'text-red-400 border-red-400' : 
-                                                    (usr.role === 'CREATOR' ? 'text-amber-yellow border-amber-yellow' : 'text-blue-400 border-blue-400') %>">
-                                                    <%= usr.role %>
-                                                </span>
-                                            </td>
-                                            <td class="p-4">
-                                                <span
-                                                    class="px-2 py-1 rounded text-[10px] font-bold uppercase border 
-                                                    <%= usr.verificationStatus === 'VERIFIED' ? 'text-jade-green border-jade-green' : 
-                                                    (usr.verificationStatus === 'PENDING' ? 'text-yellow-400 border-yellow-400' : 'text-white/50 border-white/50') %>">
-                                                    <%= usr.verificationStatus %>
-                                                </span>
-                                            </td>
-                                            <td class="p-4 text-white/50">
-                                                <%= new Date(usr.createdAt).toLocaleDateString() %>
-                                            </td>
-                                            <td class="p-4 flex justify-center">
-                                                <% if(usr.role !== 'ADMIN') { %>
-                                                <form action="/admin/users/<%= usr.id %>/delete" method="POST"
-                                                    onsubmit="return confirm('WARNING: This will permanently delete the user and their artworks. Proceed?');">
-                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                    <button type="submit"
-                                                        class="bg-red-500/10 hover:bg-red-500/30 text-red-500 p-2 rounded-md transition-colors border border-red-500/20 flex items-center justify-center">
-                                                        <span class="material-symbols-outlined text-sm">delete_forever</span>
-                                                    </button>
-                                                </form>
-                                                <% } %>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                            <% } else { %>
-                                                <tr>
-                                                    <td colspan="5" class="p-8 text-center text-white/50">No users
-                                                        found.</td>
-                                                </tr>
-                                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-                <%- include('../partials/footer') %>
+      </main>
+    </div>
+  </div>
 </div>
 </body>
-
 </html>

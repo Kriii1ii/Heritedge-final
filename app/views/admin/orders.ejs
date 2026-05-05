@@ -1,117 +1,125 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
+  <title>Manage Orders — Admin</title>
 </head>
+<body class="min-h-screen text-white" style="background:#080101;">
+<div class="flex min-h-screen">
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
-        <%- include('../partials/header') %>
-            <main class="flex flex-1 py-8 px-4 md:px-10 max-w-[1440px] w-full mx-auto">
-                <div class="w-full">
-                    <div class="flex flex-wrap justify-between gap-3 mb-8">
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-3xl font-black leading-tight font-mono-header">
-                                Manage Orders & Logistics
-                            </p>
-                            <p class="text-white/60 text-sm font-mono uppercase tracking-widest">
-                                Track artwork status from purchase to delivery
-                            </p>
-                        </div>
-                        <a href="/admin" class="flex items-center text-amber-yellow text-sm hover:underline"><span
-                                class="material-symbols-outlined mr-1 text-sm">arrow_back</span> Back to Dashboard</a>
-                    </div>
+  <%- include('../partials/admin-nav', { currentPage: 'orders' }) %>
 
-                    <div class="bg-white/5 rounded-sm border border-white/10 shadow-lg overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-white/10 border-b border-white/20">
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Order
-                                        ID</th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Date
-                                    </th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Artwork
-                                        / Buyer</th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Amount
-                                        (रू)</th>
-                                    <th class="p-4 text-white font-mono-header text-sm tracking-wider uppercase">Status
-                                    </th>
-                                    <th
-                                        class="p-4 text-white font-mono-header text-sm tracking-wider uppercase text-right">
-                                        Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-white/5 font-mono text-sm">
-                                <% if (orders && orders.length> 0) { %>
-                                    <% orders.forEach(order=> { %>
-                                        <tr class="hover:bg-white/5 transition-colors">
-                                            <td class="p-4 text-white/70">
-                                                <%= order.id.slice(0, 8) %>...
-                                            </td>
-                                            <td class="p-4 text-white/70">
-                                                <%= new Date(order.createdAt).toLocaleDateString() %>
-                                            </td>
-                                            <td class="p-4 text-white/90">
-                                                <div class="font-bold text-amber-yellow">
-                                                    <%= order.artwork.title %>
-                                                </div>
-                                                <div class="text-xs text-white/50">Buyer: <%= order.buyer.name %>
-                                                </div>
-                                            </td>
-                                            <td class="p-4 text-white/90 font-bold">
-                                                <%= order.amount %>
-                                            </td>
-                                            <td class="p-4">
-                                                <% const statusColors={ 'PLACED'
-                                                    : 'text-blue-400 bg-blue-400/10 border-blue-400/20' , 'COLLECTED'
-                                                    : 'text-purple-400 bg-purple-400/10 border-purple-400/20'
-                                                    , 'IN_TRANSIT'
-                                                    : 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
-                                                    , 'DELIVERED'
-                                                    : 'text-jade-green bg-jade-green/10 border-jade-green/20'
-                                                    , 'CANCELLED' : 'text-red-400 bg-red-400/10 border-red-400/20' }; %>
-                                                    <span
-                                                        class="px-2 py-1 rounded text-xs font-bold border <%= statusColors[order.orderStatus] || 'text-white bg-white/10 border-white/20' %>">
-                                                        <%= order.orderStatus %>
-                                                    </span>
-                                            </td>
-                                            <td class="p-4 text-right">
-                                                <form action="/admin/orders/<%= order.id %>/status" method="POST"
-                                                    class="flex items-center justify-end gap-2">
-                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                    <select name="status"
-                                                        class="bg-black/40 border border-white/20 text-white text-xs rounded p-1 outline-none">
-                                                        <option value="PLACED" <%=order.orderStatus==='PLACED'
-                                                            ? 'selected' : '' %>>Placed</option>
-                                                        <option value="COLLECTED" <%=order.orderStatus==='COLLECTED'
-                                                            ? 'selected' : '' %>>Collected</option>
-                                                        <option value="IN_TRANSIT" <%=order.orderStatus==='IN_TRANSIT'
-                                                            ? 'selected' : '' %>>In Transit</option>
-                                                        <option value="DELIVERED" <%=order.orderStatus==='DELIVERED'
-                                                            ? 'selected' : '' %>>Delivered</option>
-                                                        <option value="CANCELLED" <%=order.orderStatus==='CANCELLED'
-                                                            ? 'selected' : '' %>>Cancelled</option>
-                                                    </select>
-                                                    <button type="submit"
-                                                        class="bg-amber-yellow/20 hover:bg-amber-yellow/40 text-amber-yellow px-2 py-1 rounded text-xs font-bold transition-colors">Update</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                            <% } else { %>
-                                                <tr>
-                                                    <td colspan="6" class="p-8 text-center text-white/50">No orders
-                                                        found.</td>
-                                                </tr>
-                                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-                <%- include('../partials/footer') %>
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(248,113,113,0.5);">Admin Portal</p>
+          <h1 class="text-2xl font-bold text-white font-mono-header">Manage Orders</h1>
+          <p class="text-white/40 text-sm mt-1">Track artwork status from purchase to delivery.</p>
+        </div>
+
+        <!-- Table -->
+        <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr style="background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08);">
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Order</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Artwork / Buyer</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Amount</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Payment</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header">Delivery Status</th>
+                  <th class="px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/40 font-mono-header text-right">Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (orders && orders.length > 0) { %>
+                  <%
+                    const sColors = {
+                      PLACED:     'color:#60a5fa;background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);',
+                      COLLECTED:  'color:#c084fc;background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2);',
+                      IN_TRANSIT: 'color:#f2b90d;background:rgba(242,185,13,0.08);border:1px solid rgba(242,185,13,0.2);',
+                      DELIVERED:  'color:#00A86B;background:rgba(0,168,107,0.08);border:1px solid rgba(0,168,107,0.2);',
+                      CANCELLED:  'color:#f87171;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);'
+                    };
+                    const pColors = {
+                      COMPLETED: 'color:#00A86B;background:rgba(0,168,107,0.08);border:1px solid rgba(0,168,107,0.2);',
+                      PENDING:   'color:#f2b90d;background:rgba(242,185,13,0.08);border:1px solid rgba(242,185,13,0.2);',
+                      FAILED:    'color:#f87171;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);'
+                    };
+                  %>
+                  <% orders.forEach(order => { %>
+                    <tr class="hover:bg-white/2 transition-colors" style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                      <!-- Order ID + date -->
+                      <td class="px-5 py-4">
+                        <p class="text-white/50 text-xs font-mono"><%= order.id.slice(0,8) %>…</p>
+                        <p class="text-white/25 text-[10px] mt-0.5">
+                          <%= new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                        </p>
+                      </td>
+                      <!-- Artwork / Buyer -->
+                      <td class="px-5 py-4">
+                        <p class="text-amber-yellow font-bold text-sm font-mono-header truncate max-w-[180px]"><%= order.artwork.title %></p>
+                        <p class="text-white/35 text-xs mt-0.5">Buyer: <%= order.buyer.name %></p>
+                      </td>
+                      <!-- Amount -->
+                      <td class="px-5 py-4">
+                        <p class="text-white font-bold text-sm font-mono">रू <%= parseFloat(order.amount || 0).toLocaleString() %></p>
+                      </td>
+                      <!-- Payment status -->
+                      <td class="px-5 py-4">
+                        <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full"
+                              style="<%= pColors[order.paymentStatus] || 'color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);' %>">
+                          <%= order.paymentStatus %>
+                        </span>
+                      </td>
+                      <!-- Order status -->
+                      <td class="px-5 py-4">
+                        <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full"
+                              style="<%= sColors[order.orderStatus] || 'color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);' %>">
+                          <%= order.orderStatus.replace('_', ' ') %>
+                        </span>
+                      </td>
+                      <!-- Update status -->
+                      <td class="px-5 py-4 text-right">
+                        <form action="/admin/orders/<%= order.id %>/status" method="POST"
+                              class="flex items-center justify-end gap-2">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <select name="status"
+                            class="text-xs rounded-lg px-2 py-1.5 outline-none font-semibold"
+                            style="background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); color:#fff;">
+                            <option value="PLACED"     <%= order.orderStatus === 'PLACED'     ? 'selected' : '' %> style="background:#1a0b06;">Placed</option>
+                            <option value="COLLECTED"  <%= order.orderStatus === 'COLLECTED'  ? 'selected' : '' %> style="background:#1a0b06;">Collected</option>
+                            <option value="IN_TRANSIT" <%= order.orderStatus === 'IN_TRANSIT' ? 'selected' : '' %> style="background:#1a0b06;">In Transit</option>
+                            <option value="DELIVERED"  <%= order.orderStatus === 'DELIVERED'  ? 'selected' : '' %> style="background:#1a0b06;">Delivered</option>
+                            <option value="CANCELLED"  <%= order.orderStatus === 'CANCELLED'  ? 'selected' : '' %> style="background:#1a0b06;">Cancelled</option>
+                          </select>
+                          <button type="submit"
+                            class="text-xs font-bold px-3 py-1.5 rounded-lg transition-colors"
+                            style="background:rgba(242,185,13,0.12); color:#f2b90d; border:1px solid rgba(242,185,13,0.2);"
+                            onmouseover="this.style.background='rgba(242,185,13,0.22)'"
+                            onmouseout="this.style.background='rgba(242,185,13,0.12)'">
+                            Update
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6" class="px-5 py-16 text-center text-white/30 text-sm">No orders found.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
 </div>
 </body>
-
 </html>

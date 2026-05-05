@@ -1,0 +1,119 @@
+<%
+  const _cp = locals.currentPage || '';
+  const _cu = locals.user || {};
+  function _navCls(p) {
+    return p === _cp
+      ? 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-amber-yellow/10 text-amber-yellow border border-amber-yellow/15'
+      : 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/50 hover:text-white hover:bg-white/5 transition-all border border-transparent';
+  }
+%>
+<style>
+  .c-nav-item { transition: background 0.15s, color 0.15s; }
+</style>
+
+<!-- ── CREATOR SIDEBAR ── -->
+<aside id="c-sidebar"
+  class="fixed inset-y-0 left-0 z-[60] flex flex-col w-[220px] transition-transform duration-300 -translate-x-full lg:translate-x-0"
+  style="background:#060200; border-right:1px solid rgba(255,255,255,0.07);">
+
+  <!-- Brand -->
+  <a href="/" class="flex items-center gap-3 px-5 py-4 hover:bg-white/4 transition-colors"
+     style="border-bottom:1px solid rgba(255,255,255,0.07);">
+    <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-deep-maroon/60">
+      <img src="/images/logo.png" alt="HE" class="w-full h-full object-contain"
+           onerror="this.parentElement.innerHTML='<span style=\'color:#f2b90d;font-weight:900;font-size:13px\'>HE</span>';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';">
+    </div>
+    <div>
+      <p class="text-white font-bold text-[13px] leading-none">HeritEdge</p>
+      <p class="text-amber-yellow/50 text-[9px] uppercase tracking-[0.18em] font-bold mt-0.5">Creator Portal</p>
+    </div>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+    <a href="/creator/home" class="c-nav-item <%- _navCls('home') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">dashboard</span>
+      Overview
+    </a>
+    <a href="/creator/artworks" class="c-nav-item <%- _navCls('artworks') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">art_track</span>
+      My Artworks
+    </a>
+    <a href="/creator/upload" class="c-nav-item <%- _navCls('upload') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">add_photo_alternate</span>
+      Add Artwork
+    </a>
+    <a href="/creator/analytics" class="c-nav-item <%- _navCls('analytics') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">bar_chart</span>
+      Analytics
+    </a>
+    <a href="/creator/profile-edit" class="c-nav-item <%- _navCls('profile-edit') %>">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">manage_accounts</span>
+      Edit Profile
+    </a>
+
+    <div class="pt-3 pb-1 px-1">
+      <div style="height:1px;background:rgba(255,255,255,0.06);"></div>
+    </div>
+
+    <a href="/artist/<%= _cu.id %>" target="_blank" rel="noopener"
+       class="c-nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/4 transition-all border border-transparent">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">open_in_new</span>
+      Public Profile
+    </a>
+    <a href="/"
+       class="c-nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/4 transition-all border border-transparent">
+      <span class="material-symbols-outlined text-[18px] flex-shrink-0">arrow_back</span>
+      Back to Site
+    </a>
+  </nav>
+
+  <!-- User strip -->
+  <div class="px-4 py-3.5" style="border-top:1px solid rgba(255,255,255,0.07);">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center"
+           style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+        <% if (_cu.avatar) { %>
+          <img src="<%= _cu.avatar %>" class="w-full h-full object-cover">
+        <% } else { %>
+          <span class="text-amber-yellow font-bold text-sm"><%= (_cu.name || '?')[0] %></span>
+        <% } %>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-white font-bold text-[12px] truncate leading-none"><%= _cu.name || 'Creator' %></p>
+        <p class="text-white/35 text-[10px] mt-0.5">Artist</p>
+      </div>
+      <a href="/logout" title="Sign Out"
+         class="text-white/25 hover:text-red-400 transition-colors flex-shrink-0">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile overlay backdrop -->
+<div id="c-overlay" class="fixed inset-0 bg-black/60 z-[55] hidden lg:hidden backdrop-blur-sm"
+     onclick="closeCNav()"></div>
+
+<!-- Mobile top bar -->
+<header class="lg:hidden fixed top-0 left-0 right-0 z-[50] flex items-center justify-between px-4 py-3.5"
+        style="background:#060200; border-bottom:1px solid rgba(255,255,255,0.07);">
+  <button onclick="openCNav()" class="text-white/60 hover:text-white transition-colors">
+    <span class="material-symbols-outlined text-[22px]">menu</span>
+  </button>
+  <span class="text-white font-bold text-sm font-mono-header tracking-wide">Creator Portal</span>
+  <a href="/creator/profile-edit"
+     class="w-8 h-8 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0"
+     style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+    <% if (_cu.avatar) { %>
+      <img src="<%= _cu.avatar %>" class="w-full h-full object-cover">
+    <% } else { %>
+      <span class="text-amber-yellow font-bold text-xs"><%= (_cu.name || '?')[0] %></span>
+    <% } %>
+  </a>
+</header>
+
+<script>
+  function openCNav()  { document.getElementById('c-sidebar').classList.remove('-translate-x-full'); document.getElementById('c-overlay').classList.remove('hidden'); }
+  function closeCNav() { document.getElementById('c-sidebar').classList.add('-translate-x-full');    document.getElementById('c-overlay').classList.add('hidden'); }
+</script>

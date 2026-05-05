@@ -3,269 +3,416 @@
 
 <head>
     <%- include('partials/head') %>
+    <title><%= artist?.name || 'Artist' %> — HeritEdge</title>
+    <style>
+        /* Hero */
+        .hero-fade {
+            background: linear-gradient(to bottom,
+                rgba(15,6,4,0.1) 0%,
+                rgba(15,6,4,0.55) 55%,
+                #0f0604 100%);
+        }
+
+        /* Skill tags */
+        .skill-tag {
+            background: rgba(242,185,13,0.08);
+            border: 1px solid rgba(242,185,13,0.22);
+            color: #f2b90d;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+        }
+
+        /* Info row in sidebar */
+        .detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .detail-row:first-child { padding-top: 0; }
+
+        /* Gallery card */
+        .gallery-card {
+            transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                        box-shadow 0.28s cubic-bezier(0.4,0,0.2,1),
+                        border-color 0.2s;
+        }
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.55);
+        }
+
+        /* Section heading amber line */
+        .section-rule {
+            width: 36px; height: 3px;
+            background: #f2b90d;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Inspiration quote */
+        .quote-block {
+            border-left: 2px solid rgba(242,185,13,0.3);
+            padding-left: 20px;
+            position: relative;
+        }
+    </style>
 </head>
 
-<body class="bg-[#fcfaf7] min-h-screen font-sans overflow-x-hidden text-[#2c1d11]">
-    <div class="flex flex-col h-full grow">
-        <%- include('partials/header') %>
-        
-        <main class="flex flex-col w-full max-w-[1240px] mx-auto px-4 lg:px-10 pb-20">
-            <!-- Cover Photo Area -->
-            <div class="w-full h-[240px] md:h-[320px] rounded-b-[1.5rem] md:rounded-b-[2rem] overflow-hidden relative shadow-sm" style="background: repeating-linear-gradient(90deg, #4A1201 0px, #4A1201 60px, #B93814 60px, #B93814 120px, #86210A 120px, #86210A 180px, #D4541B 180px, #D4541B 240px, #5D1905 240px, #5D1905 300px);">
-                <!-- Adds a slight inner shadow/gradient to the cover -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10"></div>
-            </div>
+<body class="bg-background-dark text-white min-h-screen overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col">
+    <%- include('partials/header') %>
 
-            <!-- Profile Header Section -->
-            <div class="relative px-4 sm:px-8 mt-[-60px] md:mt-[-80px] flex flex-col md:flex-row items-end md:items-center justify-between z-10 gap-6">
-                <!-- Left: Avatar & Info -->
-                <div class="flex flex-col md:flex-row items-center md:items-end gap-6 w-full md:w-auto">
-                    <div class="w-32 h-32 md:w-[170px] md:h-[170px] rounded-full overflow-hidden border-[6px] border-[#fcfaf7] shadow-lg flex-shrink-0 bg-gray-200">
-                        <img src="<%= artist?.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDFnIxnWb9AzaIzvWrYMJX_D3tKYwNJAqsz7ynWqtZFM_f8IUT0mOWiipjLeMR4iYYAzOPIClPUgpC99-gthpbSfWVeviaLEUoNOoUeGLJypwiFOr2X2i-u5vkQmgBu973yjjsvrpzvZvW91bnVbTpO7oaOJxrs96Q642WMDlodB_khNexQsuUcw5Q8USKfHkf3CnNqb1jU8FpP5NCGNrtOZgw70iJHCV6yBVCW44dSLnD6XGcrAHXNlULt1fqHLSKLDPll__tayLg' %>" alt="Artist Avatar" class="w-full h-full object-cover" />
+    <!-- ══════════════════════════════════
+         HERO
+    ══════════════════════════════════ -->
+    <section class="relative w-full min-h-[500px] md:min-h-[580px] flex flex-col justify-end">
+        <%
+            const coverBg = artworks && artworks.length > 0 && artworks[0].images && artworks[0].images[0]
+                ? artworks[0].images[0]
+                : '/images/front_page_bg_4.jpg';
+        %>
+        <div class="absolute inset-0 bg-cover bg-center"
+            style="background-image:url('<%= coverBg %>'); filter:brightness(0.45) saturate(1.3);">
+        </div>
+        <div class="hero-fade absolute inset-0 pointer-events-none"></div>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background:radial-gradient(ellipse at 30% 80%, rgba(63,16,26,0.4) 0%, transparent 60%)"></div>
+        <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-yellow/20 to-transparent pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 pb-0">
+            <div class="flex flex-col md:flex-row md:items-end gap-6 md:gap-8">
+
+                <!-- Avatar -->
+                <div class="shrink-0 -mb-14 md:-mb-16 relative">
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border-[3px] border-background-dark ring-2 ring-amber-yellow/25">
+                        <img src="<%= artist?.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(artist?.name || 'A') + '&background=3f101a&color=f2b90d&size=240&font-size=0.45&bold=true' %>"
+                            alt="<%= artist?.name %>"
+                            class="w-full h-full object-cover" />
                     </div>
-                    
-                    <div class="flex flex-col md:mb-4 text-center md:text-left">
-                        <h1 class="text-3xl md:text-[32px] font-bold text-[#1a110a] leading-tight font-sans"><%= artist?.name || 'Anjali Tamang' %></h1>
-                        <p class="text-[#b91c3b] font-bold text-[15px] mt-0.5 font-sans"><%= artist?.tagline || 'Master Thangka Painter | Empowering Marginalized Voices' %></p>
-                        
-                        <div class="flex items-center justify-center md:justify-start gap-4 mt-2 text-[14px] font-medium">
-                            <div class="flex items-center gap-1.5 text-gray-500">
-                                <span class="material-symbols-outlined text-[16px]">location_on</span>
-                                <span><%= artist?.location || 'Kathmandu, Nepal' %></span>
-                            </div>
-                            <span class="text-gray-300">•</span>
-                            <div class="text-[#eab308] font-bold">
-                                5.2k Followers
-                            </div>
+                    <% if (artist?.verificationStatus === 'VERIFIED') { %>
+                        <div class="absolute -bottom-1.5 -right-1.5 w-8 h-8 bg-jade-green rounded-full border-2 border-background-dark flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white text-[15px]" style="font-variation-settings:'FILL' 1;">verified</span>
                         </div>
-                    </div>
+                    <% } %>
                 </div>
 
-                <!-- Right: Action Buttons -->
-                <div class="flex items-center gap-3 w-full md:w-auto justify-center md:mb-4">
-                    <button class="px-8 py-2.5 bg-[#f3ebeb] text-[#332218] font-bold text-[14px] rounded-md transition-colors hover:bg-[#e8dddd]">Follow</button>
-                    <button class="px-8 py-2.5 bg-[#b91c3b] text-white font-bold text-[14px] rounded-md shadow-md transition-colors hover:bg-[#9f1531]">Message</button>
+                <!-- Name + meta -->
+                <div class="pb-6 flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-3 mb-2">
+                        <h1 class="text-3xl md:text-[2.6rem] font-bold text-white font-mono-header tracking-tight leading-tight">
+                            <%= artist?.name || 'Artist' %>
+                        </h1>
+                        <% if (artist?.verificationStatus === 'VERIFIED') { %>
+                            <span class="text-[10px] font-black text-jade-green bg-jade-green/10 border border-jade-green/25 px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0">Verified</span>
+                        <% } %>
+                    </div>
+                    <% if (artist?.bio) { %>
+                        <p class="text-white/65 text-sm md:text-base leading-relaxed max-w-xl line-clamp-2 mb-3">
+                            <%= artist.bio %>
+                        </p>
+                    <% } %>
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-white/50">
+                        <% if (artist?.region) { %>
+                            <span class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-amber-yellow/55 text-[15px]">location_on</span>
+                                <%= artist.region %>
+                            </span>
+                        <% } %>
+                        <span class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-amber-yellow/55 text-[15px]">workspace_premium</span>
+                            <span class="text-amber-yellow/80 font-semibold">HeritEdge Artist</span>
+                        </span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Navigation Tabs -->
-            <div class="w-full border-b border-[#ebdcd0] mt-10 flex gap-8 px-4 sm:px-8">
-                <a href="#" class="pb-3 text-[#b91c3b] font-bold text-[14px] border-b-[3px] border-[#b91c3b]">Feed</a>
-                <a href="#" class="pb-3 text-gray-500 hover:text-[#523d2e] font-bold text-[14px] transition-colors border-b-[3px] border-transparent">Artworks</a>
-                <a href="#" class="pb-3 text-gray-500 hover:text-[#523d2e] font-bold text-[14px] transition-colors border-b-[3px] border-transparent">About</a>
-                <a href="#" class="pb-3 text-gray-500 hover:text-[#523d2e] font-bold text-[14px] transition-colors border-b-[3px] border-transparent">Journey</a>
+    <!-- ══════════════════════════════════
+         CONTENT
+    ══════════════════════════════════ -->
+    <main class="flex-1 max-w-[1200px] mx-auto w-full px-6 md:px-12 pt-20 md:pt-24 pb-24">
+
+        <!-- Action bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-10 pb-8 border-b border-white/8">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="/marketplace?artist=<%= artist?.id %>"
+                    class="flex items-center gap-2 px-5 py-2.5 bg-amber-yellow text-background-dark font-bold text-sm rounded-xl hover:bg-amber-yellow/90 transition-all shadow-lg shadow-amber-yellow/10 font-mono-header">
+                    <span class="material-symbols-outlined text-[16px]">storefront</span>
+                    Shop Artworks
+                </a>
+                <button id="follow-btn"
+                    onclick="HE.following.toggle(__artistData, this)"
+                    class="flex items-center gap-2 px-5 py-2.5 bg-white/5 text-white border border-white/12 font-semibold text-sm rounded-xl hover:bg-white/10 hover:border-white/20 transition-all">
+                    <span class="material-symbols-outlined text-[16px]">person_add</span>
+                    Follow
+                </button>
             </div>
+            <a href="/marketplace"
+                class="flex items-center gap-1.5 text-white/40 hover:text-amber-yellow text-sm font-medium transition-colors">
+                <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+                Marketplace
+            </a>
+        </div>
 
-            <!-- Main Content Grid -->
-            <div class="flex flex-col lg:flex-row mt-8 gap-8 px-0 sm:px-4">
-                
-                <!-- Left Sidebar -->
-                <aside class="w-full lg:w-[320px] flex flex-col gap-6 shrink-0">
-                    <!-- Bio / Journey Block -->
-                    <div class="bg-white rounded-xl p-6 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-[#f3efe9]">
-                        <h3 class="flex items-center gap-2 text-[#2c1d11] font-bold text-[16px] mb-4">
-                            <span class="material-symbols-outlined text-[#b91c3b]">auto_awesome</span> Artist Journey
-                        </h3>
-                        <p class="text-[#7a6454] text-[14px] leading-relaxed">
-                            <%= artist?.bio || 'Born in the foothills of the Himalayas, my art is a testament to the resilience of Tamang women. I blend traditional Buddhist iconography with contemporary social themes to give a voice to the voiceless.' %>
-                        </p>
-                    </div>
+        <script>
+            const __artistData = {
+                id: '<%= artist?.id %>',
+                name: `<%= (artist?.name || '').replace(/`/g, '\\`') %>`,
+                avatar: '<%= artist?.avatar || '' %>'
+            };
+            document.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('follow-btn');
+                if (btn && HE.following.isFollowing(__artistData.id)) {
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">person_check</span> Following';
+                    btn.classList.remove('bg-white/5','text-white','border-white/12');
+                    btn.classList.add('bg-amber-yellow','text-background-dark','border-amber-yellow');
+                }
+            });
+        </script>
 
-                    <!-- Cultural Background -->
-                    <div class="bg-white rounded-xl p-6 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-[#f3efe9]">
-                        <h3 class="flex items-center gap-2 text-[#2c1d11] font-bold text-[16px] mb-4">
-                            <span class="material-symbols-outlined text-[#b91c3b]">menu_book</span> Cultural Background
-                        </h3>
-                        <ul class="flex flex-col gap-3">
-                            <li class="flex items-start gap-3">
-                                <span class="material-symbols-outlined text-[#eab308] text-[18px] mt-0.5">verified</span>
-                                <span class="text-[#7a6454] text-[14px]">Heritage: Tamang-Buddhist</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="material-symbols-outlined text-[#eab308] text-[18px] mt-0.5">verified</span>
-                                <span class="text-[#7a6454] text-[14px]">Traditional Training: 15+ years under Master Karma Lama</span>
-                            </li>
-                        </ul>
-                    </div>
+        <!-- Two-column layout -->
+        <div class="flex flex-col lg:flex-row gap-10 xl:gap-14">
 
-                    <!-- Skills & Mediums -->
-                    <div class="bg-white rounded-xl p-6 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-[#f3efe9]">
-                        <h3 class="flex items-center gap-2 text-[#2c1d11] font-bold text-[16px] mb-4">
-                            <span class="material-symbols-outlined text-[#b91c3b]">palette</span> Skills & Mediums
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-[#fdf2f2] text-[#b91c3b] text-[12px] font-bold rounded-full">Natural Pigments</span>
-                            <span class="px-3 py-1 bg-[#fdf2f2] text-[#b91c3b] text-[12px] font-bold rounded-full">Gold Leaf</span>
-                            <span class="px-3 py-1 bg-[#fdf2f2] text-[#b91c3b] text-[12px] font-bold rounded-full">Silk Canvas</span>
-                            <span class="px-3 py-1 bg-[#fdf2f2] text-[#b91c3b] text-[12px] font-bold rounded-full">Gouache</span>
-                            <span class="px-3 py-1 bg-[#fdf2f2] text-[#b91c3b] text-[12px] font-bold rounded-full">Hand-drawn Sketches</span>
+            <!-- ── SIDEBAR ── -->
+            <aside class="w-full lg:w-[280px] xl:w-[300px] shrink-0">
+
+                <!-- Single unified info card -->
+                <div class="rounded-2xl overflow-hidden border border-white/8 sticky top-24"
+                    style="background:rgba(63,16,26,0.18);">
+
+                    <!-- Bio section -->
+                    <% if (artist?.bio) { %>
+                        <div class="px-6 pt-6 pb-5 border-b border-white/7">
+                            <p class="text-white/45 text-[10px] font-bold uppercase tracking-[0.14em] mb-2">About</p>
+                            <p class="text-white/70 text-sm leading-[1.75]"><%= artist.bio %></p>
                         </div>
-                    </div>
-                </aside>
+                    <% } %>
 
-                <!-- Right Main Column -->
-                <div class="flex-1 min-w-0 flex flex-col gap-10">
-                    
-                    <!-- Journey Highlights -->
-                    <div class="flex flex-col">
-                        <h2 class="text-[#2c1d11] font-bold text-[16px] mb-4">Journey Highlights</h2>
-                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-                            <!-- Highlight Card 1 -->
-                            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div class="w-full aspect-[3/4] rounded-[14px] overflow-hidden shadow-sm border border-black/5 relative">
-                                    <div class="absolute inset-x-0 top-0 h-1 bg-[#b91c3b] z-10"></div>
-                                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Studio Day">
-                                </div>
-                                <span class="text-[11px] font-bold text-[#2c1d11]">Studio Day</span>
-                            </div>
-                            <!-- Highlight Card 2 -->
-                            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div class="w-full aspect-[3/4] rounded-[14px] overflow-hidden shadow-sm border border-black/5 relative">
-                                    <div class="absolute inset-x-0 top-0 h-1 bg-[#b91c3b] z-10"></div>
-                                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Pigments">
-                                </div>
-                                <span class="text-[11px] font-bold text-[#2c1d11]">Pigments</span>
-                            </div>
-                            <!-- Highlight Card 3 -->
-                            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div class="w-full aspect-[3/4] rounded-[14px] overflow-hidden shadow-sm border border-black/5 relative">
-                                    <div class="absolute inset-x-0 top-0 h-1 bg-[#b91c3b] z-10"></div>
-                                    <div class="w-full h-full bg-[#e5e5e5] flex items-center justify-center p-4">
-                                        <span class="material-symbols-outlined text-[48px] text-gray-400 font-light">edit_document</span>
-                                    </div>
-                                </div>
-                                <span class="text-[11px] font-bold text-[#2c1d11]">Sketching</span>
-                            </div>
-                            <!-- Highlight Card 4 -->
-                            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div class="w-full aspect-[3/4] rounded-[14px] overflow-hidden shadow-sm border border-black/5 relative">
-                                    <div class="absolute inset-x-0 top-0 h-1 bg-[#b91c3b] z-10"></div>
-                                    <div class="w-full h-full bg-[#d6d3c9] flex items-end justify-center pb-6">
-                                        <div class="w-1/2 h-2/3 bg-white rounded-t-sm shadow-md"></div>
-                                    </div>
-                                </div>
-                                <span class="text-[11px] font-bold text-[#2c1d11]">Exhibition</span>
-                            </div>
-                            <!-- Highlight Card 5 -->
-                            <div class="flex flex-col items-center gap-2 group cursor-pointer hidden md:flex">
-                                <div class="w-full aspect-[3/4] rounded-[14px] overflow-hidden shadow-sm border border-black/5 relative bg-[#1f303a] p-4 flex flex-col justify-center text-center">
-                                    <div class="absolute inset-x-0 top-0 h-1 bg-[#b91c3b] z-10"></div>
-                                    <h4 class="text-white text-[10px] tracking-widest uppercase mb-2">New Collection</h4>
-                                    <div class="w-6 h-px bg-white/30 mx-auto my-2"></div>
-                                    <p class="text-white/60 text-[8px] leading-relaxed">Exclusive preview of the upcoming series celebrating ancient designs.</p>
-                                </div>
-                                <span class="text-[11px] font-bold text-[#2c1d11]">New Drop</span>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Detail rows -->
+                    <div class="px-6 pt-5 pb-6">
+                        <p class="text-white/45 text-[10px] font-bold uppercase tracking-[0.14em] mb-4">Artist Details</p>
+                        <div class="flex flex-col">
 
-                    <!-- Feed Post -->
-                    <div class="bg-white rounded-[20px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-[#f3efe9] flex flex-col gap-4">
-                        <div class="flex items-start justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-full bg-[#fdf2f2] flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-[#b91c3b]">campaign</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-bold text-[#2c1d11] text-[15px]">New Post</span>
-                                    <span class="text-gray-400 text-[12px] font-medium">2 hours ago</span>
+                            <% if (artist?.region) { %>
+                            <div class="detail-row">
+                                <span class="material-symbols-outlined text-amber-yellow/60 text-[16px] mt-0.5 shrink-0">location_on</span>
+                                <div>
+                                    <div class="text-white/38 text-[10px] font-bold uppercase tracking-wider mb-0.5">Region</div>
+                                    <div class="text-white/80 text-sm"><%= artist.region %></div>
                                 </div>
                             </div>
-                            <div class="bg-[#fef9c3] text-[#ca8a04] px-3 py-1 rounded text-[9px] font-black uppercase tracking-wider">
-                                Announcement
+                            <% } %>
+
+                            <div class="detail-row">
+                                <span class="material-symbols-outlined text-amber-yellow/60 text-[16px] mt-0.5 shrink-0">verified_user</span>
+                                <div>
+                                    <div class="text-white/38 text-[10px] font-bold uppercase tracking-wider mb-0.5">Status</div>
+                                    <div class="text-sm <%= artist?.verificationStatus === 'VERIFIED' ? 'text-jade-green' : 'text-white/70' %>">
+                                        <%= artist?.verificationStatus === 'VERIFIED' ? 'Verified Artist' : 'HeritEdge Member' %>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <p class="text-[#4a3b30] text-[13px] leading-relaxed mt-1">
-                            Excited to announce my upcoming workshop in Patan! We will be exploring the sacred geometry of Mandalas and how it relates to our inner peace. Limited seats available for local women artists.
-                        </p>
-                        
-                        <div class="w-full h-[220px] rounded-[14px] overflow-hidden mt-2">
-                            <img src="https://images.unsplash.com/photo-1563214532-6a68bd8dbd3f?q=80&w=1000" class="w-full h-full object-cover" alt="Workshop preview">
-                        </div>
 
-                        <div class="flex items-center gap-6 mt-2 pt-4 border-t border-gray-100">
-                            <button class="flex items-center gap-2 text-[#b91c3b] transition-colors">
-                                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
-                                <span class="text-[13px] font-bold text-gray-600">342</span>
-                            </button>
-                            <button class="flex items-center gap-2 text-[#b91c3b] transition-colors">
-                                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-                                <span class="text-[13px] font-bold text-gray-600">28</span>
-                            </button>
-                            <button class="flex items-center gap-2 text-[#b91c3b] transition-colors ml-auto">
-                                <span class="material-symbols-outlined text-[18px]">share</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Featured Artworks -->
-                    <div class="flex flex-col gap-4">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-[#2c1d11] font-bold text-[16px]">Featured Artworks</h2>
-                            <a href="#" class="text-[#b91c3b] font-bold text-[13px] hover:underline">View All</a>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <% if (artworks && artworks.length > 0) { %>
-                                <% artworks.slice(0, 2).forEach(art => { %>
-                                    <div class="bg-white rounded-[20px] p-4 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-[#f3efe9] flex flex-col gap-4">
-                                        <div class="w-full aspect-square rounded-[14px] overflow-hidden bg-gray-100">
-                                            <img src="<%= art.image %>" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=600'" />
-                                        </div>
-                                        <div class="flex flex-col gap-1 px-1">
-                                            <div class="flex items-start justify-between gap-4">
-                                                <h3 class="font-bold text-[#2c1d11] text-[15px] truncate"><%= art.title %></h3>
-                                                <span class="text-[#b91c3b] font-bold text-[15px] whitespace-nowrap"><%= art.price %> ETH</span>
-                                            </div>
-                                            <p class="text-[#7a6454] text-[12px] truncate capitalize"><%= art.desc || 'Natural pigments on cotton' %></p>
-                                        </div>
-                                        <button class="w-full py-3 bg-[#b91c3b] hover:bg-[#9f1531] text-white text-[13px] font-bold rounded-lg transition-colors mt-1">Buy NFT / Print</button>
-                                    </div>
-                                <% }) %>
-                            <% } else { %>
-                                <!-- Placeholder 1 -->
-                                <div class="bg-white rounded-[20px] p-4 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-[#f3efe9] flex flex-col gap-4">
-                                    <div class="w-full aspect-[4/5] rounded-[14px] overflow-hidden bg-black flex items-center justify-center">
-                                        <!-- Simulated Thangka rendering -->
-                                        <img src="https://images.unsplash.com/photo-1598425268383-f4ae5ea56b3e?q=80&w=600" class="w-full h-full object-cover opacity-90 mix-blend-luminosity" />
-                                    </div>
-                                    <div class="flex flex-col gap-1 px-1">
-                                        <div class="flex items-start justify-between gap-4">
-                                            <h3 class="font-bold text-[#2c1d11] text-[15px] truncate">The Compassionate Green Tara</h3>
-                                            <span class="text-[#b91c3b] font-bold text-[15px] whitespace-nowrap">2.4 ETH</span>
-                                        </div>
-                                        <p class="text-[#7a6454] text-[12px] truncate">Natural pigments on cotton</p>
-                                    </div>
-                                    <button class="w-full py-3 bg-[#b91c3b] hover:bg-[#9f1531] text-white text-[13px] font-bold rounded-lg transition-colors mt-1">Buy NFT / Print</button>
+                            <% if (artist?.portfolioUrl) { %>
+                            <div class="detail-row">
+                                <span class="material-symbols-outlined text-amber-yellow/60 text-[16px] mt-0.5 shrink-0">link</span>
+                                <div>
+                                    <div class="text-white/38 text-[10px] font-bold uppercase tracking-wider mb-0.5">Portfolio</div>
+                                    <a href="<%= artist.portfolioUrl %>" target="_blank" rel="noopener"
+                                        class="text-amber-yellow text-sm font-medium hover:underline underline-offset-2 truncate block max-w-[180px]">
+                                        View Portfolio →
+                                    </a>
                                 </div>
-                                
-                                <!-- Placeholder 2 -->
-                                <div class="bg-white rounded-[20px] p-4 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-[#f3efe9] flex flex-col gap-4">
-                                    <div class="w-full aspect-[4/5] rounded-[14px] overflow-hidden bg-[#e5e7eb] flex items-center justify-center p-6">
-                                        <!-- Simulated Mandala rendering -->
-                                        <div class="w-full h-full rounded-full border-4 border-[#3c4a3e] bg-[#536553] flex items-center justify-center relative overflow-hidden">
-                                           <div class="absolute inset-0 bg-repeat opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');"></div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col gap-1 px-1">
-                                        <div class="flex items-start justify-between gap-4">
-                                            <h3 class="font-bold text-[#2c1d11] text-[15px] truncate">Mandala of Inner Peace</h3>
-                                            <span class="text-[#b91c3b] font-bold text-[15px] whitespace-nowrap">1.8 ETH</span>
-                                        </div>
-                                        <p class="text-[#7a6454] text-[12px] truncate">Gold leaf and gouache</p>
-                                    </div>
-                                    <button class="w-full py-3 bg-[#b91c3b] hover:bg-[#9f1531] text-white text-[13px] font-bold rounded-lg transition-colors mt-1">Buy NFT / Print</button>
-                                </div>
+                            </div>
                             <% } %>
                         </div>
                     </div>
 
+                    <!-- Art Forms tags -->
+                    <% if (artworks && artworks.length > 0) { %>
+                        <% const cats = [...new Set(artworks.map(a => a.category).filter(Boolean))]; %>
+                        <% if (cats.length > 0) { %>
+                            <div class="px-6 pb-6 border-t border-white/7 pt-5">
+                                <p class="text-white/45 text-[10px] font-bold uppercase tracking-[0.14em] mb-3">Art Forms</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <% cats.forEach(cat => { %>
+                                        <span class="skill-tag"><%= cat %></span>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
                 </div>
+            </aside>
+
+            <!-- ── MAIN CONTENT ── -->
+            <div class="flex-1 min-w-0 flex flex-col gap-14">
+
+                <!-- Inspiration & Vision -->
+                <% if (artist?.inspiration) { %>
+                    <div>
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="section-rule"></span>
+                            <p class="text-white/45 text-[11px] font-bold uppercase tracking-[0.18em]">Inspiration & Vision</p>
+                        </div>
+                        <div class="quote-block">
+                            <span class="material-symbols-outlined text-amber-yellow/15 absolute -top-3 -left-3 text-[52px] leading-none select-none"
+                                style="font-variation-settings:'FILL' 1;">format_quote</span>
+                            <p class="text-white/80 text-lg md:text-xl leading-[1.75] italic font-medium tracking-[0.005em]">
+                                "<%= artist.inspiration %>"
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- Journey & Story -->
+                <% if (artist?.lifeStory) { %>
+                    <div>
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="section-rule"></span>
+                            <p class="text-white/45 text-[11px] font-bold uppercase tracking-[0.18em]">Journey & Story</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/7 px-7 py-6"
+                            style="background:rgba(63,16,26,0.18);">
+                            <p class="text-white/68 text-base leading-[1.85]">
+                                <%= artist.lifeStory %>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- No content fallback -->
+                <% if (!artist?.bio && !artist?.inspiration && !artist?.lifeStory) { %>
+                    <div class="rounded-2xl border border-white/7 p-10 text-center"
+                        style="background:rgba(63,16,26,0.15);">
+                        <span class="material-symbols-outlined text-5xl text-amber-yellow/15 mb-4 block">auto_stories</span>
+                        <p class="text-white/40 text-sm">This artist hasn't shared their story yet.</p>
+                    </div>
+                <% } %>
+
+                <!-- Artwork Gallery -->
+                <div>
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="section-rule"></span>
+                            <p class="text-white/45 text-[11px] font-bold uppercase tracking-[0.18em]">Artworks</p>
+                            <% if (artworks && artworks.length > 0) { %>
+                                <span class="text-[11px] font-bold text-amber-yellow/60 bg-amber-yellow/8 border border-amber-yellow/15 px-2.5 py-0.5 rounded-full"><%= artworks.length %></span>
+                            <% } %>
+                        </div>
+                        <% if (artworks && artworks.length > 0) { %>
+                            <a href="/marketplace"
+                                class="text-white/40 hover:text-amber-yellow text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1 group">
+                                All Artists
+                                <span class="material-symbols-outlined text-[13px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                            </a>
+                        <% } %>
+                    </div>
+
+                    <% if (artworks && artworks.length > 0) { %>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                            <% artworks.forEach(art => { %>
+                                <div class="gallery-card group flex flex-col rounded-2xl overflow-hidden border border-white/8 hover:border-amber-yellow/30 bg-deep-maroon/20 shadow-lg">
+
+                                    <!-- Image area -->
+                                    <div class="relative aspect-square overflow-hidden bg-black/25">
+                                        <a href="/artwork/<%= art.id %>">
+                                            <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>"
+                                                alt="<%= art.title %>"
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                loading="lazy"
+                                                onerror="this.src='/images/placeholder.jpg'" />
+                                        </a>
+                                        <% if (art.category) { %>
+                                            <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/12">
+                                                <%= art.category %>
+                                            </span>
+                                        <% } %>
+                                        <!-- Hover overlay with actions -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 gap-2">
+                                            <div class="flex gap-2">
+                                                <a href="/artwork/<%= art.id %>"
+                                                    class="flex-1 py-2 bg-white text-background-dark text-xs font-bold rounded-lg text-center hover:bg-amber-yellow transition-colors uppercase tracking-wide">
+                                                    View
+                                                </a>
+                                                <button
+                                                    onclick="HE.cart.add({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.images && art.images[0] ? art.images[0] : '' %>', creatorName: `<%= (artist?.name || '').replace(/`/g, '\\`') %>` })"
+                                                    class="flex-1 py-2 bg-amber-yellow text-background-dark text-xs font-bold rounded-lg text-center hover:bg-white transition-colors uppercase tracking-wide">
+                                                    Add to Cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card info -->
+                                    <div class="p-4 flex flex-col gap-2.5">
+                                        <a href="/artwork/<%= art.id %>">
+                                            <h3 class="text-white text-sm font-bold font-mono-header hover:text-amber-yellow transition-colors line-clamp-1 leading-snug">
+                                                <%= art.title %>
+                                            </h3>
+                                        </a>
+                                        <% if (art.description) { %>
+                                            <p class="text-white/45 text-xs leading-relaxed line-clamp-2"><%= art.description %></p>
+                                        <% } %>
+                                        <div class="flex items-center justify-between pt-2.5 border-t border-white/7 mt-0.5">
+                                            <span class="text-amber-yellow font-bold text-base font-mono">रू <%= art.price %></span>
+                                            <div class="flex items-center gap-2">
+                                                <button
+                                                    onclick="HE.col.toggle({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.images && art.images[0] ? art.images[0] : '' %>', creatorName: `<%= (artist?.name || '').replace(/`/g, '\\`') %>` }, this)"
+                                                    title="Save to Collection"
+                                                    class="save-col-btn w-7 h-7 rounded-lg bg-white/5 border border-white/12 flex items-center justify-center text-white/40 hover:text-amber-yellow hover:border-amber-yellow/35 transition-all"
+                                                    data-art-id="<%= art.id %>">
+                                                    <span class="material-symbols-outlined save-icon text-[14px]">bookmark_add</span>
+                                                </button>
+                                                <a href="/artwork/<%= art.id %>"
+                                                    class="text-xs font-bold text-white/40 hover:text-amber-yellow transition-colors flex items-center gap-0.5">
+                                                    Details <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+
+                    <% } else { %>
+                        <div class="flex flex-col items-center justify-center py-20 text-center rounded-2xl border border-white/7"
+                            style="background:rgba(63,16,26,0.12);">
+                            <span class="material-symbols-outlined text-[52px] text-amber-yellow/12 mb-4">palette</span>
+                            <p class="text-white/40 text-sm font-medium">No artworks listed yet.</p>
+                            <p class="text-white/22 text-xs mt-1">Check back soon.</p>
+                        </div>
+                    <% } %>
+                </div>
+
             </div>
-        </main>
-                <%- include('partials/footer') %>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.save-col-btn').forEach(btn => {
+            const id = btn.dataset.artId;
+            if (id && HE.col.isSaved(id)) {
+                btn.title = 'Remove from Collection';
+                btn.classList.add('text-amber-yellow', 'border-amber-yellow/35');
+                btn.classList.remove('text-white/40');
+                const icon = btn.querySelector('.save-icon');
+                if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

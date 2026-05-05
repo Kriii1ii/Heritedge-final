@@ -16,4 +16,9 @@ router.post('/orders/:id/status', adminController.updateOrderStatus);
 router.get('/users', adminController.getUsers);
 router.post('/users/:id/delete', adminController.deleteUser);
 
+router.get('/artworks', adminController.getArtworks);
+
+router.get('/applications', adminController.getApplications);
+router.post('/applications/:id/review', adminController.reviewApplication);
+
 module.exports = router;

@@ -1,246 +1,221 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
+  <title>Admin Dashboard — HeritEdge</title>
 </head>
+<body class="min-h-screen text-white" style="background:#080101;">
+<div class="flex min-h-screen">
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen">
-    <div class="layout-container flex h-full grow flex-col">
-        <%- include('../partials/header') %>
-            <main class="flex flex-1 justify-center py-8 px-4 md:px-10">
-                <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+  <%- include('../partials/admin-nav', { currentPage: 'dashboard' }) %>
 
-                    <div class="flex flex-wrap justify-between gap-3 mb-8">
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-3xl font-black leading-tight font-mono-header">
-                                Admin Dashboard
-                            </p>
-                            <p class="text-white/60 text-sm font-mono uppercase tracking-widest">
-                                Platform Moderation & Overview
-                            </p>
+  <div class="flex-1 min-h-screen">
+    <div class="lg:ml-[220px]">
+      <main class="px-5 py-6 pt-20 lg:pt-8 lg:px-8 max-w-[1060px]">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5 font-mono-header" style="color:rgba(248,113,113,0.5);">Admin Portal</p>
+          <h1 class="text-2xl md:text-[1.9rem] font-bold text-white font-mono-header">Platform Overview</h1>
+          <p class="text-white/40 text-sm mt-1">Manage artists, artworks, orders, and users from one place.</p>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 mb-10">
+          <% const stats = [
+            { label: 'Total Users',    value: totalUsers,             icon: 'group',         color: 'rgba(242,185,13,0.6)' },
+            { label: 'Artworks',       value: totalArtworks,          icon: 'palette',        color: 'rgba(242,185,13,0.6)' },
+            { label: 'Orders',         value: totalOrders,            icon: 'local_shipping', color: 'rgba(242,185,13,0.6)' },
+            { label: 'Revenue (रू)',   value: revenue.toLocaleString(),icon: 'payments',      color: 'rgba(0,168,107,0.7)' },
+            { label: 'Events',         value: totalEvents,            icon: 'event',          color: 'rgba(242,185,13,0.6)' },
+            { label: 'Pending',        value: pendingCreators.length, icon: 'pending_actions',color: pendingCreators.length > 0 ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.3)' }
+          ]; %>
+          <% stats.forEach(s => { %>
+            <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);">
+              <div class="flex items-center justify-between mb-2">
+                <p class="text-[9px] font-bold uppercase tracking-[0.15em] text-white/30 font-mono-header leading-tight"><%= s.label %></p>
+                <span class="material-symbols-outlined text-[16px]" style="color:<%= s.color %>;"><%= s.icon %></span>
+              </div>
+              <p class="text-2xl font-bold text-white font-mono"><%= s.value %></p>
+            </div>
+          <% }) %>
+        </div>
+
+        <!-- Quick nav -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
+          <a href="/admin/users"
+             class="flex items-center gap-3 p-4 rounded-xl transition-all hover:bg-white/6 group"
+             style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+            <span class="material-symbols-outlined text-white/30 group-hover:text-amber-yellow transition-colors text-[22px]">group</span>
+            <div>
+              <p class="text-white font-bold text-sm font-mono-header">Manage Users</p>
+              <p class="text-white/30 text-xs"><%= totalUsers %> total</p>
+            </div>
+            <span class="material-symbols-outlined text-white/20 group-hover:text-white/50 ml-auto transition-colors text-[18px]">chevron_right</span>
+          </a>
+          <a href="/admin/artworks"
+             class="flex items-center gap-3 p-4 rounded-xl transition-all hover:bg-white/6 group"
+             style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+            <span class="material-symbols-outlined text-white/30 group-hover:text-amber-yellow transition-colors text-[22px]">palette</span>
+            <div>
+              <p class="text-white font-bold text-sm font-mono-header">Manage Artworks</p>
+              <p class="text-white/30 text-xs"><%= totalArtworks %> listed</p>
+            </div>
+            <span class="material-symbols-outlined text-white/20 group-hover:text-white/50 ml-auto transition-colors text-[18px]">chevron_right</span>
+          </a>
+          <a href="/admin/orders"
+             class="flex items-center gap-3 p-4 rounded-xl transition-all hover:bg-white/6 group"
+             style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+            <span class="material-symbols-outlined text-white/30 group-hover:text-amber-yellow transition-colors text-[22px]">local_shipping</span>
+            <div>
+              <p class="text-white font-bold text-sm font-mono-header">Manage Orders</p>
+              <p class="text-white/30 text-xs"><%= totalOrders %> orders</p>
+            </div>
+            <span class="material-symbols-outlined text-white/20 group-hover:text-white/50 ml-auto transition-colors text-[18px]">chevron_right</span>
+          </a>
+        </div>
+
+        <!-- Two-column: Artist Approvals + Recent Artworks -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
+
+          <!-- Pending creator applications -->
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-bold text-white font-mono-header uppercase tracking-wider">Artist Applications</h2>
+              <% if (pendingCreators.length > 0) { %>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                      style="background:rgba(248,113,113,0.12); color:#f87171; border:1px solid rgba(248,113,113,0.2);">
+                  <%= pendingCreators.length %> pending
+                </span>
+              <% } %>
+            </div>
+            <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+              <% if (pendingCreators && pendingCreators.length > 0) { %>
+                <div class="divide-y" style="divide-color:rgba(255,255,255,0.05); max-height:400px; overflow-y:auto;">
+                  <% pendingCreators.forEach(creator => { %>
+                    <div class="p-5 hover:bg-white/2 transition-colors">
+                      <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                               style="background:#3f101a; border:1px solid rgba(255,255,255,0.1);">
+                            <% if (creator.avatar) { %>
+                              <img src="<%= creator.avatar %>" class="w-full h-full object-cover rounded-xl">
+                            <% } else { %>
+                              <span class="text-amber-yellow font-bold text-sm"><%= (creator.name || '?')[0] %></span>
+                            <% } %>
+                          </div>
+                          <div>
+                            <p class="text-white font-bold text-sm font-mono-header"><%= creator.name %></p>
+                            <p class="text-white/35 text-xs"><%= creator.email %></p>
+                          </div>
                         </div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                              style="background:rgba(242,185,13,0.1); color:#f2b90d; border:1px solid rgba(242,185,13,0.15);">
+                          Pending
+                        </span>
+                      </div>
+                      <% if (creator.bio) { %>
+                        <p class="text-white/50 text-xs leading-relaxed italic mb-3 line-clamp-2 pl-2"
+                           style="border-left:2px solid rgba(255,255,255,0.1);">
+                          "<%= creator.bio %>"
+                        </p>
+                      <% } %>
+                      <% if (creator.region) { %>
+                        <p class="text-white/30 text-xs mb-3 flex items-center gap-1">
+                          <span class="material-symbols-outlined text-[12px]">location_on</span>
+                          <%= creator.region %>
+                        </p>
+                      <% } %>
+                      <div class="flex gap-2">
+                        <form action="/admin/creator/<%= creator.id %>/verify" method="POST" class="flex-1">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <input type="hidden" name="status" value="VERIFIED">
+                          <button type="submit"
+                            class="w-full text-xs font-bold py-2 rounded-lg transition-colors"
+                            style="background:rgba(0,168,107,0.12); color:#00A86B; border:1px solid rgba(0,168,107,0.2);"
+                            onmouseover="this.style.background='rgba(0,168,107,0.2)'"
+                            onmouseout="this.style.background='rgba(0,168,107,0.12)'">
+                            ✓ Approve
+                          </button>
+                        </form>
+                        <form action="/admin/creator/<%= creator.id %>/verify" method="POST" class="flex-1">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <input type="hidden" name="status" value="REJECTED">
+                          <button type="submit"
+                            class="w-full text-xs font-bold py-2 rounded-lg transition-colors"
+                            style="background:rgba(248,113,113,0.08); color:#f87171; border:1px solid rgba(248,113,113,0.15);"
+                            onmouseover="this.style.background='rgba(248,113,113,0.18)'"
+                            onmouseout="this.style.background='rgba(248,113,113,0.08)'">
+                            ✗ Reject
+                          </button>
+                        </form>
+                      </div>
                     </div>
-
-                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Total Users</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-sm">group</span>
-                            </div>
-                            <p class="text-white tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                <%= totalUsers %>
-                            </p>
-                        </div>
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Total Artworks</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-sm">palette</span>
-                            </div>
-                            <p class="text-white tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                <%= totalArtworks %>
-                            </p>
-                        </div>
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Total Orders</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-sm">shopping_cart</span>
-                            </div>
-                            <p class="text-white tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                <%= totalOrders %>
-                            </p>
-                        </div>
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Total Revenue</p>
-                                <span class="material-symbols-outlined text-jade-green text-sm">payments</span>
-                            </div>
-                            <p class="text-white tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                $<%= revenue %>
-                            </p>
-                        </div>
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Total Events</p>
-                                <span class="material-symbols-outlined text-amber-yellow text-sm">event</span>
-                            </div>
-                            <p class="text-white tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                <%= totalEvents %>
-                            </p>
-                        </div>
-                        <div
-                            class="flex flex-col gap-2 rounded-sm p-4 lg:p-6 border border-white/10 bg-white/5 backdrop-blur shadow-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <p class="text-white/60 text-xs font-medium uppercase tracking-wider font-mono-header">
-                                    Pending</p>
-                                <span class="material-symbols-outlined text-red-400 text-sm">gpp_maybe</span>
-                            </div>
-                            <p class="text-red-400 tracking-light text-2xl lg:text-3xl font-bold font-mono">
-                                <%= pendingCreators.length %>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        <a href="/admin/orders"
-                            class="w-full flex items-center justify-between p-4 bg-white/5 border border-white/20 rounded-sm hover:border-amber-yellow hover:text-amber-yellow transition-all text-white font-mono-header font-bold text-lg cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-amber-yellow text-2xl">local_shipping</span>
-                                Manage Orders & Logistics
-                            </div>
-                            <span class="material-symbols-outlined">chevron_right</span>
-                        </a>
-                        <a href="/admin/users"
-                            class="w-full flex items-center justify-between p-4 bg-white/5 border border-white/20 rounded-sm hover:border-amber-yellow hover:text-amber-yellow transition-all text-white font-mono-header font-bold text-lg cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <span
-                                    class="material-symbols-outlined text-amber-yellow text-2xl">manage_accounts</span>
-                                Manage Platform Users
-                            </div>
-                            <span class="material-symbols-outlined">chevron_right</span>
-                        </a>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-
-                        <!-- Pending Creators Panel -->
-                        <div class="flex flex-col">
-                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
-                                <h2 class="text-white text-xl font-bold tracking-tight font-mono-header">Creator
-                                    Verifications</h2>
-                            </div>
-                            <div
-                                class="bg-white/5 rounded-sm border border-white/10 shadow-lg flex flex-col overflow-hidden">
-                                <% if (pendingCreators && pendingCreators.length> 0) { %>
-                                    <div class="divide-y divide-white/5">
-                                        <% pendingCreators.forEach(creator=> { %>
-                                            <div class="flex flex-col gap-3 p-5 hover:bg-white/5 transition-colors">
-                                                <div class="flex justify-between items-start">
-                                                    <div>
-                                                        <p class="text-white font-bold font-mono text-lg">
-                                                            <%= creator.name %>
-                                                        </p>
-                                                        <p class="text-white/50 text-xs">
-                                                            <%= creator.email %>
-                                                        </p>
-                                                    </div>
-                                                    <span
-                                                        class="text-[10px] bg-amber-yellow/20 text-amber-yellow px-2 py-1 rounded uppercase font-bold">Pending</span>
-                                                </div>
-
-                                                <% if(creator.bio || creator.region) { %>
-                                                    <div
-                                                        class="text-sm text-white/70 italic border-l-2 border-white/20 pl-3">
-                                                        <% if(creator.region) { %><span
-                                                                class="block text-xs font-bold not-italic font-mono-header text-white/50 mb-1">
-                                                                <%= creator.region %>
-                                                            </span>
-                                                            <% } %>
-                                                                <%= creator.bio || 'No bio provided.' %>
-                                                    </div>
-                                                    <% } %>
-
-                                                        <div class="flex gap-3 mt-2">
-                                                            <form action="/admin/creator/<%= creator.id %>/verify"
-                                                                method="POST" class="flex-1">
-                                                                <input type="hidden" name="_csrf"
-                                                                    value="<%= csrfToken %>">
-                                                                <input type="hidden" name="status" value="VERIFIED">
-                                                                <button type="submit"
-                                                                    class="w-full bg-jade-green/20 hover:bg-jade-green/40 text-jade-green border border-jade-green/30 text-xs font-bold py-2 rounded transition-colors uppercase tracking-wider">Approve</button>
-                                                            </form>
-                                                            <form action="/admin/creator/<%= creator.id %>/verify"
-                                                                method="POST" class="flex-1">
-                                                                <input type="hidden" name="_csrf"
-                                                                    value="<%= csrfToken %>">
-                                                                <input type="hidden" name="status" value="REJECTED">
-                                                                <button type="submit"
-                                                                    class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 text-xs font-bold py-2 rounded transition-colors uppercase tracking-wider">Reject</button>
-                                                            </form>
-                                                        </div>
-                                            </div>
-                                            <% }) %>
-                                    </div>
-                                    <% } else { %>
-                                        <div class="p-8 text-center flex flex-col items-center">
-                                            <span
-                                                class="material-symbols-outlined text-4xl text-white/20 mb-3">check_circle</span>
-                                            <p class="text-white/40 italic text-sm">No pending creator verifications.
-                                            </p>
-                                        </div>
-                                        <% } %>
-                            </div>
-                        </div>
-
-                        <!-- Artworks Moderation Panel -->
-                        <div class="flex flex-col">
-                            <div class="flex items-center justify-between px-2 pb-4 border-b border-white/10 mb-4">
-                                <h2 class="text-white text-xl font-bold tracking-tight font-mono-header">Recent Listed
-                                    Artworks</h2>
-                            </div>
-                            <div
-                                class="bg-white/5 rounded-sm border border-white/10 shadow-lg flex flex-col overflow-hidden">
-                                <% if (recentArtworks && recentArtworks.length> 0) { %>
-                                    <div class="divide-y divide-white/5">
-                                        <% recentArtworks.forEach(art=> { %>
-                                            <div class="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors">
-                                                <div
-                                                    class="h-16 w-16 rounded bg-black overflow-hidden shrink-0 border border-white/10">
-                                                    <img src="<%= art.images && art.images[0] ? art.images[0] : '/images/placeholder.jpg' %>"
-                                                        class="w-full h-full object-cover">
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <a href="/artwork/<%= art.id %>"
-                                                        class="text-white hover:text-amber-yellow font-bold font-mono truncate block text-sm transition-colors">
-                                                        <%= art.title %>
-                                                    </a>
-                                                    <p class="text-white/50 text-xs truncate mb-1">By <%=
-                                                            art.creator.name %>
-                                                    </p>
-                                                    <span
-                                                        class="inline-block text-[10px] <%= art.status === 'PUBLISHED' ? 'text-jade-green' : 'text-white/40' %> border <%= art.status === 'PUBLISHED' ? 'border-jade-green/30' : 'border-white/20' %> px-1.5 py-0.5 rounded uppercase">
-                                                        <%= art.status %>
-                                                    </span>
-                                                </div>
-                                                <div class="shrink-0 flex items-center">
-                                                    <form action="/admin/artwork/<%= art.id %>/delete" method="POST"
-                                                        onsubmit="return confirm('WARNING: This will permanently delete the artwork and its images. Proceed?');">
-                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                        <button type="submit"
-                                                            class="bg-red-500/10 hover:bg-red-500/30 text-red-500 p-2 rounded-md transition-colors border border-red-500/20 flex items-center justify-center">
-                                                            <span
-                                                                class="material-symbols-outlined text-sm">delete_forever</span>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <% }) %>
-                                    </div>
-                                    <% } else { %>
-                                        <div class="p-8 text-center flex flex-col items-center">
-                                            <span
-                                                class="material-symbols-outlined text-4xl text-white/20 mb-3">image_not_supported</span>
-                                            <p class="text-white/40 italic text-sm">No recent artworks listed.</p>
-                                        </div>
-                                        <% } %>
-                            </div>
-                        </div>
-
-                    </div>
+                  <% }) %>
                 </div>
-            </main>
-                <%- include('../partials/footer') %>
+              <% } else { %>
+                <div class="flex flex-col items-center justify-center py-12 text-center">
+                  <span class="material-symbols-outlined text-white/10 mb-2" style="font-size:36px; color:rgba(0,168,107,0.3);">check_circle</span>
+                  <p class="text-white/30 text-sm">No pending applications.</p>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Recent artworks -->
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-bold text-white font-mono-header uppercase tracking-wider">Recent Artworks</h2>
+              <a href="/admin/artworks" class="text-amber-yellow text-xs font-bold hover:underline flex items-center gap-1">
+                View all <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+              </a>
+            </div>
+            <div class="rounded-xl overflow-hidden" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+              <% if (recentArtworks && recentArtworks.length > 0) { %>
+                <div class="divide-y" style="divide-color:rgba(255,255,255,0.05);">
+                  <% recentArtworks.slice(0, 8).forEach(art => { %>
+                    <div class="flex items-center gap-4 px-4 py-3.5 hover:bg-white/2 transition-colors">
+                      <div class="w-11 h-11 rounded-lg overflow-hidden flex-shrink-0" style="border:1px solid rgba(255,255,255,0.1);">
+                        <img src="<%= art.images?.[0] || '/images/placeholder.jpg' %>" class="w-full h-full object-cover" alt="">
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <a href="/artwork/<%= art.id %>" target="_blank"
+                           class="text-white hover:text-amber-yellow font-bold text-xs font-mono-header truncate block transition-colors">
+                          <%= art.title %>
+                        </a>
+                        <p class="text-white/30 text-[10px] truncate">by <%= art.creator.name %></p>
+                      </div>
+                      <div class="flex items-center gap-2 flex-shrink-0">
+                        <span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded
+                          <%= art.status === 'PUBLISHED' ? 'text-jade-green border-jade-green/25 bg-jade-green/8' : 'text-white/30 border-white/10 bg-white/4' %>"
+                          style="border-width:1px;">
+                          <%= art.status %>
+                        </span>
+                        <form action="/admin/artwork/<%= art.id %>/delete" method="POST"
+                              onsubmit="return confirm('Permanently delete \'<%= art.title.replace(/'/g, "\\'") %>\'?');">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="submit" class="text-red-500/40 hover:text-red-400 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">delete_forever</span>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  <% }) %>
+                </div>
+              <% } else { %>
+                <div class="flex flex-col items-center justify-center py-10 text-center">
+                  <span class="material-symbols-outlined text-white/10 mb-2" style="font-size:36px;">image_not_supported</span>
+                  <p class="text-white/30 text-sm">No artworks yet.</p>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
 </div>
 </body>
-
 </html>
