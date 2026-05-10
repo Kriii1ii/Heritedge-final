@@ -2,8 +2,29 @@
 <footer class="bg-[#1a0b06] border-t border-rich-red/40 px-6 md:px-10 py-16 text-white w-full">
     <div class="max-w-[1200px] mx-auto">
 
-        <!-- Main footer grid — 4 equal columns, all centered -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 justify-items-center text-center">
+        <!-- Main footer grid — 3 columns: Explore | Brand | Support -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 lg:gap-8 justify-items-center text-center">
+
+            <!-- Explore links -->
+            <div class="flex flex-col items-center gap-3">
+                <h4 class="text-amber-yellow font-bold text-xs uppercase tracking-[0.15em] mb-1">Explore</h4>
+                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/marketplace">Art Marketplace</a>
+                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/marketplace">Artist Profiles</a>
+                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/events">Upcoming Events</a>
+                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/about">Our Mission</a>
+                <% if (!_fu) { %>
+                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/register">Join as an Artist</a>
+                <% } else if (_fu.role === 'BUYER' && !_fu.artistApplicant) { %>
+                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/become-artist">Join as an Artist</a>
+                <% } else if (_fu.role === 'BUYER' && _fu.artistApplicant) { %>
+                    <span class="flex items-center gap-1.5 text-white/35 text-sm cursor-default">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-yellow/60 animate-pulse"></span>
+                        Application Pending
+                    </span>
+                <% } else if (_fu.role === 'CREATOR') { %>
+                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/creator/home">Creator Dashboard</a>
+                <% } %>
+            </div>
 
             <!-- Brand -->
             <div class="flex flex-col items-center gap-4">
@@ -34,33 +55,6 @@
                 </div>
             </div>
 
-            <!-- Explore links -->
-            <div class="flex flex-col items-center gap-3">
-                <h4 class="text-amber-yellow font-bold text-xs uppercase tracking-[0.15em] mb-1">Explore</h4>
-                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/marketplace">Art Marketplace</a>
-                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/marketplace">Artist Profiles</a>
-                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/events">Upcoming Events</a>
-                <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/about">Our Mission</a>
-
-                <%# Join as Artist — state-aware %>
-                <% if (!_fu) { %>
-                    <%# Not logged in: prompt to register first %>
-                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/register">Join as an Artist</a>
-                <% } else if (_fu.role === 'BUYER' && !_fu.artistApplicant) { %>
-                    <%# Logged-in buyer, no pending application %>
-                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/become-artist">Join as an Artist</a>
-                <% } else if (_fu.role === 'BUYER' && _fu.artistApplicant) { %>
-                    <%# Application submitted, awaiting admin review %>
-                    <span class="flex items-center gap-1.5 text-white/35 text-sm cursor-default">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-yellow/60 animate-pulse"></span>
-                        Application Pending
-                    </span>
-                <% } else if (_fu.role === 'CREATOR') { %>
-                    <%# Already an artist — link to their dashboard %>
-                    <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/creator/home">Creator Dashboard</a>
-                <% } %>
-            </div>
-
             <!-- Support links -->
             <div class="flex flex-col items-center gap-3">
                 <h4 class="text-amber-yellow font-bold text-xs uppercase tracking-[0.15em] mb-1">Support</h4>
@@ -69,24 +63,6 @@
                 <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/faq#shipping">Shipping &amp; Returns</a>
                 <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/about#terms">Terms of Service</a>
                 <a class="text-white/70 hover:text-amber-yellow text-sm transition-colors duration-200" href="/about#privacy">Privacy Policy</a>
-            </div>
-
-            <!-- Newsletter -->
-            <div class="flex flex-col items-center gap-4 w-full max-w-[240px]">
-                <h4 class="text-amber-yellow font-bold text-xs uppercase tracking-[0.15em]">Stay Connected</h4>
-                <p class="text-white/60 text-sm leading-relaxed text-center">
-                    Stories, new arrivals & cultural events — in your inbox.
-                </p>
-                <form class="flex gap-2 w-full" onsubmit="handleNewsletter(event)">
-                    <input
-                        id="newsletter-email"
-                        class="bg-white/8 border border-white/20 rounded-lg px-3 py-2.5 text-sm flex-1 min-w-0 focus:ring-1 focus:ring-amber-yellow focus:border-amber-yellow outline-none text-white placeholder-white/40 transition-colors"
-                        placeholder="Your email" type="email" required />
-                    <button type="submit" class="bg-amber-yellow text-[#1a0b06] px-3 py-2.5 rounded-lg hover:bg-amber-yellow/90 transition-colors shrink-0 font-bold">
-                        <span class="material-symbols-outlined text-[18px] leading-none">send</span>
-                    </button>
-                </form>
-                <p id="newsletter-msg" class="text-jade-green text-xs hidden text-center">Thank you for subscribing!</p>
             </div>
         </div>
 
@@ -102,12 +78,3 @@
     </div>
 </footer>
 
-<script>
-    function handleNewsletter(e) {
-        e.preventDefault();
-        const msg = document.getElementById('newsletter-msg');
-        msg.classList.remove('hidden');
-        document.getElementById('newsletter-email').value = '';
-        setTimeout(() => msg.classList.add('hidden'), 5000);
-    }
-</script>

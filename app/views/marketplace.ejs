@@ -180,17 +180,17 @@
                         <!-- Slider track -->
                         <div class="relative h-1 bg-white/15 rounded-full mt-5 mb-5 mx-2.5">
                             <div id="range-track-fill" class="absolute h-full bg-amber-yellow rounded-full pointer-events-none"></div>
-                            <input type="range" id="slider-min" class="price-range" min="0" max="500000" step="500"
+                            <input type="range" id="slider-min" class="price-range" min="0" max="20000" step="100"
                                 value="<%= query.minPrice || 0 %>">
-                            <input type="range" id="slider-max" class="price-range" min="0" max="500000" step="500"
-                                value="<%= query.maxPrice || 500000 %>">
+                            <input type="range" id="slider-max" class="price-range" min="0" max="20000" step="100"
+                                value="<%= query.maxPrice || 20000 %>">
                         </div>
 
                         <!-- Manual inputs -->
                         <div class="flex gap-3 mt-5">
                             <div class="flex-1">
                                 <label class="text-white/40 text-[10px] uppercase tracking-wider block mb-1">Min रू</label>
-                                <input type="number" id="input-min" name="minPrice" min="0" max="500000"
+                                <input type="number" id="input-min" name="minPrice" min="0" max="20000"
                                     value="<%= query.minPrice || '' %>"
                                     placeholder="0"
                                     class="w-full bg-white/6 border border-white/15 rounded-md px-3 py-2 text-white text-sm font-medium placeholder-white/25 focus:outline-none focus:border-amber-yellow transition-colors">
@@ -198,7 +198,7 @@
                             <div class="flex items-end pb-2 text-white/30 text-sm">—</div>
                             <div class="flex-1">
                                 <label class="text-white/40 text-[10px] uppercase tracking-wider block mb-1">Max रू</label>
-                                <input type="number" id="input-max" name="maxPrice" min="0" max="500000"
+                                <input type="number" id="input-max" name="maxPrice" min="0" max="20000"
                                     value="<%= query.maxPrice || '' %>"
                                     placeholder="Any"
                                     class="w-full bg-white/6 border border-white/15 rounded-md px-3 py-2 text-white text-sm font-medium placeholder-white/25 focus:outline-none focus:border-amber-yellow transition-colors">
@@ -255,6 +255,86 @@
                     </div>
                 <% } %>
 
+                <!-- Featured Artworks Section -->
+                <section class="mb-12">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold font-mono-header">Featured Artworks</h2>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                        <!-- Artwork 1 -->
+                        <div class="group">
+                            <div class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                    style='background-image: url("/images/mokha_pantiles.png");'></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button onclick="window.location.href='/marketplace'"
+                                        class="w-full py-2 bg-amber-yellow text-background-dark font-bold rounded-md text-xs font-mono-header">Quick View</button>
+                                </div>
+                            </div>
+                            <h3 class="text-white font-bold font-mono-header text-sm">Mokha Panels and Tiles</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-amber-yellow font-bold text-lg">Rs 120.00</span>
+                                <button onclick="HE.cart.add({ id: 'feat-1', title: 'Mokha Panels and Tiles', price: '120', image: '/images/mokha_pantiles.png', creatorName: 'HeritEdge' })" title="Add to Cart" class="flex items-center justify-center text-white/50 hover:text-amber-yellow transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></button>
+                                <button onclick="HE.col.toggle({ id: 'feat-1', title: 'Mokha Panels and Tiles', price: '120', image: '/images/mokha_pantiles.png', creatorName: 'HeritEdge' }, this)" title="Save to Collection" class="save-col-btn flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-art-id="feat-1"><span class="material-symbols-outlined save-icon text-[20px]">favorite</span></button>
+                            </div>
+                        </div>
+                        <!-- Artwork 2 -->
+                        <div class="group">
+                            <div class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                    style='background-image: url("/images/radipakhi.png");'></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button onclick="window.location.href='/marketplace'"
+                                        class="w-full py-2 bg-amber-yellow text-background-dark font-bold rounded-md text-xs font-mono-header">Quick View</button>
+                                </div>
+                            </div>
+                            <h3 class="text-white font-bold font-mono-header text-sm">Sheep Wool Radi Pakhi</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-amber-yellow font-bold text-lg">Rs 85.00</span>
+                                <button onclick="HE.cart.add({ id: 'feat-2', title: 'Sheep Wool Radi Pakhi', price: '85', image: '/images/radipakhi.png', creatorName: 'HeritEdge' })" title="Add to Cart" class="flex items-center justify-center text-white/50 hover:text-amber-yellow transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></button>
+                                <button onclick="HE.col.toggle({ id: 'feat-2', title: 'Sheep Wool Radi Pakhi', price: '85', image: '/images/radipakhi.png', creatorName: 'HeritEdge' }, this)" title="Save to Collection" class="save-col-btn flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-art-id="feat-2"><span class="material-symbols-outlined save-icon text-[20px]">favorite</span></button>
+                            </div>
+                        </div>
+                        <!-- Artwork 3 -->
+                        <div class="group">
+                            <div class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                    style='background-image: url("/images/sikkicoast.jpg");'></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button onclick="window.location.href='/marketplace'"
+                                        class="w-full py-2 bg-amber-yellow text-background-dark font-bold rounded-md text-xs font-mono-header">Quick View</button>
+                                </div>
+                            </div>
+                            <h3 class="text-white font-bold font-mono-header text-sm">Sikki/Moonj Grass Coasters</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-amber-yellow font-bold text-lg">Rs 25.00</span>
+                                <button onclick="HE.cart.add({ id: 'feat-3', title: 'Sikki/Moonj Grass Coasters', price: '25', image: '/images/sikkicoast.jpg', creatorName: 'HeritEdge' })" title="Add to Cart" class="flex items-center justify-center text-white/50 hover:text-amber-yellow transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></button>
+                                <button onclick="HE.col.toggle({ id: 'feat-3', title: 'Sikki/Moonj Grass Coasters', price: '25', image: '/images/sikkicoast.jpg', creatorName: 'HeritEdge' }, this)" title="Save to Collection" class="save-col-btn flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-art-id="feat-3"><span class="material-symbols-outlined save-icon text-[20px]">favorite</span></button>
+                            </div>
+                        </div>
+                        <!-- Artwork 4 -->
+                        <div class="group">
+                            <div class="relative overflow-hidden rounded-sm border border-white/10 aspect-square mb-3">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110"
+                                    style='background-image: url("/images/gundrichakati.png");'></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button onclick="window.location.href='/marketplace'"
+                                        class="w-full py-2 bg-amber-yellow text-background-dark font-bold rounded-md text-xs font-mono-header">Quick View</button>
+                                </div>
+                            </div>
+                            <h3 class="text-white font-bold font-mono-header text-sm">Straw Gundri/Chakati</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-amber-yellow font-bold text-lg">Rs 45.00</span>
+                                <button onclick="HE.cart.add({ id: 'feat-4', title: 'Straw Gundri/Chakati', price: '45', image: '/images/gundrichakati.png', creatorName: 'HeritEdge' })" title="Add to Cart" class="flex items-center justify-center text-white/50 hover:text-amber-yellow transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></button>
+                                <button onclick="HE.col.toggle({ id: 'feat-4', title: 'Straw Gundri/Chakati', price: '45', image: '/images/gundrichakati.png', creatorName: 'HeritEdge' }, this)" title="Save to Collection" class="save-col-btn flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-art-id="feat-4"><span class="material-symbols-outlined save-icon text-[20px]">favorite</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 mt-8 mb-2">
+                        <div class="flex-1 h-px bg-white/10"></div>
+                    </div>
+                </section>
+
                 <!-- Recommended Section -->
                 <% if (typeof recommendedArtworks !== 'undefined' && recommendedArtworks.length > 0) { %>
                     <section class="mb-12">
@@ -283,7 +363,22 @@
                                         </a>
                                         <div class="flex items-center justify-between pt-2 border-t border-white/8 mt-auto">
                                             <span class="text-amber-yellow font-bold text-base">रू <%= art.price %></span>
-                                            <a href="/artwork/<%= art.id %>" class="px-3 h-7 rounded-lg bg-amber-yellow/10 border border-amber-yellow/25 flex items-center text-amber-yellow text-xs font-bold hover:bg-amber-yellow hover:text-background-dark transition-all uppercase">View</a>
+                                            <div class="flex gap-1.5 items-center">
+                                                <button
+                                                    onclick="HE.cart.add({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.image %>', creatorName: `<%= (art.creatorName || '').replace(/`/g, '\\`') %>` })"
+                                                    title="Add to Cart"
+                                                    class="w-7 h-7 rounded-lg bg-white/6 border border-white/15 flex items-center justify-center text-white/50 hover:text-amber-yellow hover:border-amber-yellow/40 transition-all">
+                                                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                                </button>
+                                                <button
+                                                    onclick="HE.col.toggle({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.image %>', creatorName: `<%= (art.creatorName || '').replace(/`/g, '\\`') %>` }, this)"
+                                                    title="Save to Collection"
+                                                    class="save-col-btn w-7 h-7 rounded-lg bg-white/6 border border-white/15 flex items-center justify-center text-white/50 hover:text-red-400 hover:border-red-400/30 transition-all"
+                                                    data-art-id="<%= art.id %>">
+                                                    <span class="material-symbols-outlined save-icon text-[20px]">favorite</span>
+                                                </button>
+                                                <a href="/artwork/<%= art.id %>" class="px-3 h-7 rounded-lg bg-amber-yellow/10 border border-amber-yellow/25 flex items-center text-amber-yellow text-xs font-bold hover:bg-amber-yellow hover:text-background-dark transition-all uppercase">View</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -348,11 +443,17 @@
                                         <span class="text-amber-yellow font-bold text-lg font-mono">रू <%= art.price %></span>
                                         <div class="flex gap-2">
                                             <button
+                                                onclick="HE.cart.add({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.image %>', creatorName: `<%= (art.creatorName || '').replace(/`/g, '\\`') %>` })"
+                                                title="Add to Cart"
+                                                class="w-8 h-8 rounded-lg bg-white/6 border border-white/15 flex items-center justify-center text-white/50 hover:text-amber-yellow hover:border-amber-yellow/40 transition-all">
+                                                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                            </button>
+                                            <button
                                                 onclick="HE.col.toggle({ id: '<%= art.id %>', title: `<%= art.title.replace(/`/g, '\\`') %>`, price: '<%= art.price %>', image: '<%= art.image %>', creatorName: `<%= (art.creatorName || '').replace(/`/g, '\\`') %>` }, this)"
                                                 title="Save to Collection"
-                                                class="save-col-btn w-8 h-8 rounded-lg bg-white/6 border border-white/15 flex items-center justify-center text-white/50 hover:text-amber-yellow hover:border-amber-yellow/40 transition-all"
+                                                class="save-col-btn w-8 h-8 rounded-lg bg-white/6 border border-white/15 flex items-center justify-center text-white/50 hover:text-red-400 hover:border-red-400/30 transition-all"
                                                 data-art-id="<%= art.id %>">
-                                                <span class="material-symbols-outlined save-icon text-[16px]">bookmark_add</span>
+                                                <span class="material-symbols-outlined save-icon text-[20px]">favorite</span>
                                             </button>
                                             <a href="/artwork/<%= art.id %>"
                                                 class="px-3 h-8 rounded-lg bg-amber-yellow/10 border border-amber-yellow/25 flex items-center text-amber-yellow text-xs font-bold hover:bg-amber-yellow hover:text-background-dark transition-all uppercase tracking-wide">
@@ -415,7 +516,7 @@
     </div>
 
     <script>
-        const PRICE_MAX = 500000;
+        const PRICE_MAX = 20000;
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
         const inputMin = document.getElementById('input-min');

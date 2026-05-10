@@ -28,6 +28,18 @@
                 else document.getElementById('quick-avatar-form').submit();
             }
         }
+        function countBioWords(el) {
+            const words = el.value.trim() === '' ? [] : el.value.trim().split(/\s+/);
+            if (words.length > 50) {
+                el.value = words.slice(0, 50).join(' ');
+            }
+            const count = el.value.trim() === '' ? 0 : el.value.trim().split(/\s+/).length;
+            const counter = document.getElementById('bio-word-counter');
+            if (counter) {
+                counter.textContent = count + ' / 50 words';
+                counter.style.color = count >= 45 ? (count >= 50 ? '#f87171' : '#f2b90d') : '';
+            }
+        }
     </script>
 </head>
 <body class="bg-background-dark min-h-screen text-white">
@@ -154,7 +166,8 @@
                             </div>
                             <div>
                                 <label class="text-white/50 text-xs font-bold uppercase tracking-wider block mb-1.5">Bio</label>
-                                <textarea name="bio" rows="3" class="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-yellow transition-colors resize-none"><%= user.bio || '' %></textarea>
+                                <textarea id="bio-textarea" name="bio" rows="3" oninput="countBioWords(this)" class="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-yellow transition-colors resize-none"><%= user.bio || '' %></textarea>
+                                <p id="bio-word-counter" class="text-white/35 text-[11px] mt-1">0 / 50 words</p>
                             </div>
                             <div>
                                 <label class="text-white/50 text-xs font-bold uppercase tracking-wider block mb-1.5">Region</label>
@@ -460,7 +473,8 @@
             } else {
                 empty.classList.add('hidden');
                 empty.classList.remove('flex');
-                const total = items.reduce((s, i) => s + Number(i.price || 0), 0);
+                const totalQty = items.reduce((s, i) => s + (i.qty || 1), 0);
+                const total = items.reduce((s, i) => s + Number(i.price || 0) * (i.qty || 1), 0);
                 grid.innerHTML = items.map(item => `
                     <div class="flex gap-4 bg-white/4 border border-white/8 rounded-xl p-4 hover:border-white/15 transition-colors">
                         <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-white/12">
@@ -468,7 +482,12 @@
                         </div>
                         <div class="flex-1 flex flex-col justify-center gap-1">
                             <a href="/artwork/${item.id}" class="font-bold text-white text-sm hover:text-amber-yellow transition-colors line-clamp-1">${item.title}</a>
-                            <span class="text-amber-yellow font-bold text-sm">रू ${item.price}</span>
+                            <span class="text-amber-yellow font-bold text-sm">रू ${Number(item.price).toLocaleString()} × ${item.qty || 1} = रू ${(Number(item.price) * (item.qty || 1)).toLocaleString()}</span>
+                            <div class="flex items-center gap-2 mt-1">
+                                <button onclick="HE.cart.decrementQty('${item.id}');renderCart();" class="w-6 h-6 rounded-md bg-white/8 border border-white/15 text-white font-bold text-sm flex items-center justify-center hover:bg-amber-yellow hover:text-background-dark transition-all">−</button>
+                                <span class="text-white text-sm font-bold min-w-[20px] text-center">${item.qty || 1}</span>
+                                <button onclick="HE.cart.incrementQty('${item.id}');renderCart();" class="w-6 h-6 rounded-md bg-white/8 border border-white/15 text-white font-bold text-sm flex items-center justify-center hover:bg-amber-yellow hover:text-background-dark transition-all">+</button>
+                            </div>
                         </div>
                         <div class="flex flex-col items-end justify-between">
                             <button onclick="HE.cart.remove('${item.id}');renderCart();"
@@ -480,7 +499,7 @@
                     </div>
                 `).join('') +
                 `<div class="flex items-center justify-between px-4 py-3 bg-amber-yellow/8 border border-amber-yellow/20 rounded-xl mt-2">
-                    <span class="text-white font-semibold text-sm">Total (${items.length} item${items.length !== 1 ? 's' : ''})</span>
+                    <span class="text-white font-semibold text-sm">Total (${totalQty} item${totalQty !== 1 ? 's' : ''})</span>
                     <span class="text-amber-yellow font-bold text-lg">रू ${total.toLocaleString()}</span>
                 </div>`;
             }

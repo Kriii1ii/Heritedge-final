@@ -34,11 +34,11 @@
                 },
                 borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
                 fontSize: {
-                    "xs": ["0.8rem", { lineHeight: "1.5" }],
-                    "sm": ["0.9rem", { lineHeight: "1.6" }],
-                    "base": ["1rem", { lineHeight: "1.65" }],
-                    "lg": ["1.125rem", { lineHeight: "1.6" }],
-                    "xl": ["1.25rem", { lineHeight: "1.5" }],
+                    "xs": ["0.8rem",   { lineHeight: "1.6"  }],
+                    "sm": ["0.9rem",   { lineHeight: "1.72" }],
+                    "base": ["1rem",   { lineHeight: "1.78" }],
+                    "lg": ["1.125rem", { lineHeight: "1.72" }],
+                    "xl": ["1.25rem",  { lineHeight: "1.6"  }],
                 },
             },
         },
@@ -78,19 +78,30 @@
         font-display: swap;
     }
 
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
     body {
         font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif;
         font-size: 16px;
-        line-height: 1.65;
+        line-height: 1.78;
+        letter-spacing: 0.022em;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4, h5, h6 {
         font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif;
-        line-height: 1.2;
-        letter-spacing: -0.02em;
+        line-height: 1.3;
+        letter-spacing: 0.008em;
         font-weight: 700;
+    }
+
+    p {
+        line-height: 1.82;
+        letter-spacing: 0.018em;
     }
 
     p, span, a, li, td, th, input, textarea, select, button, label {
@@ -99,7 +110,18 @@
 
     .font-mono, .font-mono-header, .pt-mono, .mono-font, .font-sans, .font-display {
         font-family: "GT Walsheim", "Plus Jakarta Sans", sans-serif !important;
-        letter-spacing: -0.01em;
+        letter-spacing: 0.012em;
+    }
+
+    /* Footer typography — slightly larger, more airy */
+    footer { font-size: 0.925rem; }
+    footer p, footer a, footer span, footer li {
+        letter-spacing: 0.022em;
+        line-height: 1.85;
+    }
+    footer h4 {
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
     }
 
     /* Preserve icon font */
@@ -164,8 +186,15 @@ const HE = {
         add(item) {
             if (!HE.requiresLogin()) return;
             const c = HE.cart.get();
-            if (c.find(i => i.id === item.id)) { HE.toast('Already in cart'); return; }
-            c.push({ ...item, addedAt: Date.now() });
+            const existing = c.find(i => i.id === item.id);
+            if (existing) {
+                existing.qty = (existing.qty || 1) + 1;
+                localStorage.setItem('he_cart', JSON.stringify(c));
+                HE.cart.badge();
+                HE.toast('Quantity updated 🛒');
+                return;
+            }
+            c.push({ ...item, qty: 1, addedAt: Date.now() });
             localStorage.setItem('he_cart', JSON.stringify(c));
             HE.cart.badge();
             HE.toast('Added to cart 🛒');
@@ -175,8 +204,24 @@ const HE = {
             localStorage.setItem('he_cart', JSON.stringify(c));
             HE.cart.badge();
         },
+        incrementQty(id) {
+            const c = HE.cart.get();
+            const item = c.find(i => i.id === id);
+            if (item) { item.qty = (item.qty || 1) + 1; localStorage.setItem('he_cart', JSON.stringify(c)); }
+            HE.cart.badge();
+        },
+        decrementQty(id) {
+            const c = HE.cart.get();
+            const item = c.find(i => i.id === id);
+            if (item) {
+                item.qty = (item.qty || 1) - 1;
+                const updated = item.qty <= 0 ? c.filter(i => i.id !== id) : c;
+                localStorage.setItem('he_cart', JSON.stringify(updated));
+            }
+            HE.cart.badge();
+        },
         badge() {
-            const n = HE.cart.get().length;
+            const n = HE.cart.get().reduce((sum, i) => sum + (i.qty || 1), 0);
             document.querySelectorAll('.he-cart-badge').forEach(el => {
                 el.textContent = n || '';
                 el.style.display = n > 0 ? 'flex' : 'none';
@@ -194,13 +239,25 @@ const HE = {
                 c.splice(idx, 1);
                 localStorage.setItem('he_col', JSON.stringify(c));
                 HE.toast('Removed from collection');
-                if (btn) { btn.title = 'Save to Collection'; btn.querySelector('.save-icon') && (btn.querySelector('.save-icon').style.fontVariationSettings = "'FILL' 0"); }
+                if (btn) {
+                    btn.title = 'Save to Collection';
+                    const icon = btn.querySelector('.save-icon');
+                    if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+                    btn.classList.remove('text-red-400', 'border-red-400/40', 'border-red-400/30');
+                    btn.classList.add('text-white/50');
+                }
                 return false;
             } else {
                 c.push({ ...item, savedAt: Date.now() });
                 localStorage.setItem('he_col', JSON.stringify(c));
                 HE.toast('Saved to collection ♥');
-                if (btn) { btn.title = 'Remove from Collection'; btn.querySelector('.save-icon') && (btn.querySelector('.save-icon').style.fontVariationSettings = "'FILL' 1"); }
+                if (btn) {
+                    btn.title = 'Remove from Collection';
+                    const icon = btn.querySelector('.save-icon');
+                    if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+                    btn.classList.add('text-red-400', 'border-red-400/40');
+                    btn.classList.remove('text-white/50');
+                }
                 return true;
             }
         },

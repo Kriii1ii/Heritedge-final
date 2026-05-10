@@ -108,18 +108,7 @@
                         <span class="he-cart-badge hidden absolute -top-1.5 -right-1.5 w-5 h-5 bg-amber-yellow text-background-dark text-[10px] font-black rounded-full items-center justify-center leading-none">0</span>
                     </a>
 
-                    <!-- Join as an Artist (text version at xl+, compact icon at lg) -->
-                    <% if (!currentUser.artistApplicant) { %>
-                        <a href="/become-artist"
-                            class="hidden xl:flex items-center gap-1.5 px-4 h-9 rounded-lg bg-amber-yellow/10 border border-amber-yellow/40 text-amber-yellow font-bold text-sm hover:bg-amber-yellow hover:text-background-dark transition-all duration-200 font-mono-header whitespace-nowrap">
-                            <span class="material-symbols-outlined text-[15px]">palette</span>
-                            Join as Artist
-                        </a>
-                        <a href="/become-artist"
-                            class="hidden lg:flex xl:hidden items-center justify-center w-9 h-9 rounded-lg bg-amber-yellow/10 border border-amber-yellow/40 text-amber-yellow hover:bg-amber-yellow hover:text-background-dark transition-all flex-shrink-0" title="Join as Artist">
-                            <span class="material-symbols-outlined text-[17px]">palette</span>
-                        </a>
-                    <% } else { %>
+                    <% if (currentUser.artistApplicant) { %>
                         <span class="hidden xl:flex items-center gap-1.5 px-3 h-9 rounded-lg bg-white/5 border border-white/10 text-white/50 text-xs font-bold font-mono-header whitespace-nowrap cursor-default">
                             <span class="w-1.5 h-1.5 rounded-full bg-amber-yellow animate-pulse"></span>
                             Application Pending
@@ -198,11 +187,7 @@
             <span class="material-symbols-outlined text-[18px]">shopping_cart</span> My Cart
         </a>
         <hr class="border-white/10 my-1">
-        <% if (!currentUser.artistApplicant) { %>
-            <a href="/become-artist" class="flex items-center justify-center gap-2 w-full py-3 bg-amber-yellow/10 border border-amber-yellow/40 text-amber-yellow font-bold rounded-lg text-sm">
-                <span class="material-symbols-outlined text-[18px]">palette</span> Join as an Artist
-            </a>
-        <% } else { %>
+        <% if (currentUser.artistApplicant) { %>
             <div class="flex items-center justify-center gap-2 w-full py-2.5 bg-white/5 border border-white/10 text-white/50 rounded-lg text-xs font-bold">
                 <span class="w-1.5 h-1.5 rounded-full bg-amber-yellow animate-pulse"></span> Application Pending
             </div>
